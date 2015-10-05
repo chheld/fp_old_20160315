@@ -570,11 +570,163 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Auftragswerte"
-                android:id="@+id/lblSummen"
+                android:id="@+id/lblAuftragswerte"
                 android:ellipsize="end"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_toRightOf="@+id/ivSummen"
                 android:layout_alignBottom="@+id/ivSummen" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="∑ Positionen"
+                android:id="@+id/lblSumPositionen"
+                android:ellipsize="end"
+                android:layout_below="@+id/lblAuftragswerte"
+                android:layout_toRightOf="@+id/ivSummen"
+                android:layout_toEndOf="@+id/ivSummen"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvSumPositionen"
+                android:text="0,00 EUR"
+                android:gravity="right"
+                android:maxLines="1"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignBaseline="@+id/lblSumPositionen" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+ Gesamtrabatt"
+                android:id="@+id/lblGesamtrabatt"
+                android:ellipsize="end"
+                android:layout_below="@+id/lblSumPositionen"
+                android:layout_toRightOf="@+id/ivSummen"
+                android:layout_toEndOf="@+id/ivSummen" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="= Netto 1"
+                android:id="@+id/lblNetto1"
+                android:ellipsize="end"
+                android:layout_below="@+id/lblGesamtrabatt"
+                android:layout_alignStart="@+id/lblGesamtrabatt"
+                android:layout_toRightOf="@+id/ivSummen"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+ Zusatzaufwand"
+                android:id="@+id/lblZusatzaufwand"
+                android:ellipsize="end"
+                android:layout_below="@+id/lblNetto1"
+                android:layout_alignStart="@+id/lblNetto1"
+                android:layout_toRightOf="@+id/ivSummen" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="= Netto 2"
+                android:id="@+id/lblNetto2"
+                android:ellipsize="end"
+                android:layout_below="@+id/lblZusatzaufwand"
+                android:layout_toRightOf="@+id/ivSummen"
+                android:layout_toEndOf="@+id/ivSummen"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+ Umsatzsteuer"
+                android:id="@+id/lblUmsatzsteuer"
+                android:ellipsize="end"
+                android:layout_below="@+id/lblNetto2"
+                android:layout_toRightOf="@+id/ivSummen"
+                android:layout_toEndOf="@+id/ivSummen"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="= Brutto"
+                android:id="@+id/lblBrutto"
+                android:ellipsize="end"
+                android:layout_below="@+id/lblUmsatzsteuer"
+                android:layout_toRightOf="@+id/ivSummen"
+                android:layout_toEndOf="@+id/ivSummen"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvGesamtrabatt"
+                android:text="0,00 EUR"
+                android:gravity="right"
+                android:maxLines="1"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignBaseline="@+id/lblGesamtrabatt" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvNetto1"
+                android:text="0,00 EUR"
+                android:gravity="right"
+                android:maxLines="1"
+                android:layout_alignEnd="@+id/tvGesamtrabatt"
+                android:layout_alignBaseline="@+id/lblNetto1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvZusatzaufwand"
+                android:text="0,00 EUR"
+                android:gravity="right"
+                android:maxLines="1"
+                android:layout_alignEnd="@+id/tvNetto1"
+                android:layout_alignBaseline="@+id/lblZusatzaufwand" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvNetto2"
+                android:text="0,00 EUR"
+                android:gravity="right"
+                android:maxLines="1"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:textStyle="bold"
+                android:layout_alignBaseline="@+id/lblNetto2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvUmsatzsteuer"
+                android:text="0,00 EUR"
+                android:gravity="right"
+                android:maxLines="1"
+                android:layout_alignEnd="@+id/tvNetto2"
+                android:layout_alignBaseline="@+id/lblUmsatzsteuer" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvBrutto"
+                android:text="0,00 EUR"
+                android:gravity="right"
+                android:maxLines="1"
+                android:layout_alignEnd="@+id/tvUmsatzsteuer"
+                android:textStyle="bold"
+                android:layout_alignBaseline="@+id/lblBrutto" />
 
         </RelativeLayout>
 

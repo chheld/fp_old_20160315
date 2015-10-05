@@ -57,8 +57,9 @@ public  class OrderDetailsFragment extends Fragment {
         progressBarAuftrag = (ProgressBar) mView.findViewById(R.id.progressBarAuftrag);
 
         mANr = "";
-        if (getArguments() != null) mANr = getArguments().getString("anr");
-        mANr = "400033"; // TEST
+        //if (getArguments() != null) mANr = getArguments().getString("anr");
+        mANr = getArguments().getString("anr");
+        //mANr = "400033"; // TEST
         callAPIOrderByANR("http://222.222.222.60/api/orders/anr?where=" + mANr);
 
         return mView;
@@ -184,7 +185,7 @@ public  class OrderDetailsFragment extends Fragment {
                     JSONArray orders = response.getJSONArray("orders");
                     Gson gson = new Gson();
                     mAuftrag = gson.fromJson(orders.getJSONObject(0).toString(), Auftrag.class);
-                    setupOrder(mView);
+                    setupLayout(mView);
                     progressBarAuftrag.setVisibility(View.GONE);  // Fortschritt ausblenden
                     //Toast.makeText(mContext, orders.length() + " Einträge über ANR gefunden", Toast.LENGTH_SHORT).show();
                 }
@@ -208,7 +209,7 @@ public  class OrderDetailsFragment extends Fragment {
         mAppController.addToRequestQueue(req,VOLLEY_TAG);
     }
 
-    private void setupOrder(View view) {
+    private void setupLayout(View view) {
 
         // Auftrag zuweisen
         TextView tvANr = (TextView) view.findViewById(R.id.tvANr);
@@ -243,7 +244,14 @@ public  class OrderDetailsFragment extends Fragment {
         pbLieferadresse = (ProgressBar) view.findViewById(R.id.progressBarLieferadresse);
         tvLieferadresse = (TextView) view.findViewById(R.id.tvLieferAdresse);
 
-        // Auftragswerte zuweisen
+        //Summen zuweisen
+        TextView tvSumPositionen = (TextView) view.findViewById(R.id.tvSumPositionen);
+        TextView tvGesamtrabatt = (TextView) view.findViewById(R.id.tvGesamtrabatt);
+        TextView tvNetto1 = (TextView) view.findViewById(R.id.tvNetto1);
+        TextView tvZusatzaufwand = (TextView) view.findViewById(R.id.tvZusatzaufwand);
+        TextView tvNetto2 = (TextView) view.findViewById(R.id.tvNetto2);
+        TextView tvUmsatzsteuer = (TextView) view.findViewById(R.id.tvUmsatzsteuer);
+        TextView tvBrutto = (TextView) view.findViewById(R.id.tvBrutto);
 
         if (mAuftrag!=null) {
 
@@ -287,7 +295,7 @@ public  class OrderDetailsFragment extends Fragment {
 
             // Status anzeigen
             tvzDesc.setText(mAuftrag.getZDESC());
-            if(tvzDesc.getText().toString().trim().length()==0)  tvzDesc.setVisibility(View.GONE);
+            if (tvzDesc.getText().toString().trim().length()==0)  tvzDesc.setVisibility(View.GONE);
             tvStatus2.setText(mAuftrag.getSTATUS2());
             if(tvStatus2.getText().toString().trim().length()==0)  tvStatus2.setVisibility(View.GONE);
             tvSpezifizierung.setText(mAuftrag.getSTATUS1());
@@ -302,7 +310,7 @@ public  class OrderDetailsFragment extends Fragment {
             if (mAuftrag.getSEGM6ZART()==232) setColorStatusIcon((ImageView) view.findViewById(R.id.ivRG), 5000);
 
             // Termin anzeigen
-            tvKdWunschTermin.setText(mAuftrag.getUSEINTREFFTERMIN()); //USEintreffTermin nicht in der REST Abfrage
+            tvKdWunschTermin.setText(mAuftrag.getUSEINTREFFTERMIN()); //TODO: USEintreffTermin nicht in REST Abfrage ?
             if(tvKdWunschTermin.getText().toString().trim().length()==0) {
                 tvKdWunschTermin.setVisibility(View.GONE);
                 TextView lbl = (TextView) view.findViewById(R.id.lblKdWunschTermin);
@@ -352,7 +360,14 @@ public  class OrderDetailsFragment extends Fragment {
                 callAPIAdresseByAdresseNr("http://222.222.222.60/api/adresse/adressenr?where=" + mAuftrag.getADRNR2());
             }
 
-            //Auftragswerte anzeigen
+            //Summen anzeigen
+            tvSumPositionen.setText(Double.toString(mAuftrag.getACPPARTNETTO0()));
+            tvGesamtrabatt.setText(Integer.toString(mAuftrag.getRABSUM()));
+            tvNetto1.setText(Double.toString(mAuftrag.getNETTO1()));
+            tvZusatzaufwand.setText(Integer.toString(mAuftrag.getRABSUM()));
+            tvNetto2.setText(Double.toString(mAuftrag.getNETTO2()));
+            tvUmsatzsteuer.setText(Integer.toString(mAuftrag.getRABSUM()));
+            tvBrutto.setText(Double.toString(mAuftrag.getMWSTWERT()));
         }
     }
 }

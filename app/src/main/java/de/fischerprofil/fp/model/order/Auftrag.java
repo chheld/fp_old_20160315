@@ -12,13 +12,15 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
-import de.fischerprofil.fp.AppController;
-import de.fischerprofil.fp.R;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import de.fischerprofil.fp.AppController;
+import de.fischerprofil.fp.R;
 
 public class Auftrag implements Parcelable {
 
@@ -1559,7 +1561,7 @@ public class Auftrag implements Parcelable {
      * The ZDESC
      */
     public String getZDESC() {
-        return ZDESC;
+        return StringUtils.lowerCase(ZDESC);
     }
 
     /**
