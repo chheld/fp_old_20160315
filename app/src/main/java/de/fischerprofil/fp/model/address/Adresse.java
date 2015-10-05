@@ -1,4 +1,4 @@
-package de.fischerprofil.fp.model.Adresse;
+package de.fischerprofil.fp.model.address;
 
 import android.os.Parcel;
 import android.os.Parcelable;

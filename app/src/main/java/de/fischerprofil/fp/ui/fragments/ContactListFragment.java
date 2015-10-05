@@ -20,15 +20,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
-import de.fischerprofil.fp.AppController;
-import de.fischerprofil.fp.model.Kontakt.Kontakt;
-import de.fischerprofil.fp.model.Kontakt.Kontaktliste;
-import de.fischerprofil.fp.ui.ContactListActivity;
-import de.fischerprofil.fp.ui.adapter.ContactListAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import de.fischerprofil.fp.AppController;
+import de.fischerprofil.fp.model.contact.Kontakt;
+import de.fischerprofil.fp.model.contact.Kontaktliste;
+import de.fischerprofil.fp.ui.ContactListActivity;
+import de.fischerprofil.fp.ui.adapter.ContactListAdapter;
 
 
 @SuppressLint("ValidFragment")

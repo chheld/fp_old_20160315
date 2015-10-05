@@ -1,6 +1,5 @@
 package de.fischerprofil.fp.ui.fragments;
 
-
 import android.content.Context;
 import android.graphics.drawable.ClipDrawable;
 import android.os.Bundle;
@@ -14,28 +13,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
-import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
-import de.fischerprofil.fp.AppController;
-import de.fischerprofil.fp.R;
-import de.fischerprofil.fp.model.Adresse.Adresse;
-import de.fischerprofil.fp.model.Auftrag.Auftrag;
-import de.fischerprofil.fp.rest.VolleyGsonRequest;
-import de.fischerprofil.fp.rest.VolleyJsonObjectRequestHigh;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import de.fischerprofil.fp.AppController;
+import de.fischerprofil.fp.R;
+import de.fischerprofil.fp.model.address.Adresse;
+import de.fischerprofil.fp.model.contact.Kontakt;
+import de.fischerprofil.fp.model.order.Auftrag;
 
 public  class OrderDetailsFragment extends Fragment {
 
@@ -44,7 +37,8 @@ public  class OrderDetailsFragment extends Fragment {
     private View mView;
 
     private Auftrag mAuftrag;
-    private ProgressBar progressBar; // für Auftrag
+    private ProgressBar progressBarAuftrag;
+    private String mANr;
 
     private TextView tvVertreterName;
     private ProgressBar pbVertreter;
@@ -60,17 +54,12 @@ public  class OrderDetailsFragment extends Fragment {
         mAppController = AppController.getInstance();
         mContext = getActivity();
         mView = inflater.inflate(R.layout.fragment_orderdetails, container, false);
-        progressBar = (ProgressBar) mView.findViewById(R.id.progressBar);
+        progressBarAuftrag = (ProgressBar) mView.findViewById(R.id.progressBarAuftrag);
 
-        // ++++ Version 1 ++++
-        //if (getArguments() != null) mAuftrag = getArguments().getParcelable("auftrag");
-        //showOrder(mView);
-
-        // ++++ Version 2 ++++
-        String anr = "";
-        if (getArguments() != null) anr = getArguments().getString("anr");
-        callAPIOrderByANR("http://222.222.222.60/api/orders/anr?where=" + anr);
-        callAPIAdresseByAdresseNr2("http://222.222.222.60/api/orders/anr?where=" + anr);
+        mANr = "";
+        if (getArguments() != null) mANr = getArguments().getString("anr");
+        mANr = "400033"; // TEST
+        callAPIOrderByANR("http://222.222.222.60/api/orders/anr?where=" + mANr);
 
         return mView;
     }
@@ -98,7 +87,8 @@ public  class OrderDetailsFragment extends Fragment {
 
         pbVertreter.setVisibility(View.VISIBLE);
 
-        VolleyJsonObjectRequestHigh req = new VolleyJsonObjectRequestHigh(search, new Response.Listener<JSONObject>() {
+        JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
+        //VolleyJsonObjectRequestHigh req = new VolleyJsonObjectRequestHigh(search, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -106,12 +96,12 @@ public  class OrderDetailsFragment extends Fragment {
                     VolleyLog.v("Response:%n %s", response.toString(4));
                     JSONArray contact = response.getJSONArray("contact");
                     JSONObject jsonA = contact.getJSONObject(0);
-                        String vname = jsonA.getString("VORNAME");
-                        if (vname.equals("null")) vname = "";
-                        String nname = jsonA.getString("NAME");
-                        if (nname.equals("null")) nname = "";
-                        tvVertreterName.setText(vname + " " + nname);
-                        pbVertreter.setVisibility(View.GONE);
+                    Gson gson = new Gson();
+                    Kontakt kontakt = gson.fromJson(contact.getJSONObject(0).toString(), Kontakt.class);
+                    String vname = kontakt.getVORNAME() + " ";
+                    String nachname = kontakt.getNAME();
+                    tvVertreterName.setText(vname  + nachname);
+                    pbVertreter.setVisibility(View.GONE);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -130,7 +120,6 @@ public  class OrderDetailsFragment extends Fragment {
                 pbVertreter.setVisibility(View.GONE);
             }
         });
-        //req.setRetryPolicy(new DefaultRetryPolicy(3000, 2, 2));
         req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
         mAppController.addToRequestQueue(req,VOLLEY_TAG);
     }
@@ -139,7 +128,8 @@ public  class OrderDetailsFragment extends Fragment {
 
         pbLieferadresse.setVisibility(View.VISIBLE);
 
-        VolleyJsonObjectRequestHigh req = new VolleyJsonObjectRequestHigh(search, new Response.Listener<JSONObject>() {
+        JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
+        //VolleyJsonObjectRequestHigh req = new VolleyJsonObjectRequestHigh(search, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -154,7 +144,6 @@ public  class OrderDetailsFragment extends Fragment {
                     String plz = adresse.getPLZORT() + " ";
                     String ort = adresse.getORT();
                     tvLieferadresse.setText(adr1 + adr2 + str + plz + ort);
-
                     pbLieferadresse.setVisibility(View.GONE);
 
                 } catch (JSONException e) {
@@ -175,7 +164,6 @@ public  class OrderDetailsFragment extends Fragment {
                 pbLieferadresse.setVisibility(View.GONE);
             }
         });
-        //req.setRetryPolicy(new DefaultRetryPolicy(3000, 2, 2));
         req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
         mAppController.addToRequestQueue(req, VOLLEY_TAG);
     }
@@ -184,10 +172,10 @@ public  class OrderDetailsFragment extends Fragment {
 
         // Aufruf: callAPIOrderByANR("http://222.222.222.60/api/orders/anr?where=" + search);
 
-        progressBar.setVisibility(View.VISIBLE);
-        //Toast.makeText(mContext, "Lade Auftrag " + search + "...", Toast.LENGTH_SHORT).show();
+        progressBarAuftrag.setVisibility(View.VISIBLE);
 
-        VolleyJsonObjectRequestHigh req = new VolleyJsonObjectRequestHigh(search, new Response.Listener<JSONObject>() {
+        JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
+        //VolleyJsonObjectRequestHigh req = new VolleyJsonObjectRequestHigh (search, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -196,16 +184,15 @@ public  class OrderDetailsFragment extends Fragment {
                     JSONArray orders = response.getJSONArray("orders");
                     Gson gson = new Gson();
                     mAuftrag = gson.fromJson(orders.getJSONObject(0).toString(), Auftrag.class);
-                    // TODO: Auftragsdaten anzeigen
-                    showOrder(mView);
-                    progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+                    setupOrder(mView);
+                    progressBarAuftrag.setVisibility(View.GONE);  // Fortschritt ausblenden
                     //Toast.makeText(mContext, orders.length() + " Einträge über ANR gefunden", Toast.LENGTH_SHORT).show();
                 }
                 catch (JSONException e) {
                     e.printStackTrace();
                     VolleyLog.e("Error: ", e.getMessage());
                     Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+                    progressBarAuftrag.setVisibility(View.GONE);  // Fortschritt ausblenden
                 }
             }
         }, new Response.ErrorListener() {
@@ -214,51 +201,53 @@ public  class OrderDetailsFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.e("Error: ", error.getMessage());
                 Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
-                progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+                progressBarAuftrag.setVisibility(View.GONE);  // Fortschritt ausblenden
             }
-        });
-        //req.setRetryPolicy(new DefaultRetryPolicy(3000, 2, 2));
+        }) ;
         req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
         mAppController.addToRequestQueue(req,VOLLEY_TAG);
     }
 
-    private void showOrder(View view) {
+    private void setupOrder(View view) {
 
-        // Auftragsdaten anzeigen
+        // Auftrag zuweisen
         TextView tvANr = (TextView) view.findViewById(R.id.tvANr);
         TextView tvBemerkung = (TextView) view.findViewById(R.id.tvName); //TODO: tvName in tvBemerkung ändern
         TextView tvBestellnummer = (TextView) view.findViewById(R.id.tvBestellnummer);
         TextView tvKommission = (TextView) view.findViewById(R.id.tvKommission);
 
+        // Vertreter zuweisen
         pbVertreter = (ProgressBar) view.findViewById(R.id.progressBarVertreter);
         TextView tvVertr1 = (TextView) view.findViewById(R.id.tvVertreter1);
         tvVertreterName = (TextView) view.findViewById(R.id.tvVertreterName);
 
-        // Status anzeigen
+        // Status zuweisen
         TextView tvStatus2 = (TextView) view.findViewById(R.id.tvStatus2);
         TextView tvzDesc = (TextView) view.findViewById(R.id.tvZDesc);
         TextView tvSpezifizierung = (TextView) view.findViewById(R.id.tvSpezifizierung);
 
-        // Termine anzeigen
+        // Termine zuweisen
         TextView tvKdWunschTermin = (TextView) view.findViewById(R.id.tvKdWunschTermin);
         TextView tvKdBestTermin = (TextView) view.findViewById(R.id.tvKdBestTermin);
         TextView tvProdPlanTermin = (TextView) view.findViewById(R.id.tvProdPlanTermin);
         TextView tvProdDispTermin = (TextView) view.findViewById(R.id.tvProdDispTermin);
 
-        // Kunden anzeigen
+        // Kunden zuweisen
         TextView tvKdNr = (TextView) view.findViewById(R.id.tvKdNr);
         TextView tvKTxt = (TextView) view.findViewById(R.id.tvKTxt);
         TextView tvKW = (TextView) view.findViewById(R.id.tvKW);
         TextView tvKJ = (TextView) view.findViewById(R.id.tvKJ);
 
-        // Lieferadresse anzeigen
+        // Lieferanschrift zuweisen
         TextView tvLieferadresseNr = (TextView) view.findViewById(R.id.tvAdresseNr);
         pbLieferadresse = (ProgressBar) view.findViewById(R.id.progressBarLieferadresse);
         tvLieferadresse = (TextView) view.findViewById(R.id.tvLieferAdresse);
 
+        // Auftragswerte zuweisen
+
         if (mAuftrag!=null) {
 
-            // Auftragsdaten anzeigen
+            // Auftrag anzeigen
             tvANr.setText(mAuftrag.getANR());
             tvBemerkung.setText(mAuftrag.getBEMERKUNG());
             if(tvBemerkung.getText().toString().trim().length()==0)  tvBemerkung.setVisibility(View.GONE);
@@ -312,6 +301,7 @@ public  class OrderDetailsFragment extends Fragment {
             if (mAuftrag.getSEGM6ZART()==231) setColorStatusIcon((ImageView) view.findViewById(R.id.ivRG), 10000);
             if (mAuftrag.getSEGM6ZART()==232) setColorStatusIcon((ImageView) view.findViewById(R.id.ivRG), 5000);
 
+            // Termin anzeigen
             tvKdWunschTermin.setText(mAuftrag.getUSEINTREFFTERMIN()); //USEintreffTermin nicht in der REST Abfrage
             if(tvKdWunschTermin.getText().toString().trim().length()==0) {
                 tvKdWunschTermin.setVisibility(View.GONE);
@@ -337,14 +327,14 @@ public  class OrderDetailsFragment extends Fragment {
                 lbl.setVisibility(View.GONE);
             }
 
-            // Kundendaten anzeigen
+            // Kunden anzeigen
             tvKdNr.setText(mAuftrag.getMNR());
             tvKTxt.setText(mAuftrag.getKTXT());
             if(tvKTxt.getText().toString().trim().length()==0)  tvKTxt.setVisibility(View.GONE);
             tvKW.setText(Integer.toString(mAuftrag.getKW()));
             tvKJ.setText(Integer.toString(mAuftrag.getKJ()));
 
-            // Lieferung anzeigen
+            // Lieferanschrift anzeigen
             tvLieferadresseNr.setText(mAuftrag.getADRNR2());
             if(tvLieferadresseNr.getText().toString().trim().length()==0) {
                 tvLieferadresseNr.setVisibility(View.GONE);
@@ -361,62 +351,8 @@ public  class OrderDetailsFragment extends Fragment {
                 });
                 callAPIAdresseByAdresseNr("http://222.222.222.60/api/adresse/adressenr?where=" + mAuftrag.getADRNR2());
             }
+
+            //Auftragswerte anzeigen
         }
-    }
-
-    private void callAPIAdresseByAdresseNr2(String search) {
-
-        //pbLieferadresse.setVisibility(View.VISIBLE);
-
-
-        VolleyGsonRequest req = new VolleyGsonRequest<Adresse>(Request.Method.GET, search, Adresse.class, null, new Response.Listener<Adresse>() {
-
-            @Override
-            public void onResponse(Adresse response) {
-                try {
-                    //Toast.makeText(mContext, response.toString(), Toast.LENGTH_SHORT).show();
-
-                    //parseFlickrImageResponse(response);
-                    //((mAdapter.notifyDataSetChanged();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //showToast("JSON parse error");
-                }
-                //stopProgress();
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // Handle your error types accordingly.For Timeout & No connection error, you can show 'retry' button.
-                // For AuthFailure, you can re login with user credentials.
-                // For ClientError, 400 & 401, Errors happening on client side when sending api request.
-                // In this case you can check how client is forming the api and debug accordingly.
-                // For ServerError 5xx, you can do retry or handle accordingly.
-/*
-                if( error instanceof NetworkError) {
-                } else if( error instanceof ClientError) {  // -------
-                } else if( error instanceof ServerError) {
-                } else if( error instanceof AuthFailureError) {
-                } else if( error instanceof ParseError) {
-                } else if( error instanceof NoConnectionError) {
-                } else if( error instanceof TimeoutError) {
-                }
-*/
-                if( error instanceof NetworkError) {
-                } else if( error instanceof ServerError) {
-                } else if( error instanceof AuthFailureError) {
-                } else if( error instanceof ParseError) {
-                } else if( error instanceof NoConnectionError) {
-                } else if( error instanceof TimeoutError) {
-                }
-
-                //stopProgress();
-                //showToast(error.getMessage());
-            }
-        });
-
-        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
-        mAppController.addToRequestQueue(req, VOLLEY_TAG);
     }
 }

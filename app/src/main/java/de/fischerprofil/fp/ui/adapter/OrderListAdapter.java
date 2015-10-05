@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import de.fischerprofil.fp.model.Auftrag.Auftrag;
+import de.fischerprofil.fp.model.order.Auftrag;
 
 import java.util.ArrayList;
 

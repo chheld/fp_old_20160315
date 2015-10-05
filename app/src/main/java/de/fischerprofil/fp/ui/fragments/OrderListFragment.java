@@ -14,22 +14,21 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
-import de.fischerprofil.fp.AppController;
-import de.fischerprofil.fp.R;
-import de.fischerprofil.fp.model.Auftrag.Auftrag;
-import de.fischerprofil.fp.model.Auftrag.Auftragsliste;
-import de.fischerprofil.fp.rest.VolleyJsonObjectRequestHigh;
-import de.fischerprofil.fp.ui.OrderDetailsActivity;
-import de.fischerprofil.fp.ui.adapter.OrderListAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import de.fischerprofil.fp.AppController;
+import de.fischerprofil.fp.R;
+import de.fischerprofil.fp.model.order.Auftrag;
+import de.fischerprofil.fp.model.order.Auftragsliste;
+import de.fischerprofil.fp.ui.OrderDetailsActivity;
+import de.fischerprofil.fp.ui.adapter.OrderListAdapter;
 
 
 @SuppressLint("ValidFragment")
@@ -138,7 +137,8 @@ public class OrderListFragment extends Fragment {
         // Increase counter for pending search requests
         mSearchRequestCounter++;
 
-        VolleyJsonObjectRequestHigh req = new VolleyJsonObjectRequestHigh(search, new Response.Listener<JSONObject>() {
+        JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
+        //VolleyJsonObjectRequestHigh req = new VolleyJsonObjectRequestHigh(search, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -171,8 +171,6 @@ public class OrderListFragment extends Fragment {
                 if (mSearchRequestCounter < 1) progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
             }
         });
-        //req.setRetryPolicy(new DefaultRetryPolicy(3000, 2, 2));
-        req.setPriority(Request.Priority.HIGH);
         req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
         mAppController.addToRequestQueue(req, VOLLEY_TAG);
     }
@@ -182,7 +180,8 @@ public class OrderListFragment extends Fragment {
         // Increase counter for pending search requests
         mSearchRequestCounter++;
 
-        VolleyJsonObjectRequestHigh req = new VolleyJsonObjectRequestHigh(search, new Response.Listener<JSONObject>() {
+        JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
+        //VolleyJsonObjectRequestHigh req = new VolleyJsonObjectRequestHigh(search, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {

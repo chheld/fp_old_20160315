@@ -1,4 +1,4 @@
-package de.fischerprofil.fp.model.Kontakt;
+package de.fischerprofil.fp.model.contact;
 
 import android.os.Parcel;
 import android.os.Parcelable;

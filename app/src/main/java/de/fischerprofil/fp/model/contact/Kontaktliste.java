@@ -1,4 +1,4 @@
-package de.fischerprofil.fp.model.Kontakt;
+package de.fischerprofil.fp.model.contact;
 
 import com.google.gson.Gson;
 

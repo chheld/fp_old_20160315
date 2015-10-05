@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import de.fischerprofil.fp.R;
-import de.fischerprofil.fp.model.Kontakt.Kontakt;
+import de.fischerprofil.fp.model.contact.Kontakt;
 
 import java.util.ArrayList;
 

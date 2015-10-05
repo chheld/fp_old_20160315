@@ -1,4 +1,4 @@
-package de.fischerprofil.fp.model.Auftrag;
+package de.fischerprofil.fp.model.order;
 
 import com.google.gson.Gson;
 
