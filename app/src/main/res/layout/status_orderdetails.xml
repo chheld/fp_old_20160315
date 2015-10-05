@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -8,7 +10,7 @@
         android:layout_height="20dp"
         android:id="@+id/ivAB"
         android:layout_marginRight="10dp"
-        android:src="@drawable/clip_orderdetails_status_order"
+        android:src="@xml/clip_orderdetails_status_order"
         android:background="@drawable/ic_order"
         android:backgroundTint="#2b000000"
         android:backgroundTintMode="src_in" />
@@ -18,10 +20,10 @@
         android:layout_height="22dp"
         android:id="@+id/ivLS"
         android:layout_marginRight="10dp"
-        android:background="@drawable/ic_ic_lorry4"
+        android:background="@drawable/ic_lorry"
         android:backgroundTint="#2b000000"
         android:backgroundTintMode="src_in"
-        android:src="@drawable/clip_orderdetails_status_delivery" />
+        android:src="@xml/clip_orderdetails_status_delivery" />
 
     <ImageView
         android:layout_width="22dp"
@@ -31,7 +33,7 @@
         android:backgroundTint="#2b000000"
         android:backgroundTintMode="src_in"
         android:background="@drawable/ic_stock"
-        android:src="@drawable/clip_orderdetails_status_stock" />
+        android:src="@xml/clip_orderdetails_status_stock" />
 
     <ImageView
         android:layout_width="22dp"
@@ -40,5 +42,5 @@
         android:background="@drawable/ic_money"
         android:backgroundTint="#2b000000"
         android:backgroundTintMode="src_in"
-        android:src="@drawable/clip_orderdetails_status_invoice" />
+        android:src="@xml/clip_orderdetails_status_invoice" />
 </LinearLayout>
