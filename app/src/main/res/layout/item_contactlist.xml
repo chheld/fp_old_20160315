@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp">
+
+    <ImageView
+        android:layout_height="wrap_content"
+        android:id="@+id/ivKontakt"
+        android:src="@drawable/ic_contact"
+        android:layout_width="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:paddingRight="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblKontakt"
+        android:text="Kontakt"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_toRightOf="@+id/ivKontakt"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvPersonNr"
+        android:text="Nr"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_toRightOf="@+id/lblKontakt"
+        android:layout_alignParentTop="false"
+        android:layout_alignTop="@+id/lblKontakt" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:id="@+id/tvName"
+        android:ellipsize="end"
+        android:layout_alignStart="@+id/tvKTxt"
+        android:layout_below="@+id/tvPersonNr"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentRight="true"
+        android:layout_alignLeft="@+id/lblKontakt" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="KdNr"
+        android:id="@+id/tvKdNr"
+        android:ellipsize="end"
+        android:layout_below="@+id/tvName"
+        android:layout_toRightOf="@+id/ivKontakt"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Kundensuchbezeichnung"
+        android:id="@+id/tvKTxt"
+        android:ellipsize="end"
+        android:layout_alignParentRight="true"
+        android:maxLines="2"
+        android:layout_alignLeft="@+id/tvKdNr"
+        android:layout_below="@+id/tvKdNr" />
+
+</RelativeLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="title_activity_orders">Aufträge</string>
+    <string name="title_activity_order">Auftrag</string>
+    <string name="searchhint_orders">Um Aufträge anzuzeigen, benutzen Sie die Suchfunktion am oberen Bildschirmrand.</string>
+</resources>
