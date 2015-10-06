@@ -580,7 +580,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="∑ Positionen"
-                android:id="@+id/lblSumPositionen"
+                android:id="@+id/lblNetto0"
                 android:ellipsize="end"
                 android:layout_below="@+id/lblAuftragswerte"
                 android:layout_toRightOf="@+id/ivSummen"
@@ -590,13 +590,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvSumPositionen"
+                android:id="@+id/tvNetto0"
                 android:text="0,00 EUR"
                 android:gravity="right"
                 android:maxLines="1"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_alignBaseline="@+id/lblSumPositionen" />
+                android:layout_alignBaseline="@+id/lblNetto0" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -604,7 +604,7 @@
                 android:text="+ Gesamtrabatt"
                 android:id="@+id/lblGesamtrabatt"
                 android:ellipsize="end"
-                android:layout_below="@+id/lblSumPositionen"
+                android:layout_below="@+id/lblNetto0"
                 android:layout_toRightOf="@+id/ivSummen"
                 android:layout_toEndOf="@+id/ivSummen" />
 
@@ -616,8 +616,7 @@
                 android:ellipsize="end"
                 android:layout_below="@+id/lblGesamtrabatt"
                 android:layout_alignStart="@+id/lblGesamtrabatt"
-                android:layout_toRightOf="@+id/ivSummen"
-                android:layout_marginTop="5dp" />
+                android:layout_toRightOf="@+id/ivSummen" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -638,8 +637,7 @@
                 android:layout_below="@+id/lblZusatzaufwand"
                 android:layout_toRightOf="@+id/ivSummen"
                 android:layout_toEndOf="@+id/ivSummen"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp" />
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -649,8 +647,7 @@
                 android:ellipsize="end"
                 android:layout_below="@+id/lblNetto2"
                 android:layout_toRightOf="@+id/ivSummen"
-                android:layout_toEndOf="@+id/ivSummen"
-                android:layout_marginTop="5dp" />
+                android:layout_toEndOf="@+id/ivSummen" />
 
             <TextView
                 android:layout_width="wrap_content"

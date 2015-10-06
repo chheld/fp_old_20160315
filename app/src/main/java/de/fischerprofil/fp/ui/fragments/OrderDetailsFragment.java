@@ -24,6 +24,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Locale;
+
 import de.fischerprofil.fp.AppController;
 import de.fischerprofil.fp.R;
 import de.fischerprofil.fp.model.address.Adresse;
@@ -59,7 +61,7 @@ public  class OrderDetailsFragment extends Fragment {
         mANr = "";
         //if (getArguments() != null) mANr = getArguments().getString("anr");
         mANr = getArguments().getString("anr");
-        //mANr = "400033"; // TEST
+        mANr = "400033"; // TEST
         callAPIOrderByANR("http://222.222.222.60/api/orders/anr?where=" + mANr);
 
         return mView;
@@ -245,7 +247,7 @@ public  class OrderDetailsFragment extends Fragment {
         tvLieferadresse = (TextView) view.findViewById(R.id.tvLieferAdresse);
 
         //Summen zuweisen
-        TextView tvSumPositionen = (TextView) view.findViewById(R.id.tvSumPositionen);
+        TextView tvNetto0 = (TextView) view.findViewById(R.id.tvNetto0);
         TextView tvGesamtrabatt = (TextView) view.findViewById(R.id.tvGesamtrabatt);
         TextView tvNetto1 = (TextView) view.findViewById(R.id.tvNetto1);
         TextView tvZusatzaufwand = (TextView) view.findViewById(R.id.tvZusatzaufwand);
@@ -361,13 +363,13 @@ public  class OrderDetailsFragment extends Fragment {
             }
 
             //Summen anzeigen
-            tvSumPositionen.setText(Double.toString(mAuftrag.getACPPARTNETTO0()));
-            tvGesamtrabatt.setText(Integer.toString(mAuftrag.getRABSUM()));
-            tvNetto1.setText(Double.toString(mAuftrag.getNETTO1()));
-            tvZusatzaufwand.setText(Integer.toString(mAuftrag.getRABSUM()));
-            tvNetto2.setText(Double.toString(mAuftrag.getNETTO2()));
-            tvUmsatzsteuer.setText(Integer.toString(mAuftrag.getRABSUM()));
-            tvBrutto.setText(Double.toString(mAuftrag.getMWSTWERT()));
+            tvNetto0.setText(String.format(Locale.GERMANY,"%.2f EUR", mAuftrag.getACPPARTNETTO0()));
+            tvGesamtrabatt.setText(String.format(Locale.GERMANY, "%.2f EUR", mAuftrag.getRABSUM()));
+            tvNetto1.setText(String.format(Locale.GERMANY, "%.2f EUR", mAuftrag.getNETTO1()));
+            tvZusatzaufwand.setText(String.format(Locale.GERMANY, "%.2f EUR", mAuftrag.getZSUM()));
+            tvNetto2.setText(String.format(Locale.GERMANY, "%.2f EUR", mAuftrag.getNETTO2()));
+            tvUmsatzsteuer.setText(String.format(Locale.GERMANY, "%.2f EUR", mAuftrag.getMWSTWERT()));
+            tvBrutto.setText(String.format(Locale.GERMANY, "%.2f EUR", mAuftrag.getBRUTTO()));
         }
     }
 }

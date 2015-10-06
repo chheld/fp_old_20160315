@@ -25,9 +25,9 @@ import de.fischerprofil.fp.R;
 public class Auftrag implements Parcelable {
 
     private String mObjectAsString;
-    private int mRequestCounter = 0;
+    private Integer mRequestCounter = 0;
 
-    private int mIcon;      // Icon des Auftrags
+    private Integer mIcon;      // Icon des Auftrags
     @SerializedName("CREATEDATE")
     private String CREATEDATE;
     @SerializedName("MODIFYDATE")
@@ -37,11 +37,11 @@ public class Auftrag implements Parcelable {
     @SerializedName("MODIFYUSER")
     private String MODIFYUSER;
     @SerializedName("CID")
-    private int CID;
+    private Integer CID;
     @SerializedName("RNR")
-    private int RNR;
+    private Integer RNR;
     @SerializedName("SAINT")
-    private int SAINT;
+    private Integer SAINT;
     @SerializedName("SAEXT")
     private String SAEXT;
     @SerializedName("ANR")
@@ -49,17 +49,17 @@ public class Auftrag implements Parcelable {
     @SerializedName("MNR")
     private String MNR;
     @SerializedName("UTNR")
-    private int UTNR;
+    private Integer UTNR;
     @SerializedName("KOMM")
     private String KOMM;
     @SerializedName("KTXT")
     private String KTXT;
     @SerializedName("IPOS")
-    private int IPOS;
+    private Integer IPOS;
     @SerializedName("ZUST")
-    private int ZUST;
+    private Integer ZUST;
     @SerializedName("WS")
-    private int WS;
+    private Integer WS;
     @SerializedName("STATUS1")
     private String STATUS1;
     @SerializedName("STATUS2")
@@ -81,95 +81,95 @@ public class Auftrag implements Parcelable {
     @SerializedName("ME")
     private Object ME;
     @SerializedName("BEWPREIS")
-    private int BEWPREIS;
+    private Integer BEWPREIS;
     @SerializedName("BEWPREISBASIS")
-    private int BEWPREISBASIS;
+    private Integer BEWPREISBASIS;
     @SerializedName("BEWPREISME")
-    private int BEWPREISME;
+    private Integer BEWPREISME;
     @SerializedName("GEWICHT")
-    private double GEWICHT;
+    private Double GEWICHT;
     @SerializedName("DLZFIXKNZ")
-    private int DLZFIXKNZ;
+    private Integer DLZFIXKNZ;
     @SerializedName("LVANZ")
-    private int LVANZ;
+    private Integer LVANZ;
     @SerializedName("LVLAENGE")
-    private int LVLAENGE;
+    private Integer LVLAENGE;
     @SerializedName("LVBREITE")
-    private int LVBREITE;
+    private Integer LVBREITE;
     @SerializedName("LVHOEHE")
-    private int LVHOEHE;
+    private Integer LVHOEHE;
     @SerializedName("BEMERKUNG")
     private String BEMERKUNG;
     @SerializedName("SACHBEARBEITER")
     private Object SACHBEARBEITER;
     @SerializedName("ANZAGG")
-    private int ANZAGG;
+    private Integer ANZAGG;
     @SerializedName("PLANART")
-    private int PLANART;
+    private Integer PLANART;
     @SerializedName("EXTRNR")
-    private int EXTRNR;
+    private Integer EXTRNR;
     @SerializedName("LAGERTYP")
-    private int LAGERTYP;
+    private Integer LAGERTYP;
     @SerializedName("ZDESC")
     private String ZDESC;
     @SerializedName("VPS")
-    private int VPS;
+    private Integer VPS;
     @SerializedName("VGRUPPE")
-    private int VGRUPPE;
+    private Integer VGRUPPE;
     @SerializedName("MAXPAKANZ")
-    private int MAXPAKANZ;
+    private Integer MAXPAKANZ;
     @SerializedName("MAXSTUECK")
-    private int MAXSTUECK;
+    private Integer MAXSTUECK;
     @SerializedName("MAXGEWICHT")
-    private int MAXGEWICHT;
+    private Integer MAXGEWICHT;
     @SerializedName("MAXLAGEN")
-    private int MAXLAGEN;
+    private Integer MAXLAGEN;
     @SerializedName("PAKETNUMMER")
-    private int PAKETNUMMER;
+    private Integer PAKETNUMMER;
     @SerializedName("PAKBEZUGRNR")
-    private int PAKBEZUGRNR;
+    private Integer PAKBEZUGRNR;
     @SerializedName("INTCODE")
     private Object INTCODE;
     @SerializedName("LOS")
-    private int LOS;
+    private Integer LOS;
     @SerializedName("RFNR")
-    private int RFNR;
+    private Integer RFNR;
     @SerializedName("LOSRF")
-    private int LOSRF;
+    private Integer LOSRF;
     @SerializedName("ALRKOPPKNZ")
-    private int ALRKOPPKNZ;
+    private Integer ALRKOPPKNZ;
     @SerializedName("ALRKNZ")
     private String ALRKNZ;
     @SerializedName("SEGM1_TERM")
     private String SEGM1TERM;
     @SerializedName("SEGM2_ZART")
-    private int SEGM2ZART;
+    private Integer SEGM2ZART;
     @SerializedName("SEGM2_MENG")
-    private int SEGM2MENG;
+    private Integer SEGM2MENG;
     @SerializedName("SEGM2_TERM")
     private String SEGM2TERM;
     @SerializedName("SEGM3_MENG")
-    private int SEGM3MENG;
+    private Integer SEGM3MENG;
     @SerializedName("SEGM3_TERM")
     private Object SEGM3TERM;
     @SerializedName("SEGM4_ZART")
-    private int SEGM4ZART;
+    private Integer SEGM4ZART;
     @SerializedName("SEGM4_MENG")
-    private int SEGM4MENG;
+    private Integer SEGM4MENG;
     @SerializedName("SEGM4_TERM")
     private Object SEGM4TERM;
     @SerializedName("SEGM5_ZART")
-    private int SEGM5ZART;
+    private Integer SEGM5ZART;
     @SerializedName("SEGM5_MENG")
-    private int SEGM5MENG;
+    private Integer SEGM5MENG;
     @SerializedName("SEGM5_TERM")
     private Object SEGM5TERM;
     @SerializedName("SEGM5_DATUM")
     private Object SEGM5DATUM;
     @SerializedName("SEGM6_ZART")
-    private int SEGM6ZART;
+    private Integer SEGM6ZART;
     @SerializedName("SEGM6_MENG")
-    private int SEGM6MENG;
+    private Integer SEGM6MENG;
     @SerializedName("SEGM6_TERM")
     private String SEGM6TERM;
     @SerializedName("SEGM6_DATUM")
@@ -215,9 +215,9 @@ public class Auftrag implements Parcelable {
     @SerializedName("VERTRETER2")
     private String VERTRETER2;
     @SerializedName("VERTRGRP1")
-    private int VERTRGRP1;
+    private Integer VERTRGRP1;
     @SerializedName("VERTRGRP2")
-    private int VERTRGRP2;
+    private Integer VERTRGRP2;
     @SerializedName("EXTARTNR")
     private Object EXTARTNR;
     @SerializedName("EXTME")
@@ -235,11 +235,11 @@ public class Auftrag implements Parcelable {
     @SerializedName("ADRNR12")
     private String ADRNR12;
     @SerializedName("KW")
-    private int KW;
+    private Integer KW;
     @SerializedName("KJ")
-    private int KJ;
+    private Integer KJ;
     @SerializedName("SOKNZ1")
-    private int SOKNZ1;
+    private Integer SOKNZ1;
     @SerializedName("TEXT0")
     private String TEXT0;
     @SerializedName("ACP_TEXT1")
@@ -251,39 +251,39 @@ public class Auftrag implements Parcelable {
     @SerializedName("TEXT4")
     private Object TEXT4;
     @SerializedName("ZBED")
-    private int ZBED;
+    private Integer ZBED;
     @SerializedName("WE")
     private String WE;
     @SerializedName("PREISKNZ")
-    private int PREISKNZ;
+    private Integer PREISKNZ;
     @SerializedName("ACPPART_PREIS")
-    private int ACPPARTPREIS;
+    private Integer ACPPARTPREIS;
     @SerializedName("ACPPART_NETTO0")
     private Double ACPPARTNETTO0;
     @SerializedName("RABKNZBR1")
-    private int RABKNZBR1;
+    private Integer RABKNZBR1;
     @SerializedName("RABKNZMR")
-    private int RABKNZMR;
+    private Integer RABKNZMR;
     @SerializedName("RABKNZWR")
-    private int RABKNZWR;
+    private Integer RABKNZWR;
     @SerializedName("RABKNZBR2")
-    private int RABKNZBR2;
+    private Integer RABKNZBR2;
     @SerializedName("RABKNZ9")
-    private int RABKNZ9;
+    private Integer RABKNZ9;
     @SerializedName("RABFIXBR1")
-    private int RABFIXBR1;
+    private Integer RABFIXBR1;
     @SerializedName("RABFIXMR")
-    private int RABFIXMR;
+    private Integer RABFIXMR;
     @SerializedName("RABFIXWR")
-    private int RABFIXWR;
+    private Integer RABFIXWR;
     @SerializedName("RABFIXBR2")
-    private int RABFIXBR2;
+    private Integer RABFIXBR2;
     @SerializedName("RABFIXFR")
-    private int RABFIXFR;
+    private Integer RABFIXFR;
     @SerializedName("RABFIXFZ")
-    private int RABFIXFZ;
+    private Integer RABFIXFZ;
     @SerializedName("RABAR")
-    private int RABAR;
+    private Integer RABAR;
     @SerializedName("RABBASBR1")
     private Object RABBASBR1;
     @SerializedName("RABBASMR")
@@ -303,7 +303,7 @@ public class Auftrag implements Parcelable {
     @SerializedName("RABBAS9")
     private Object RABBAS9;
     @SerializedName("RABSUM")
-    private int RABSUM;
+    private Double RABSUM;
     @SerializedName("NETTO1")
     private Double NETTO1;
     @SerializedName("UMSATZWERT")
@@ -315,15 +315,15 @@ public class Auftrag implements Parcelable {
     @SerializedName("ZWERT")
     private Double ZWERT;
     @SerializedName("ZPROZ")
-    private int ZPROZ;
+    private Integer ZPROZ;
     @SerializedName("NETTO2")
     private Double NETTO2;
     @SerializedName("MWSTKNZ")
-    private int MWSTKNZ;
+    private Integer MWSTKNZ;
     @SerializedName("MWSTWERT")
     private Double MWSTWERT;
     @SerializedName("MWSTPROZ")
-    private int MWSTPROZ;
+    private Integer MWSTPROZ;
     @SerializedName("BRUTTO")
     private Double BRUTTO;
     @SerializedName("KOSTSUM")
@@ -331,67 +331,67 @@ public class Auftrag implements Parcelable {
     @SerializedName("DECKUNGSWERT")
     private Double DECKUNGSWERT;
     @SerializedName("PROVKNZ1")
-    private int PROVKNZ1;
+    private Integer PROVKNZ1;
     @SerializedName("PROVKNZ2")
-    private int PROVKNZ2;
+    private Integer PROVKNZ2;
     @SerializedName("PROVBAS1")
-    private int PROVBAS1;
+    private Integer PROVBAS1;
     @SerializedName("PROVBAS2")
-    private int PROVBAS2;
+    private Integer PROVBAS2;
     @SerializedName("PROVWERT1")
     private Double PROVWERT1;
     @SerializedName("PROVWERT2")
     private Double PROVWERT2;
     @SerializedName("PROVPROZ1")
-    private int PROVPROZ1;
+    private Integer PROVPROZ1;
     @SerializedName("PROVPROZ2")
-    private int PROVPROZ2;
+    private Integer PROVPROZ2;
     @SerializedName("LISTENPREIS")
     private Double LISTENPREIS;
     @SerializedName("PROZNP")
-    private int PROZNP;
+    private Integer PROZNP;
     @SerializedName("VALUTATAGE")
-    private int VALUTATAGE;
+    private Integer VALUTATAGE;
     @SerializedName("SUMMETZINLAND")
-    private int SUMMETZINLAND;
+    private Integer SUMMETZINLAND;
     @SerializedName("EXTMENG")
     private Double EXTMENG;
     @SerializedName("URSPINLAND")
     private Object URSPINLAND;
     @SerializedName("URSPAUSLAND")
-    private int URSPAUSLAND;
+    private Integer URSPAUSLAND;
     @SerializedName("TCALLUP")
-    private int TCALLUP;
+    private Integer TCALLUP;
     @SerializedName("ADDRPERSACC")
     private String ADDRPERSACC;
     @SerializedName("DISTACTIVE")
-    private int DISTACTIVE;
+    private Integer DISTACTIVE;
     @SerializedName("USVERSKNZ")
-    private int USVERSKNZ;
+    private Integer USVERSKNZ;
     @SerializedName("RESTWERT")
-    private int RESTWERT;
+    private Integer RESTWERT;
     @SerializedName("ISTWERT")
-    private int ISTWERT;
+    private Integer ISTWERT;
     @SerializedName("ABRUFSUMRNR")
-    private int ABRUFSUMRNR;
+    private Integer ABRUFSUMRNR;
     @SerializedName("LFDNR")
-    private int LFDNR;
+    private Integer LFDNR;
     @SerializedName("F_PREISBASIS")
-    private double FPREISBASIS;
+    private Double FPREISBASIS;
     @SerializedName("PREISBASISME")
     private Object PREISBASISME;
     @SerializedName("SPLITTLIEFRNR")
-    private int SPLITTLIEFRNR;
+    private Integer SPLITTLIEFRNR;
     @SerializedName("ENTNAHMEMENGE")
-    private int ENTNAHMEMENGE;
+    private Integer ENTNAHMEMENGE;
     @SerializedName("RECHNUNGSMENGE")
-    private int RECHNUNGSMENGE;
+    private Integer RECHNUNGSMENGE;
     @SerializedName("SPLITTRECHRNR")
-    private int SPLITTRECHRNR;
+    private Integer SPLITTRECHRNR;
     @SerializedName("UPBEZUGRNR")
-    private int UPBEZUGRNR;
+    private Integer UPBEZUGRNR;
     @SerializedName("LIEFERZEIT")
-    private int LIEFERZEIT;
+    private Integer LIEFERZEIT;
     @SerializedName("WERK")
     private Object WERK;
     @SerializedName("ABLST")
@@ -399,7 +399,7 @@ public class Auftrag implements Parcelable {
     @SerializedName("EXTLAGER")
     private Object EXTLAGER;
     @SerializedName("ULIEFMENGE")
-    private int ULIEFMENGE;
+    private Integer ULIEFMENGE;
     @SerializedName("EXTKTXT")
     private Object EXTKTXT;
     @SerializedName("USEINTREFFTERMIN")
@@ -407,25 +407,25 @@ public class Auftrag implements Parcelable {
     @SerializedName("USEINTREFFTBEST")
     private String USEINTREFFTBEST;
     @SerializedName("FUELLMENGE")
-    private int FUELLMENGE;
+    private Integer FUELLMENGE;
     @SerializedName("RECHUENR")
-    private int RECHUENR;
+    private Integer RECHUENR;
     @SerializedName("VERBRSTELLE")
     private Object VERBRSTELLE;
     @SerializedName("OFFENLIEF")
-    private int OFFENLIEF;
+    private Integer OFFENLIEF;
     @SerializedName("OFFENENTN")
-    private int OFFENENTN;
+    private Integer OFFENENTN;
     @SerializedName("OFFENRECH")
-    private int OFFENRECH;
+    private Integer OFFENRECH;
     @SerializedName("WARENWERT")
-    private int WARENWERT;
+    private Integer WARENWERT;
     @SerializedName("SETBEZUGRNR")
-    private int SETBEZUGRNR;
+    private Integer SETBEZUGRNR;
     @SerializedName("BELEGNR13")
     private Object BELEGNR13;
     @SerializedName("USEKPREIS")
-    private int USEKPREIS;
+    private Integer USEKPREIS;
 
     public Auftrag() {
         super();
@@ -439,281 +439,83 @@ public class Auftrag implements Parcelable {
 
     protected Auftrag(Parcel in) {
         mObjectAsString = in.readString();
-        mIcon = in.readInt();
         CREATEDATE = in.readString();
         MODIFYDATE = in.readString();
         CREATEUSER = in.readString();
         MODIFYUSER = in.readString();
-        CID = in.readInt();
-        RNR = in.readInt();
-        SAINT = in.readInt();
         SAEXT = in.readString();
         ANR = in.readString();
         MNR = in.readString();
-        UTNR = in.readInt();
         KOMM = in.readString();
         KTXT = in.readString();
-        IPOS = in.readInt();
-        ZUST = in.readInt();
-        WS = in.readInt();
         STATUS1 = in.readString();
         STATUS2 = in.readString();
         STATUS3 = in.readString();
         STATUS4 = in.readString();
         STATUS5 = in.readString();
         STATUS6 = in.readString();
-        BEWPREIS = in.readInt();
-        BEWPREISBASIS = in.readInt();
-        BEWPREISME = in.readInt();
-        GEWICHT = in.readDouble();
-        DLZFIXKNZ = in.readInt();
-        LVANZ = in.readInt();
-        LVLAENGE = in.readInt();
-        LVBREITE = in.readInt();
-        LVHOEHE = in.readInt();
         BEMERKUNG = in.readString();
-        ANZAGG = in.readInt();
-        PLANART = in.readInt();
-        EXTRNR = in.readInt();
-        LAGERTYP = in.readInt();
         ZDESC = in.readString();
-        VPS = in.readInt();
-        VGRUPPE = in.readInt();
-        MAXPAKANZ = in.readInt();
-        MAXSTUECK = in.readInt();
-        MAXGEWICHT = in.readInt();
-        MAXLAGEN = in.readInt();
-        PAKETNUMMER = in.readInt();
-        PAKBEZUGRNR = in.readInt();
-        LOS = in.readInt();
-        RFNR = in.readInt();
-        LOSRF = in.readInt();
-        ALRKOPPKNZ = in.readInt();
         ALRKNZ = in.readString();
         SEGM1TERM = in.readString();
-        SEGM2ZART = in.readInt();
-        SEGM2MENG = in.readInt();
         SEGM2TERM = in.readString();
-        SEGM3MENG = in.readInt();
-        SEGM4ZART = in.readInt();
-        SEGM4MENG = in.readInt();
-        SEGM5ZART = in.readInt();
-        SEGM5MENG = in.readInt();
-        SEGM6ZART = in.readInt();
-        SEGM6MENG = in.readInt();
         SEGM6TERM = in.readString();
         BELEGNRBEST = in.readString();
         BELEGDATBEST = in.readString();
         VERTRETER1 = in.readString();
         VERTRETER2 = in.readString();
-        VERTRGRP1 = in.readInt();
-        VERTRGRP2 = in.readInt();
         ADRNR0 = in.readString();
         ADRNR1 = in.readString();
         ADRNR2 = in.readString();
         ADRNR3 = in.readString();
         ADRNR4 = in.readString();
         ADRNR12 = in.readString();
-        KW = in.readInt();
-        KJ = in.readInt();
-        SOKNZ1 = in.readInt();
         TEXT0 = in.readString();
-        ZBED = in.readInt();
         WE = in.readString();
-        PREISKNZ = in.readInt();
-        ACPPARTPREIS = in.readInt();
-        RABKNZBR1 = in.readInt();
-        RABKNZMR = in.readInt();
-        RABKNZWR = in.readInt();
-        RABKNZBR2 = in.readInt();
-        RABKNZ9 = in.readInt();
-        RABFIXBR1 = in.readInt();
-        RABFIXMR = in.readInt();
-        RABFIXWR = in.readInt();
-        RABFIXBR2 = in.readInt();
-        RABFIXFR = in.readInt();
-        RABFIXFZ = in.readInt();
-        RABAR = in.readInt();
-        RABSUM = in.readInt();
-        ZPROZ = in.readInt();
-        MWSTKNZ = in.readInt();
-        MWSTPROZ = in.readInt();
-        PROVKNZ1 = in.readInt();
-        PROVKNZ2 = in.readInt();
-        PROVBAS1 = in.readInt();
-        PROVBAS2 = in.readInt();
-        PROVPROZ1 = in.readInt();
-        PROVPROZ2 = in.readInt();
-        PROZNP = in.readInt();
-        VALUTATAGE = in.readInt();
-        SUMMETZINLAND = in.readInt();
-        URSPAUSLAND = in.readInt();
-        TCALLUP = in.readInt();
         ADDRPERSACC = in.readString();
-        DISTACTIVE = in.readInt();
-        USVERSKNZ = in.readInt();
-        RESTWERT = in.readInt();
-        ISTWERT = in.readInt();
-        ABRUFSUMRNR = in.readInt();
-        LFDNR = in.readInt();
-        FPREISBASIS = in.readDouble();
-        SPLITTLIEFRNR = in.readInt();
-        ENTNAHMEMENGE = in.readInt();
-        RECHNUNGSMENGE = in.readInt();
-        SPLITTRECHRNR = in.readInt();
-        UPBEZUGRNR = in.readInt();
-        LIEFERZEIT = in.readInt();
-        ULIEFMENGE = in.readInt();
         USEINTREFFTERMIN = in.readString();
         USEINTREFFTBEST = in.readString();
-        FUELLMENGE = in.readInt();
-        RECHUENR = in.readInt();
-        OFFENLIEF = in.readInt();
-        OFFENENTN = in.readInt();
-        OFFENRECH = in.readInt();
-        WARENWERT = in.readInt();
-        SETBEZUGRNR = in.readInt();
-        USEKPREIS = in.readInt();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mObjectAsString);
-        dest.writeInt(mIcon);
         dest.writeString(CREATEDATE);
         dest.writeString(MODIFYDATE);
         dest.writeString(CREATEUSER);
         dest.writeString(MODIFYUSER);
-        dest.writeInt(CID);
-        dest.writeInt(RNR);
-        dest.writeInt(SAINT);
         dest.writeString(SAEXT);
         dest.writeString(ANR);
         dest.writeString(MNR);
-        dest.writeInt(UTNR);
         dest.writeString(KOMM);
         dest.writeString(KTXT);
-        dest.writeInt(IPOS);
-        dest.writeInt(ZUST);
-        dest.writeInt(WS);
         dest.writeString(STATUS1);
         dest.writeString(STATUS2);
         dest.writeString(STATUS3);
         dest.writeString(STATUS4);
         dest.writeString(STATUS5);
         dest.writeString(STATUS6);
-        dest.writeInt(BEWPREIS);
-        dest.writeInt(BEWPREISBASIS);
-        dest.writeInt(BEWPREISME);
-        dest.writeDouble(GEWICHT);
-        dest.writeInt(DLZFIXKNZ);
-        dest.writeInt(LVANZ);
-        dest.writeInt(LVLAENGE);
-        dest.writeInt(LVBREITE);
-        dest.writeInt(LVHOEHE);
         dest.writeString(BEMERKUNG);
-        dest.writeInt(ANZAGG);
-        dest.writeInt(PLANART);
-        dest.writeInt(EXTRNR);
-        dest.writeInt(LAGERTYP);
         dest.writeString(ZDESC);
-        dest.writeInt(VPS);
-        dest.writeInt(VGRUPPE);
-        dest.writeInt(MAXPAKANZ);
-        dest.writeInt(MAXSTUECK);
-        dest.writeInt(MAXGEWICHT);
-        dest.writeInt(MAXLAGEN);
-        dest.writeInt(PAKETNUMMER);
-        dest.writeInt(PAKBEZUGRNR);
-        dest.writeInt(LOS);
-        dest.writeInt(RFNR);
-        dest.writeInt(LOSRF);
-        dest.writeInt(ALRKOPPKNZ);
         dest.writeString(ALRKNZ);
         dest.writeString(SEGM1TERM);
-        dest.writeInt(SEGM2ZART);
-        dest.writeInt(SEGM2MENG);
         dest.writeString(SEGM2TERM);
-        dest.writeInt(SEGM3MENG);
-        dest.writeInt(SEGM4ZART);
-        dest.writeInt(SEGM4MENG);
-        dest.writeInt(SEGM5ZART);
-        dest.writeInt(SEGM5MENG);
-        dest.writeInt(SEGM6ZART);
-        dest.writeInt(SEGM6MENG);
         dest.writeString(SEGM6TERM);
         dest.writeString(BELEGNRBEST);
         dest.writeString(BELEGDATBEST);
         dest.writeString(VERTRETER1);
         dest.writeString(VERTRETER2);
-        dest.writeInt(VERTRGRP1);
-        dest.writeInt(VERTRGRP2);
         dest.writeString(ADRNR0);
         dest.writeString(ADRNR1);
         dest.writeString(ADRNR2);
         dest.writeString(ADRNR3);
         dest.writeString(ADRNR4);
         dest.writeString(ADRNR12);
-        dest.writeInt(KW);
-        dest.writeInt(KJ);
-        dest.writeInt(SOKNZ1);
         dest.writeString(TEXT0);
-        dest.writeInt(ZBED);
         dest.writeString(WE);
-        dest.writeInt(PREISKNZ);
-        dest.writeInt(ACPPARTPREIS);
-        dest.writeInt(RABKNZBR1);
-        dest.writeInt(RABKNZMR);
-        dest.writeInt(RABKNZWR);
-        dest.writeInt(RABKNZBR2);
-        dest.writeInt(RABKNZ9);
-        dest.writeInt(RABFIXBR1);
-        dest.writeInt(RABFIXMR);
-        dest.writeInt(RABFIXWR);
-        dest.writeInt(RABFIXBR2);
-        dest.writeInt(RABFIXFR);
-        dest.writeInt(RABFIXFZ);
-        dest.writeInt(RABAR);
-        dest.writeInt(RABSUM);
-        dest.writeInt(ZPROZ);
-        dest.writeInt(MWSTKNZ);
-        dest.writeInt(MWSTPROZ);
-        dest.writeInt(PROVKNZ1);
-        dest.writeInt(PROVKNZ2);
-        dest.writeInt(PROVBAS1);
-        dest.writeInt(PROVBAS2);
-        dest.writeInt(PROVPROZ1);
-        dest.writeInt(PROVPROZ2);
-        dest.writeInt(PROZNP);
-        dest.writeInt(VALUTATAGE);
-        dest.writeInt(SUMMETZINLAND);
-        dest.writeInt(URSPAUSLAND);
-        dest.writeInt(TCALLUP);
         dest.writeString(ADDRPERSACC);
-        dest.writeInt(DISTACTIVE);
-        dest.writeInt(USVERSKNZ);
-        dest.writeInt(RESTWERT);
-        dest.writeInt(ISTWERT);
-        dest.writeInt(ABRUFSUMRNR);
-        dest.writeInt(LFDNR);
-        dest.writeDouble(FPREISBASIS);
-        dest.writeInt(SPLITTLIEFRNR);
-        dest.writeInt(ENTNAHMEMENGE);
-        dest.writeInt(RECHNUNGSMENGE);
-        dest.writeInt(SPLITTRECHRNR);
-        dest.writeInt(UPBEZUGRNR);
-        dest.writeInt(LIEFERZEIT);
-        dest.writeInt(ULIEFMENGE);
         dest.writeString(USEINTREFFTERMIN);
         dest.writeString(USEINTREFFTBEST);
-        dest.writeInt(FUELLMENGE);
-        dest.writeInt(RECHUENR);
-        dest.writeInt(OFFENLIEF);
-        dest.writeInt(OFFENENTN);
-        dest.writeInt(OFFENRECH);
-        dest.writeInt(WARENWERT);
-        dest.writeInt(SETBEZUGRNR);
-        dest.writeInt(USEKPREIS);
     }
 
     @Override
@@ -733,7 +535,7 @@ public class Auftrag implements Parcelable {
         }
     };
 
-    public int getIcon() {
+    public Integer getIcon() {
         return mIcon;
     }
 
@@ -823,7 +625,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The CID
      */
-    public int getCID() {
+    public Integer getCID() {
         return CID;
     }
 
@@ -832,7 +634,7 @@ public class Auftrag implements Parcelable {
      * @param CID
      * The CID
      */
-    public void setCID(int CID) {
+    public void setCID(Integer CID) {
         this.CID = CID;
     }
 
@@ -843,7 +645,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The RNR
      */
-    public int getRNR() {
+    public Integer getRNR() {
         return RNR;
     }
 
@@ -852,7 +654,7 @@ public class Auftrag implements Parcelable {
      * @param RNR
      * The RNR
      */
-    public void setRNR(int RNR) {
+    public void setRNR(Integer RNR) {
         this.RNR = RNR;
     }
 
@@ -863,7 +665,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The SAINT
      */
-    public int getSAINT() {
+    public Integer getSAINT() {
         return SAINT;
     }
 
@@ -872,7 +674,7 @@ public class Auftrag implements Parcelable {
      * @param SAINT
      * The SAINT
      */
-    public void setSAINT(int SAINT) {
+    public void setSAINT(Integer SAINT) {
         this.SAINT = SAINT;
     }
 
@@ -943,7 +745,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The UTNR
      */
-    public int getUTNR() {
+    public Integer getUTNR() {
         return UTNR;
     }
 
@@ -952,7 +754,7 @@ public class Auftrag implements Parcelable {
      * @param UTNR
      * The UTNR
      */
-    public void setUTNR(int UTNR) {
+    public void setUTNR(Integer UTNR) {
         this.UTNR = UTNR;
     }
 
@@ -1003,7 +805,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The IPOS
      */
-    public int getIPOS() {
+    public Integer getIPOS() {
         return IPOS;
     }
 
@@ -1012,7 +814,7 @@ public class Auftrag implements Parcelable {
      * @param IPOS
      * The IPOS
      */
-    public void setIPOS(int IPOS) {
+    public void setIPOS(Integer IPOS) {
         this.IPOS = IPOS;
     }
 
@@ -1023,7 +825,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The ZUST
      */
-    public int getZUST() {
+    public Integer getZUST() {
         return ZUST;
     }
 
@@ -1032,7 +834,7 @@ public class Auftrag implements Parcelable {
      * @param ZUST
      * The ZUST
      */
-    public void setZUST(int ZUST) {
+    public void setZUST(Integer ZUST) {
         this.ZUST = ZUST;
     }
 
@@ -1043,7 +845,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The WS
      */
-    public int getWS() {
+    public Integer getWS() {
         return WS;
     }
 
@@ -1052,7 +854,7 @@ public class Auftrag implements Parcelable {
      * @param WS
      * The WS
      */
-    public void setWS(int WS) {
+    public void setWS(Integer WS) {
         this.WS = WS;
     }
 
@@ -1262,7 +1064,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The BEWPREIS
      */
-    public int getBEWPREIS() {
+    public Integer getBEWPREIS() {
         return BEWPREIS;
     }
 
@@ -1271,7 +1073,7 @@ public class Auftrag implements Parcelable {
      * @param BEWPREIS
      * The BEWPREIS
      */
-    public void setBEWPREIS(int BEWPREIS) {
+    public void setBEWPREIS(Integer BEWPREIS) {
         this.BEWPREIS = BEWPREIS;
     }
 
@@ -1282,7 +1084,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The BEWPREISBASIS
      */
-    public int getBEWPREISBASIS() {
+    public Integer getBEWPREISBASIS() {
         return BEWPREISBASIS;
     }
 
@@ -1291,7 +1093,7 @@ public class Auftrag implements Parcelable {
      * @param BEWPREISBASIS
      * The BEWPREISBASIS
      */
-    public void setBEWPREISBASIS(int BEWPREISBASIS) {
+    public void setBEWPREISBASIS(Integer BEWPREISBASIS) {
         this.BEWPREISBASIS = BEWPREISBASIS;
     }
 
@@ -1311,7 +1113,7 @@ public class Auftrag implements Parcelable {
      * @param BEWPREISME
      * The BEWPREISME
      */
-    public void setBEWPREISME(int BEWPREISME) {
+    public void setBEWPREISME(Integer BEWPREISME) {
         this.BEWPREISME = BEWPREISME;
     }
 
@@ -1321,7 +1123,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The GEWICHT
      */
-    public double getGEWICHT() {
+    public Double getGEWICHT() {
         return GEWICHT;
     }
 
@@ -1330,7 +1132,7 @@ public class Auftrag implements Parcelable {
      * @param GEWICHT
      * The GEWICHT
      */
-    public void setGEWICHT(double GEWICHT) {
+    public void setGEWICHT(Double GEWICHT) {
         this.GEWICHT = GEWICHT;
     }
 
@@ -1340,7 +1142,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The DLZFIXKNZ
      */
-    public int getDLZFIXKNZ() {
+    public Integer getDLZFIXKNZ() {
         return DLZFIXKNZ;
     }
 
@@ -1349,7 +1151,7 @@ public class Auftrag implements Parcelable {
      * @param DLZFIXKNZ
      * The DLZFIXKNZ
      */
-    public void setDLZFIXKNZ(int DLZFIXKNZ) {
+    public void setDLZFIXKNZ(Integer DLZFIXKNZ) {
         this.DLZFIXKNZ = DLZFIXKNZ;
     }
 
@@ -1360,7 +1162,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The LVANZ
      */
-    public int getLVANZ() {
+    public Integer getLVANZ() {
         return LVANZ;
     }
 
@@ -1369,7 +1171,7 @@ public class Auftrag implements Parcelable {
      * @param LVANZ
      * The LVANZ
      */
-    public void setLVANZ(int LVANZ) {
+    public void setLVANZ(Integer LVANZ) {
         this.LVANZ = LVANZ;
     }
 
@@ -1380,7 +1182,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The LVLAENGE
      */
-    public int getLVLAENGE() {
+    public Integer getLVLAENGE() {
         return LVLAENGE;
     }
 
@@ -1389,7 +1191,7 @@ public class Auftrag implements Parcelable {
      * @param LVLAENGE
      * The LVLAENGE
      */
-    public void setLVLAENGE(int LVLAENGE) {
+    public void setLVLAENGE(Integer LVLAENGE) {
         this.LVLAENGE = LVLAENGE;
     }
 
@@ -1400,7 +1202,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The LVBREITE
      */
-    public int getLVBREITE() {
+    public Integer getLVBREITE() {
         return LVBREITE;
     }
 
@@ -1409,7 +1211,7 @@ public class Auftrag implements Parcelable {
      * @param LVBREITE
      * The LVBREITE
      */
-    public void setLVBREITE(int LVBREITE) {
+    public void setLVBREITE(Integer LVBREITE) {
         this.LVBREITE = LVBREITE;
     }
 
@@ -1420,7 +1222,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The LVHOEHE
      */
-    public int getLVHOEHE() {
+    public Integer getLVHOEHE() {
         return LVHOEHE;
     }
 
@@ -1429,7 +1231,7 @@ public class Auftrag implements Parcelable {
      * @param LVHOEHE
      * The LVHOEHE
      */
-    public void setLVHOEHE(int LVHOEHE) {
+    public void setLVHOEHE(Integer LVHOEHE) {
         this.LVHOEHE = LVHOEHE;
     }
 
@@ -1480,7 +1282,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The ANZAGG
      */
-    public int getANZAGG() {
+    public Integer getANZAGG() {
         return ANZAGG;
     }
 
@@ -1489,7 +1291,7 @@ public class Auftrag implements Parcelable {
      * @param ANZAGG
      * The ANZAGG
      */
-    public void setANZAGG(int ANZAGG) {
+    public void setANZAGG(Integer ANZAGG) {
         this.ANZAGG = ANZAGG;
     }
 
@@ -1500,7 +1302,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The PLANART
      */
-    public int getPLANART() {
+    public Integer getPLANART() {
         return PLANART;
     }
 
@@ -1509,7 +1311,7 @@ public class Auftrag implements Parcelable {
      * @param PLANART
      * The PLANART
      */
-    public void setPLANART(int PLANART) {
+    public void setPLANART(Integer PLANART) {
         this.PLANART = PLANART;
     }
 
@@ -1520,7 +1322,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The EXTRNR
      */
-    public int getEXTRNR() {
+    public Integer getEXTRNR() {
         return EXTRNR;
     }
 
@@ -1529,7 +1331,7 @@ public class Auftrag implements Parcelable {
      * @param EXTRNR
      * The EXTRNR
      */
-    public void setEXTRNR(int EXTRNR) {
+    public void setEXTRNR(Integer EXTRNR) {
         this.EXTRNR = EXTRNR;
     }
 
@@ -1540,7 +1342,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The LAGERTYP
      */
-    public int getLAGERTYP() {
+    public Integer getLAGERTYP() {
         return LAGERTYP;
     }
 
@@ -1549,7 +1351,7 @@ public class Auftrag implements Parcelable {
      * @param LAGERTYP
      * The LAGERTYP
      */
-    public void setLAGERTYP(int LAGERTYP) {
+    public void setLAGERTYP(Integer LAGERTYP) {
         this.LAGERTYP = LAGERTYP;
     }
 
@@ -1580,7 +1382,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The VPS
      */
-    public int getVPS() {
+    public Integer getVPS() {
         return VPS;
     }
 
@@ -1589,7 +1391,7 @@ public class Auftrag implements Parcelable {
      * @param VPS
      * The VPS
      */
-    public void setVPS(int VPS) {
+    public void setVPS(Integer VPS) {
         this.VPS = VPS;
     }
 
@@ -1600,7 +1402,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The VGRUPPE
      */
-    public int getVGRUPPE() {
+    public Integer getVGRUPPE() {
         return VGRUPPE;
     }
 
@@ -1609,7 +1411,7 @@ public class Auftrag implements Parcelable {
      * @param VGRUPPE
      * The VGRUPPE
      */
-    public void setVGRUPPE(int VGRUPPE) {
+    public void setVGRUPPE(Integer VGRUPPE) {
         this.VGRUPPE = VGRUPPE;
     }
 
@@ -1620,7 +1422,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The MAXPAKANZ
      */
-    public int getMAXPAKANZ() {
+    public Integer getMAXPAKANZ() {
         return MAXPAKANZ;
     }
 
@@ -1629,7 +1431,7 @@ public class Auftrag implements Parcelable {
      * @param MAXPAKANZ
      * The MAXPAKANZ
      */
-    public void setMAXPAKANZ(int MAXPAKANZ) {
+    public void setMAXPAKANZ(Integer MAXPAKANZ) {
         this.MAXPAKANZ = MAXPAKANZ;
     }
 
@@ -1640,7 +1442,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The MAXSTUECK
      */
-    public int getMAXSTUECK() {
+    public Integer getMAXSTUECK() {
         return MAXSTUECK;
     }
 
@@ -1649,7 +1451,7 @@ public class Auftrag implements Parcelable {
      * @param MAXSTUECK
      * The MAXSTUECK
      */
-    public void setMAXSTUECK(int MAXSTUECK) {
+    public void setMAXSTUECK(Integer MAXSTUECK) {
         this.MAXSTUECK = MAXSTUECK;
     }
 
@@ -1660,7 +1462,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The MAXGEWICHT
      */
-    public int getMAXGEWICHT() {
+    public Integer getMAXGEWICHT() {
         return MAXGEWICHT;
     }
 
@@ -1669,7 +1471,7 @@ public class Auftrag implements Parcelable {
      * @param MAXGEWICHT
      * The MAXGEWICHT
      */
-    public void setMAXGEWICHT(int MAXGEWICHT) {
+    public void setMAXGEWICHT(Integer MAXGEWICHT) {
         this.MAXGEWICHT = MAXGEWICHT;
     }
 
@@ -1680,7 +1482,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The MAXLAGEN
      */
-    public int getMAXLAGEN() {
+    public Integer getMAXLAGEN() {
         return MAXLAGEN;
     }
 
@@ -1689,7 +1491,7 @@ public class Auftrag implements Parcelable {
      * @param MAXLAGEN
      * The MAXLAGEN
      */
-    public void setMAXLAGEN(int MAXLAGEN) {
+    public void setMAXLAGEN(Integer MAXLAGEN) {
         this.MAXLAGEN = MAXLAGEN;
     }
 
@@ -1700,7 +1502,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The PAKETNUMMER
      */
-    public int getPAKETNUMMER() {
+    public Integer getPAKETNUMMER() {
         return PAKETNUMMER;
     }
 
@@ -1709,7 +1511,7 @@ public class Auftrag implements Parcelable {
      * @param PAKETNUMMER
      * The PAKETNUMMER
      */
-    public void setPAKETNUMMER(int PAKETNUMMER) {
+    public void setPAKETNUMMER(Integer PAKETNUMMER) {
         this.PAKETNUMMER = PAKETNUMMER;
     }
 
@@ -1720,7 +1522,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The PAKBEZUGRNR
      */
-    public int getPAKBEZUGRNR() {
+    public Integer getPAKBEZUGRNR() {
         return PAKBEZUGRNR;
     }
 
@@ -1729,7 +1531,7 @@ public class Auftrag implements Parcelable {
      * @param PAKBEZUGRNR
      * The PAKBEZUGRNR
      */
-    public void setPAKBEZUGRNR(int PAKBEZUGRNR) {
+    public void setPAKBEZUGRNR(Integer PAKBEZUGRNR) {
         this.PAKBEZUGRNR = PAKBEZUGRNR;
     }
 
@@ -1738,7 +1540,7 @@ public class Auftrag implements Parcelable {
     /**
      *
      * @return
-     * The INTCODE
+     * The IntegerCODE
      */
     public Object getINTCODE() {
         return INTCODE;
@@ -1747,7 +1549,7 @@ public class Auftrag implements Parcelable {
     /**
      *
      * @param INTCODE
-     * The INTCODE
+     * The IntegerCODE
      */
     public void setINTCODE(Object INTCODE) {
         this.INTCODE = INTCODE;
@@ -1760,7 +1562,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The LOS
      */
-    public int getLOS() {
+    public Integer getLOS() {
         return LOS;
     }
 
@@ -1769,7 +1571,7 @@ public class Auftrag implements Parcelable {
      * @param LOS
      * The LOS
      */
-    public void setLOS(int LOS) {
+    public void setLOS(Integer LOS) {
         this.LOS = LOS;
     }
 
@@ -1780,7 +1582,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The RFNR
      */
-    public int getRFNR() {
+    public Integer getRFNR() {
         return RFNR;
     }
 
@@ -1789,7 +1591,7 @@ public class Auftrag implements Parcelable {
      * @param RFNR
      * The RFNR
      */
-    public void setRFNR(int RFNR) {
+    public void setRFNR(Integer RFNR) {
         this.RFNR = RFNR;
     }
 
@@ -1800,7 +1602,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The LOSRF
      */
-    public int getLOSRF() {
+    public Integer getLOSRF() {
         return LOSRF;
     }
 
@@ -1809,7 +1611,7 @@ public class Auftrag implements Parcelable {
      * @param LOSRF
      * The LOSRF
      */
-    public void setLOSRF(int LOSRF) {
+    public void setLOSRF(Integer LOSRF) {
         this.LOSRF = LOSRF;
     }
 
@@ -1820,7 +1622,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The ALRKOPPKNZ
      */
-    public int getALRKOPPKNZ() {
+    public Integer getALRKOPPKNZ() {
         return ALRKOPPKNZ;
     }
 
@@ -1829,7 +1631,7 @@ public class Auftrag implements Parcelable {
      * @param ALRKOPPKNZ
      * The ALRKOPPKNZ
      */
-    public void setALRKOPPKNZ(int ALRKOPPKNZ) {
+    public void setALRKOPPKNZ(Integer ALRKOPPKNZ) {
         this.ALRKOPPKNZ = ALRKOPPKNZ;
     }
 
@@ -1880,7 +1682,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The SEGM2ZART
      */
-    public int getSEGM2ZART() {
+    public Integer getSEGM2ZART() {
         return SEGM2ZART;
     }
 
@@ -1889,7 +1691,7 @@ public class Auftrag implements Parcelable {
      * @param SEGM2ZART
      * The SEGM2_ZART
      */
-    public void setSEGM2ZART(int SEGM2ZART) {
+    public void setSEGM2ZART(Integer SEGM2ZART) {
         this.SEGM2ZART = SEGM2ZART;
     }
 
@@ -1900,7 +1702,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The SEGM2MENG
      */
-    public int getSEGM2MENG() {
+    public Integer getSEGM2MENG() {
         return SEGM2MENG;
     }
 
@@ -1909,7 +1711,7 @@ public class Auftrag implements Parcelable {
      * @param SEGM2MENG
      * The SEGM2_MENG
      */
-    public void setSEGM2MENG(int SEGM2MENG) {
+    public void setSEGM2MENG(Integer SEGM2MENG) {
         this.SEGM2MENG = SEGM2MENG;
     }
 
@@ -1940,7 +1742,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The SEGM3MENG
      */
-    public int getSEGM3MENG() {
+    public Integer getSEGM3MENG() {
         return SEGM3MENG;
     }
 
@@ -1949,7 +1751,7 @@ public class Auftrag implements Parcelable {
      * @param SEGM3MENG
      * The SEGM3_MENG
      */
-    public void setSEGM3MENG(int SEGM3MENG) {
+    public void setSEGM3MENG(Integer SEGM3MENG) {
         this.SEGM3MENG = SEGM3MENG;
     }
 
@@ -1980,7 +1782,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The SEGM4ZART
      */
-    public int getSEGM4ZART() {
+    public Integer getSEGM4ZART() {
         return SEGM4ZART;
     }
 
@@ -1989,7 +1791,7 @@ public class Auftrag implements Parcelable {
      * @param SEGM4ZART
      * The SEGM4_ZART
      */
-    public void setSEGM4ZART(int SEGM4ZART) {
+    public void setSEGM4ZART(Integer SEGM4ZART) {
         this.SEGM4ZART = SEGM4ZART;
     }
 
@@ -2000,7 +1802,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The SEGM4MENG
      */
-    public int getSEGM4MENG() {
+    public Integer getSEGM4MENG() {
         return SEGM4MENG;
     }
 
@@ -2009,7 +1811,7 @@ public class Auftrag implements Parcelable {
      * @param SEGM4MENG
      * The SEGM4_MENG
      */
-    public void setSEGM4MENG(int SEGM4MENG) {
+    public void setSEGM4MENG(Integer SEGM4MENG) {
         this.SEGM4MENG = SEGM4MENG;
     }
 
@@ -2040,7 +1842,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The SEGM5ZART
      */
-    public int getSEGM5ZART() {
+    public Integer getSEGM5ZART() {
         return SEGM5ZART;
     }
 
@@ -2049,7 +1851,7 @@ public class Auftrag implements Parcelable {
      * @param SEGM5ZART
      * The SEGM5_ZART
      */
-    public void setSEGM5ZART(int SEGM5ZART) {
+    public void setSEGM5ZART(Integer SEGM5ZART) {
         this.SEGM5ZART = SEGM5ZART;
     }
 
@@ -2060,7 +1862,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The SEGM5MENG
      */
-    public int getSEGM5MENG() {
+    public Integer getSEGM5MENG() {
         return SEGM5MENG;
     }
 
@@ -2069,7 +1871,7 @@ public class Auftrag implements Parcelable {
      * @param SEGM5MENG
      * The SEGM5_MENG
      */
-    public void setSEGM5MENG(int SEGM5MENG) {
+    public void setSEGM5MENG(Integer SEGM5MENG) {
         this.SEGM5MENG = SEGM5MENG;
     }
 
@@ -2120,7 +1922,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The SEGM6ZART
      */
-    public int getSEGM6ZART() {
+    public Integer getSEGM6ZART() {
         return SEGM6ZART;
     }
 
@@ -2129,7 +1931,7 @@ public class Auftrag implements Parcelable {
      * @param SEGM6ZART
      * The SEGM6_ZART
      */
-    public void setSEGM6ZART(int SEGM6ZART) {
+    public void setSEGM6ZART(Integer SEGM6ZART) {
         this.SEGM6ZART = SEGM6ZART;
     }
 
@@ -2140,7 +1942,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The SEGM6MENG
      */
-    public int getSEGM6MENG() {
+    public Integer getSEGM6MENG() {
         return SEGM6MENG;
     }
 
@@ -2149,7 +1951,7 @@ public class Auftrag implements Parcelable {
      * @param SEGM6MENG
      * The SEGM6_MENG
      */
-    public void setSEGM6MENG(int SEGM6MENG) {
+    public void setSEGM6MENG(Integer SEGM6MENG) {
         this.SEGM6MENG = SEGM6MENG;
     }
 
@@ -2600,7 +2402,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The VERTRGRP1
      */
-    public int getVERTRGRP1() {
+    public Integer getVERTRGRP1() {
         return VERTRGRP1;
     }
 
@@ -2609,7 +2411,7 @@ public class Auftrag implements Parcelable {
      * @param VERTRGRP1
      * The VERTRGRP1
      */
-    public void setVERTRGRP1(int VERTRGRP1) {
+    public void setVERTRGRP1(Integer VERTRGRP1) {
         this.VERTRGRP1 = VERTRGRP1;
     }
 
@@ -2620,7 +2422,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The VERTRGRP2
      */
-    public int getVERTRGRP2() {
+    public Integer getVERTRGRP2() {
         return VERTRGRP2;
     }
 
@@ -2629,7 +2431,7 @@ public class Auftrag implements Parcelable {
      * @param VERTRGRP2
      * The VERTRGRP2
      */
-    public void setVERTRGRP2(int VERTRGRP2) {
+    public void setVERTRGRP2(Integer VERTRGRP2) {
         this.VERTRGRP2 = VERTRGRP2;
     }
 
@@ -2800,7 +2602,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The KW
      */
-    public int getKW() {
+    public Integer getKW() {
         return KW;
     }
 
@@ -2809,7 +2611,7 @@ public class Auftrag implements Parcelable {
      * @param KW
      * The KW
      */
-    public void setKW(int KW) {
+    public void setKW(Integer KW) {
         this.KW = KW;
     }
 
@@ -2820,7 +2622,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The KJ
      */
-    public int getKJ() {
+    public Integer getKJ() {
         return KJ;
     }
 
@@ -2829,7 +2631,7 @@ public class Auftrag implements Parcelable {
      * @param KJ
      * The KJ
      */
-    public void setKJ(int KJ) {
+    public void setKJ(Integer KJ) {
         this.KJ = KJ;
     }
 
@@ -2840,7 +2642,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The SOKNZ1
      */
-    public int getSOKNZ1() {
+    public Integer getSOKNZ1() {
         return SOKNZ1;
     }
 
@@ -2849,7 +2651,7 @@ public class Auftrag implements Parcelable {
      * @param SOKNZ1
      * The SOKNZ1
      */
-    public void setSOKNZ1(int SOKNZ1) {
+    public void setSOKNZ1(Integer SOKNZ1) {
         this.SOKNZ1 = SOKNZ1;
     }
 
@@ -2960,7 +2762,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The ZBED
      */
-    public int getZBED() {
+    public Integer getZBED() {
         return ZBED;
     }
 
@@ -2969,7 +2771,7 @@ public class Auftrag implements Parcelable {
      * @param ZBED
      * The ZBED
      */
-    public void setZBED(int ZBED) {
+    public void setZBED(Integer ZBED) {
         this.ZBED = ZBED;
     }
 
@@ -3000,7 +2802,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The PREISKNZ
      */
-    public int getPREISKNZ() {
+    public Integer getPREISKNZ() {
         return PREISKNZ;
     }
 
@@ -3009,7 +2811,7 @@ public class Auftrag implements Parcelable {
      * @param PREISKNZ
      * The PREISKNZ
      */
-    public void setPREISKNZ(int PREISKNZ) {
+    public void setPREISKNZ(Integer PREISKNZ) {
         this.PREISKNZ = PREISKNZ;
     }
 
@@ -3020,7 +2822,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The ACPPARTPREIS
      */
-    public int getACPPARTPREIS() {
+    public Integer getACPPARTPREIS() {
         return ACPPARTPREIS;
     }
 
@@ -3029,7 +2831,7 @@ public class Auftrag implements Parcelable {
      * @param ACPPARTPREIS
      * The ACPPART_PREIS
      */
-    public void setACPPARTPREIS(int ACPPARTPREIS) {
+    public void setACPPARTPREIS(Integer ACPPARTPREIS) {
         this.ACPPARTPREIS = ACPPARTPREIS;
     }
 
@@ -3060,7 +2862,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The RABKNZBR1
      */
-    public int getRABKNZBR1() {
+    public Integer getRABKNZBR1() {
         return RABKNZBR1;
     }
 
@@ -3069,7 +2871,7 @@ public class Auftrag implements Parcelable {
      * @param RABKNZBR1
      * The RABKNZBR1
      */
-    public void setRABKNZBR1(int RABKNZBR1) {
+    public void setRABKNZBR1(Integer RABKNZBR1) {
         this.RABKNZBR1 = RABKNZBR1;
     }
 
@@ -3080,7 +2882,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The RABKNZMR
      */
-    public int getRABKNZMR() {
+    public Integer getRABKNZMR() {
         return RABKNZMR;
     }
 
@@ -3089,7 +2891,7 @@ public class Auftrag implements Parcelable {
      * @param RABKNZMR
      * The RABKNZMR
      */
-    public void setRABKNZMR(int RABKNZMR) {
+    public void setRABKNZMR(Integer RABKNZMR) {
         this.RABKNZMR = RABKNZMR;
     }
 
@@ -3100,7 +2902,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The RABKNZWR
      */
-    public int getRABKNZWR() {
+    public Integer getRABKNZWR() {
         return RABKNZWR;
     }
 
@@ -3109,7 +2911,7 @@ public class Auftrag implements Parcelable {
      * @param RABKNZWR
      * The RABKNZWR
      */
-    public void setRABKNZWR(int RABKNZWR) {
+    public void setRABKNZWR(Integer RABKNZWR) {
         this.RABKNZWR = RABKNZWR;
     }
 
@@ -3120,7 +2922,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The RABKNZBR2
      */
-    public int getRABKNZBR2() {
+    public Integer getRABKNZBR2() {
         return RABKNZBR2;
     }
 
@@ -3129,7 +2931,7 @@ public class Auftrag implements Parcelable {
      * @param RABKNZBR2
      * The RABKNZBR2
      */
-    public void setRABKNZBR2(int RABKNZBR2) {
+    public void setRABKNZBR2(Integer RABKNZBR2) {
         this.RABKNZBR2 = RABKNZBR2;
     }
 
@@ -3140,7 +2942,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The RABKNZ9
      */
-    public int getRABKNZ9() {
+    public Integer getRABKNZ9() {
         return RABKNZ9;
     }
 
@@ -3149,7 +2951,7 @@ public class Auftrag implements Parcelable {
      * @param RABKNZ9
      * The RABKNZ9
      */
-    public void setRABKNZ9(int RABKNZ9) {
+    public void setRABKNZ9(Integer RABKNZ9) {
         this.RABKNZ9 = RABKNZ9;
     }
 
@@ -3160,7 +2962,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The RABFIXBR1
      */
-    public int getRABFIXBR1() {
+    public Integer getRABFIXBR1() {
         return RABFIXBR1;
     }
 
@@ -3169,7 +2971,7 @@ public class Auftrag implements Parcelable {
      * @param RABFIXBR1
      * The RABFIXBR1
      */
-    public void setRABFIXBR1(int RABFIXBR1) {
+    public void setRABFIXBR1(Integer RABFIXBR1) {
         this.RABFIXBR1 = RABFIXBR1;
     }
 
@@ -3180,7 +2982,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The RABFIXMR
      */
-    public int getRABFIXMR() {
+    public Integer getRABFIXMR() {
         return RABFIXMR;
     }
 
@@ -3189,7 +2991,7 @@ public class Auftrag implements Parcelable {
      * @param RABFIXMR
      * The RABFIXMR
      */
-    public void setRABFIXMR(int RABFIXMR) {
+    public void setRABFIXMR(Integer RABFIXMR) {
         this.RABFIXMR = RABFIXMR;
     }
 
@@ -3200,7 +3002,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The RABFIXWR
      */
-    public int getRABFIXWR() {
+    public Integer getRABFIXWR() {
         return RABFIXWR;
     }
 
@@ -3209,7 +3011,7 @@ public class Auftrag implements Parcelable {
      * @param RABFIXWR
      * The RABFIXWR
      */
-    public void setRABFIXWR(int RABFIXWR) {
+    public void setRABFIXWR(Integer RABFIXWR) {
         this.RABFIXWR = RABFIXWR;
     }
 
@@ -3220,7 +3022,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The RABFIXBR2
      */
-    public int getRABFIXBR2() {
+    public Integer getRABFIXBR2() {
         return RABFIXBR2;
     }
 
@@ -3229,7 +3031,7 @@ public class Auftrag implements Parcelable {
      * @param RABFIXBR2
      * The RABFIXBR2
      */
-    public void setRABFIXBR2(int RABFIXBR2) {
+    public void setRABFIXBR2(Integer RABFIXBR2) {
         this.RABFIXBR2 = RABFIXBR2;
     }
 
@@ -3240,7 +3042,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The RABFIXFR
      */
-    public int getRABFIXFR() {
+    public Integer getRABFIXFR() {
         return RABFIXFR;
     }
 
@@ -3249,7 +3051,7 @@ public class Auftrag implements Parcelable {
      * @param RABFIXFR
      * The RABFIXFR
      */
-    public void setRABFIXFR(int RABFIXFR) {
+    public void setRABFIXFR(Integer RABFIXFR) {
         this.RABFIXFR = RABFIXFR;
     }
 
@@ -3260,7 +3062,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The RABFIXFZ
      */
-    public int getRABFIXFZ() {
+    public Integer getRABFIXFZ() {
         return RABFIXFZ;
     }
 
@@ -3269,7 +3071,7 @@ public class Auftrag implements Parcelable {
      * @param RABFIXFZ
      * The RABFIXFZ
      */
-    public void setRABFIXFZ(int RABFIXFZ) {
+    public void setRABFIXFZ(Integer RABFIXFZ) {
         this.RABFIXFZ = RABFIXFZ;
     }
 
@@ -3280,7 +3082,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The RABAR
      */
-    public int getRABAR() {
+    public Integer getRABAR() {
         return RABAR;
     }
 
@@ -3289,7 +3091,7 @@ public class Auftrag implements Parcelable {
      * @param RABAR
      * The RABAR
      */
-    public void setRABAR(int RABAR) {
+    public void setRABAR(Integer RABAR) {
         this.RABAR = RABAR;
     }
 
@@ -3309,7 +3111,7 @@ public class Auftrag implements Parcelable {
      * @param RABBASBR1
      * The RABBASBR1
      */
-    public void setRABBASBR1(int RABBASBR1) {
+    public void setRABBASBR1(Integer RABBASBR1) {
         this.RABBASBR1 = RABBASBR1;
     }
 
@@ -3329,7 +3131,7 @@ public class Auftrag implements Parcelable {
      * @param RABBASMR
      * The RABBASMR
      */
-    public void setRABBASMR(int RABBASMR) {
+    public void setRABBASMR(Integer RABBASMR) {
         this.RABBASMR = RABBASMR;
     }
 
@@ -3349,7 +3151,7 @@ public class Auftrag implements Parcelable {
      * @param RABBASWR
      * The RABBASWR
      */
-    public void setRABBASWR(int RABBASWR) {
+    public void setRABBASWR(Integer RABBASWR) {
         this.RABBASWR = RABBASWR;
     }
 
@@ -3369,7 +3171,7 @@ public class Auftrag implements Parcelable {
      * @param RABBASBR2
      * The RABBASBR2
      */
-    public void setRABBASBR2(int RABBASBR2) {
+    public void setRABBASBR2(Integer RABBASBR2) {
         this.RABBASBR2 = RABBASBR2;
     }
 
@@ -3389,7 +3191,7 @@ public class Auftrag implements Parcelable {
      * @param RABBASFR
      * The RABBASFR
      */
-    public void setRABBASFR(int RABBASFR) {
+    public void setRABBASFR(Integer RABBASFR) {
         this.RABBASFR = RABBASFR;
     }
 
@@ -3409,7 +3211,7 @@ public class Auftrag implements Parcelable {
      * @param RABBASFZ
      * The RABBASFZ
      */
-    public void setRABBASFZ(int RABBASFZ) {
+    public void setRABBASFZ(Integer RABBASFZ) {
         this.RABBASFZ = RABBASFZ;
     }
 
@@ -3429,7 +3231,7 @@ public class Auftrag implements Parcelable {
      * @param RABBASHR1
      * The RABBASHR1
      */
-    public void setRABBASHR1(int RABBASHR1) {
+    public void setRABBASHR1(Integer RABBASHR1) {
         this.RABBASHR1 = RABBASHR1;
     }
 
@@ -3449,7 +3251,7 @@ public class Auftrag implements Parcelable {
      * @param RABBASHR2
      * The RABBASHR2
      */
-    public void setRABBASHR2(int RABBASHR2) {
+    public void setRABBASHR2(Integer RABBASHR2) {
         this.RABBASHR2 = RABBASHR2;
     }
 
@@ -3469,7 +3271,7 @@ public class Auftrag implements Parcelable {
      * @param RABBAS9
      * The RABBAS9
      */
-    public void setRABBAS9(int RABBAS9) {
+    public void setRABBAS9(Integer RABBAS9) {
         this.RABBAS9 = RABBAS9;
     }
 
@@ -3480,7 +3282,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The RABSUM
      */
-    public int getRABSUM() {
+    public Double getRABSUM() {
         return RABSUM;
     }
 
@@ -3489,7 +3291,7 @@ public class Auftrag implements Parcelable {
      * @param RABSUM
      * The RABSUM
      */
-    public void setRABSUM(int RABSUM) {
+    public void setRABSUM(Double RABSUM) {
         this.RABSUM = RABSUM;
     }
 
@@ -3600,7 +3402,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The ZPROZ
      */
-    public int getZPROZ() {
+    public Integer getZPROZ() {
         return ZPROZ;
     }
 
@@ -3609,7 +3411,7 @@ public class Auftrag implements Parcelable {
      * @param ZPROZ
      * The ZPROZ
      */
-    public void setZPROZ(int ZPROZ) {
+    public void setZPROZ(Integer ZPROZ) {
         this.ZPROZ = ZPROZ;
     }
 
@@ -3640,7 +3442,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The MWSTKNZ
      */
-    public int getMWSTKNZ() {
+    public Integer getMWSTKNZ() {
         return MWSTKNZ;
     }
 
@@ -3649,7 +3451,7 @@ public class Auftrag implements Parcelable {
      * @param MWSTKNZ
      * The MWSTKNZ
      */
-    public void setMWSTKNZ(int MWSTKNZ) {
+    public void setMWSTKNZ(Integer MWSTKNZ) {
         this.MWSTKNZ = MWSTKNZ;
     }
 
@@ -3680,7 +3482,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The MWSTPROZ
      */
-    public int getMWSTPROZ() {
+    public Integer getMWSTPROZ() {
         return MWSTPROZ;
     }
 
@@ -3689,7 +3491,7 @@ public class Auftrag implements Parcelable {
      * @param MWSTPROZ
      * The MWSTPROZ
      */
-    public void setMWSTPROZ(int MWSTPROZ) {
+    public void setMWSTPROZ(Integer MWSTPROZ) {
         this.MWSTPROZ = MWSTPROZ;
     }
 
@@ -3760,7 +3562,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The PROVKNZ1
      */
-    public int getPROVKNZ1() {
+    public Integer getPROVKNZ1() {
         return PROVKNZ1;
     }
 
@@ -3769,7 +3571,7 @@ public class Auftrag implements Parcelable {
      * @param PROVKNZ1
      * The PROVKNZ1
      */
-    public void setPROVKNZ1(int PROVKNZ1) {
+    public void setPROVKNZ1(Integer PROVKNZ1) {
         this.PROVKNZ1 = PROVKNZ1;
     }
 
@@ -3780,7 +3582,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The PROVKNZ2
      */
-    public int getPROVKNZ2() {
+    public Integer getPROVKNZ2() {
         return PROVKNZ2;
     }
 
@@ -3789,7 +3591,7 @@ public class Auftrag implements Parcelable {
      * @param PROVKNZ2
      * The PROVKNZ2
      */
-    public void setPROVKNZ2(int PROVKNZ2) {
+    public void setPROVKNZ2(Integer PROVKNZ2) {
         this.PROVKNZ2 = PROVKNZ2;
     }
 
@@ -3800,7 +3602,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The PROVBAS1
      */
-    public int getPROVBAS1() {
+    public Integer getPROVBAS1() {
         return PROVBAS1;
     }
 
@@ -3809,7 +3611,7 @@ public class Auftrag implements Parcelable {
      * @param PROVBAS1
      * The PROVBAS1
      */
-    public void setPROVBAS1(int PROVBAS1) {
+    public void setPROVBAS1(Integer PROVBAS1) {
         this.PROVBAS1 = PROVBAS1;
     }
 
@@ -3820,7 +3622,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The PROVBAS2
      */
-    public int getPROVBAS2() {
+    public Integer getPROVBAS2() {
         return PROVBAS2;
     }
 
@@ -3829,7 +3631,7 @@ public class Auftrag implements Parcelable {
      * @param PROVBAS2
      * The PROVBAS2
      */
-    public void setPROVBAS2(int PROVBAS2) {
+    public void setPROVBAS2(Integer PROVBAS2) {
         this.PROVBAS2 = PROVBAS2;
     }
 
@@ -3880,7 +3682,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The PROVPROZ1
      */
-    public int getPROVPROZ1() {
+    public Integer getPROVPROZ1() {
         return PROVPROZ1;
     }
 
@@ -3889,7 +3691,7 @@ public class Auftrag implements Parcelable {
      * @param PROVPROZ1
      * The PROVPROZ1
      */
-    public void setPROVPROZ1(int PROVPROZ1) {
+    public void setPROVPROZ1(Integer PROVPROZ1) {
         this.PROVPROZ1 = PROVPROZ1;
     }
 
@@ -3900,7 +3702,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The PROVPROZ2
      */
-    public int getPROVPROZ2() {
+    public Integer getPROVPROZ2() {
         return PROVPROZ2;
     }
 
@@ -3909,7 +3711,7 @@ public class Auftrag implements Parcelable {
      * @param PROVPROZ2
      * The PROVPROZ2
      */
-    public void setPROVPROZ2(int PROVPROZ2) {
+    public void setPROVPROZ2(Integer PROVPROZ2) {
         this.PROVPROZ2 = PROVPROZ2;
     }
 
@@ -3940,7 +3742,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The PROZNP
      */
-    public int getPROZNP() {
+    public Integer getPROZNP() {
         return PROZNP;
     }
 
@@ -3949,7 +3751,7 @@ public class Auftrag implements Parcelable {
      * @param PROZNP
      * The PROZNP
      */
-    public void setPROZNP(int PROZNP) {
+    public void setPROZNP(Integer PROZNP) {
         this.PROZNP = PROZNP;
     }
 
@@ -3960,7 +3762,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The VALUTATAGE
      */
-    public int getVALUTATAGE() {
+    public Integer getVALUTATAGE() {
         return VALUTATAGE;
     }
 
@@ -3969,7 +3771,7 @@ public class Auftrag implements Parcelable {
      * @param VALUTATAGE
      * The VALUTATAGE
      */
-    public void setVALUTATAGE(int VALUTATAGE) {
+    public void setVALUTATAGE(Integer VALUTATAGE) {
         this.VALUTATAGE = VALUTATAGE;
     }
 
@@ -3980,7 +3782,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The SUMMETZINLAND
      */
-    public int getSUMMETZINLAND() {
+    public Integer getSUMMETZINLAND() {
         return SUMMETZINLAND;
     }
 
@@ -3989,7 +3791,7 @@ public class Auftrag implements Parcelable {
      * @param SUMMETZINLAND
      * The SUMMETZINLAND
      */
-    public void setSUMMETZINLAND(int SUMMETZINLAND) {
+    public void setSUMMETZINLAND(Integer SUMMETZINLAND) {
         this.SUMMETZINLAND = SUMMETZINLAND;
     }
 
@@ -4040,7 +3842,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The URSPAUSLAND
      */
-    public int getURSPAUSLAND() {
+    public Integer getURSPAUSLAND() {
         return URSPAUSLAND;
     }
 
@@ -4049,7 +3851,7 @@ public class Auftrag implements Parcelable {
      * @param URSPAUSLAND
      * The URSPAUSLAND
      */
-    public void setURSPAUSLAND(int URSPAUSLAND) {
+    public void setURSPAUSLAND(Integer URSPAUSLAND) {
         this.URSPAUSLAND = URSPAUSLAND;
     }
 
@@ -4060,7 +3862,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The TCALLUP
      */
-    public int getTCALLUP() {
+    public Integer getTCALLUP() {
         return TCALLUP;
     }
 
@@ -4069,7 +3871,7 @@ public class Auftrag implements Parcelable {
      * @param TCALLUP
      * The TCALLUP
      */
-    public void setTCALLUP(int TCALLUP) {
+    public void setTCALLUP(Integer TCALLUP) {
         this.TCALLUP = TCALLUP;
     }
 
@@ -4100,7 +3902,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The DISTACTIVE
      */
-    public int getDISTACTIVE() {
+    public Integer getDISTACTIVE() {
         return DISTACTIVE;
     }
 
@@ -4109,7 +3911,7 @@ public class Auftrag implements Parcelable {
      * @param DISTACTIVE
      * The DISTACTIVE
      */
-    public void setDISTACTIVE(int DISTACTIVE) {
+    public void setDISTACTIVE(Integer DISTACTIVE) {
         this.DISTACTIVE = DISTACTIVE;
     }
 
@@ -4120,7 +3922,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The USVERSKNZ
      */
-    public int getUSVERSKNZ() {
+    public Integer getUSVERSKNZ() {
         return USVERSKNZ;
     }
 
@@ -4129,7 +3931,7 @@ public class Auftrag implements Parcelable {
      * @param USVERSKNZ
      * The USVERSKNZ
      */
-    public void setUSVERSKNZ(int USVERSKNZ) {
+    public void setUSVERSKNZ(Integer USVERSKNZ) {
         this.USVERSKNZ = USVERSKNZ;
     }
 
@@ -4140,7 +3942,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The RESTWERT
      */
-    public int getRESTWERT() {
+    public Integer getRESTWERT() {
         return RESTWERT;
     }
 
@@ -4149,7 +3951,7 @@ public class Auftrag implements Parcelable {
      * @param RESTWERT
      * The RESTWERT
      */
-    public void setRESTWERT(int RESTWERT) {
+    public void setRESTWERT(Integer RESTWERT) {
         this.RESTWERT = RESTWERT;
     }
 
@@ -4160,7 +3962,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The ISTWERT
      */
-    public int getISTWERT() {
+    public Integer getISTWERT() {
         return ISTWERT;
     }
 
@@ -4169,7 +3971,7 @@ public class Auftrag implements Parcelable {
      * @param ISTWERT
      * The ISTWERT
      */
-    public void setISTWERT(int ISTWERT) {
+    public void setISTWERT(Integer ISTWERT) {
         this.ISTWERT = ISTWERT;
     }
 
@@ -4180,7 +3982,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The ABRUFSUMRNR
      */
-    public int getABRUFSUMRNR() {
+    public Integer getABRUFSUMRNR() {
         return ABRUFSUMRNR;
     }
 
@@ -4189,7 +3991,7 @@ public class Auftrag implements Parcelable {
      * @param ABRUFSUMRNR
      * The ABRUFSUMRNR
      */
-    public void setABRUFSUMRNR(int ABRUFSUMRNR) {
+    public void setABRUFSUMRNR(Integer ABRUFSUMRNR) {
         this.ABRUFSUMRNR = ABRUFSUMRNR;
     }
 
@@ -4200,7 +4002,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The LFDNR
      */
-    public int getLFDNR() {
+    public Integer getLFDNR() {
         return LFDNR;
     }
 
@@ -4209,7 +4011,7 @@ public class Auftrag implements Parcelable {
      * @param LFDNR
      * The LFDNR
      */
-    public void setLFDNR(int LFDNR) {
+    public void setLFDNR(Integer LFDNR) {
         this.LFDNR = LFDNR;
     }
 
@@ -4220,7 +4022,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The FPREISBASIS
      */
-    public double getFPREISBASIS() {
+    public Double getFPREISBASIS() {
         return FPREISBASIS;
     }
 
@@ -4229,7 +4031,7 @@ public class Auftrag implements Parcelable {
      * @param FPREISBASIS
      * The F_PREISBASIS
      */
-    public void setFPREISBASIS(int FPREISBASIS) {
+    public void setFPREISBASIS(Double FPREISBASIS) {
         this.FPREISBASIS = FPREISBASIS;
     }
 
@@ -4260,7 +4062,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The SPLITTLIEFRNR
      */
-    public int getSPLITTLIEFRNR() {
+    public Integer getSPLITTLIEFRNR() {
         return SPLITTLIEFRNR;
     }
 
@@ -4269,7 +4071,7 @@ public class Auftrag implements Parcelable {
      * @param SPLITTLIEFRNR
      * The SPLITTLIEFRNR
      */
-    public void setSPLITTLIEFRNR(int SPLITTLIEFRNR) {
+    public void setSPLITTLIEFRNR(Integer SPLITTLIEFRNR) {
         this.SPLITTLIEFRNR = SPLITTLIEFRNR;
     }
 
@@ -4280,7 +4082,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The ENTNAHMEMENGE
      */
-    public int getENTNAHMEMENGE() {
+    public Integer getENTNAHMEMENGE() {
         return ENTNAHMEMENGE;
     }
 
@@ -4289,7 +4091,7 @@ public class Auftrag implements Parcelable {
      * @param ENTNAHMEMENGE
      * The ENTNAHMEMENGE
      */
-    public void setENTNAHMEMENGE(int ENTNAHMEMENGE) {
+    public void setENTNAHMEMENGE(Integer ENTNAHMEMENGE) {
         this.ENTNAHMEMENGE = ENTNAHMEMENGE;
     }
 
@@ -4300,7 +4102,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The RECHNUNGSMENGE
      */
-    public int getRECHNUNGSMENGE() {
+    public Integer getRECHNUNGSMENGE() {
         return RECHNUNGSMENGE;
     }
 
@@ -4309,7 +4111,7 @@ public class Auftrag implements Parcelable {
      * @param RECHNUNGSMENGE
      * The RECHNUNGSMENGE
      */
-    public void setRECHNUNGSMENGE(int RECHNUNGSMENGE) {
+    public void setRECHNUNGSMENGE(Integer RECHNUNGSMENGE) {
         this.RECHNUNGSMENGE = RECHNUNGSMENGE;
     }
 
@@ -4320,7 +4122,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The SPLITTRECHRNR
      */
-    public int getSPLITTRECHRNR() {
+    public Integer getSPLITTRECHRNR() {
         return SPLITTRECHRNR;
     }
 
@@ -4329,7 +4131,7 @@ public class Auftrag implements Parcelable {
      * @param SPLITTRECHRNR
      * The SPLITTRECHRNR
      */
-    public void setSPLITTRECHRNR(int SPLITTRECHRNR) {
+    public void setSPLITTRECHRNR(Integer SPLITTRECHRNR) {
         this.SPLITTRECHRNR = SPLITTRECHRNR;
     }
 
@@ -4340,7 +4142,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The UPBEZUGRNR
      */
-    public int getUPBEZUGRNR() {
+    public Integer getUPBEZUGRNR() {
         return UPBEZUGRNR;
     }
 
@@ -4349,7 +4151,7 @@ public class Auftrag implements Parcelable {
      * @param UPBEZUGRNR
      * The UPBEZUGRNR
      */
-    public void setUPBEZUGRNR(int UPBEZUGRNR) {
+    public void setUPBEZUGRNR(Integer UPBEZUGRNR) {
         this.UPBEZUGRNR = UPBEZUGRNR;
     }
 
@@ -4360,7 +4162,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The LIEFERZEIT
      */
-    public int getLIEFERZEIT() {
+    public Integer getLIEFERZEIT() {
         return LIEFERZEIT;
     }
 
@@ -4369,7 +4171,7 @@ public class Auftrag implements Parcelable {
      * @param LIEFERZEIT
      * The LIEFERZEIT
      */
-    public void setLIEFERZEIT(int LIEFERZEIT) {
+    public void setLIEFERZEIT(Integer LIEFERZEIT) {
         this.LIEFERZEIT = LIEFERZEIT;
     }
 
@@ -4440,7 +4242,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The ULIEFMENGE
      */
-    public int getULIEFMENGE() {
+    public Integer getULIEFMENGE() {
         return ULIEFMENGE;
     }
 
@@ -4449,7 +4251,7 @@ public class Auftrag implements Parcelable {
      * @param ULIEFMENGE
      * The ULIEFMENGE
      */
-    public void setULIEFMENGE(int ULIEFMENGE) {
+    public void setULIEFMENGE(Integer ULIEFMENGE) {
         this.ULIEFMENGE = ULIEFMENGE;
     }
 
@@ -4520,7 +4322,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The FUELLMENGE
      */
-    public int getFUELLMENGE() {
+    public Integer getFUELLMENGE() {
         return FUELLMENGE;
     }
 
@@ -4529,7 +4331,7 @@ public class Auftrag implements Parcelable {
      * @param FUELLMENGE
      * The FUELLMENGE
      */
-    public void setFUELLMENGE(int FUELLMENGE) {
+    public void setFUELLMENGE(Integer FUELLMENGE) {
         this.FUELLMENGE = FUELLMENGE;
     }
 
@@ -4540,7 +4342,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The RECHUENR
      */
-    public int getRECHUENR() {
+    public Integer getRECHUENR() {
         return RECHUENR;
     }
 
@@ -4549,7 +4351,7 @@ public class Auftrag implements Parcelable {
      * @param RECHUENR
      * The RECHUENR
      */
-    public void setRECHUENR(int RECHUENR) {
+    public void setRECHUENR(Integer RECHUENR) {
         this.RECHUENR = RECHUENR;
     }
 
@@ -4580,7 +4382,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The OFFENLIEF
      */
-    public int getOFFENLIEF() {
+    public Integer getOFFENLIEF() {
         return OFFENLIEF;
     }
 
@@ -4589,7 +4391,7 @@ public class Auftrag implements Parcelable {
      * @param OFFENLIEF
      * The OFFENLIEF
      */
-    public void setOFFENLIEF(int OFFENLIEF) {
+    public void setOFFENLIEF(Integer OFFENLIEF) {
         this.OFFENLIEF = OFFENLIEF;
     }
 
@@ -4600,7 +4402,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The OFFENENTN
      */
-    public int getOFFENENTN() {
+    public Integer getOFFENENTN() {
         return OFFENENTN;
     }
 
@@ -4609,7 +4411,7 @@ public class Auftrag implements Parcelable {
      * @param OFFENENTN
      * The OFFENENTN
      */
-    public void setOFFENENTN(int OFFENENTN) {
+    public void setOFFENENTN(Integer OFFENENTN) {
         this.OFFENENTN = OFFENENTN;
     }
 
@@ -4620,7 +4422,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The OFFENRECH
      */
-    public int getOFFENRECH() {
+    public Integer getOFFENRECH() {
         return OFFENRECH;
     }
 
@@ -4629,7 +4431,7 @@ public class Auftrag implements Parcelable {
      * @param OFFENRECH
      * The OFFENRECH
      */
-    public void setOFFENRECH(int OFFENRECH) {
+    public void setOFFENRECH(Integer OFFENRECH) {
         this.OFFENRECH = OFFENRECH;
     }
 
@@ -4640,7 +4442,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The WARENWERT
      */
-    public int getWARENWERT() {
+    public Integer getWARENWERT() {
         return WARENWERT;
     }
 
@@ -4649,7 +4451,7 @@ public class Auftrag implements Parcelable {
      * @param WARENWERT
      * The WARENWERT
      */
-    public void setWARENWERT(int WARENWERT) {
+    public void setWARENWERT(Integer WARENWERT) {
         this.WARENWERT = WARENWERT;
     }
 
@@ -4660,7 +4462,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The SETBEZUGRNR
      */
-    public int getSETBEZUGRNR() {
+    public Integer getSETBEZUGRNR() {
         return SETBEZUGRNR;
     }
 
@@ -4669,7 +4471,7 @@ public class Auftrag implements Parcelable {
      * @param SETBEZUGRNR
      * The SETBEZUGRNR
      */
-    public void setSETBEZUGRNR(int SETBEZUGRNR) {
+    public void setSETBEZUGRNR(Integer SETBEZUGRNR) {
         this.SETBEZUGRNR = SETBEZUGRNR;
     }
 
@@ -4700,7 +4502,7 @@ public class Auftrag implements Parcelable {
      * @return
      * The USEKPREIS
      */
-    public int getUSEKPREIS() {
+    public Integer getUSEKPREIS() {
         return USEKPREIS;
     }
 
@@ -4709,7 +4511,7 @@ public class Auftrag implements Parcelable {
      * @param USEKPREIS
      * The USEKPREIS
      */
-    public void setUSEKPREIS(int USEKPREIS) {
+    public void setUSEKPREIS(Integer USEKPREIS) {
         this.USEKPREIS = USEKPREIS;
     }
 
