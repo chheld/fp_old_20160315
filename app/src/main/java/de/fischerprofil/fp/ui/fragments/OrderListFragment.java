@@ -123,11 +123,12 @@ public class OrderListFragment extends Fragment {
             });
             // start http requests
             mSearchRequestCounter = 0;
-            callAPIOrdersByANR("http://222.222.222.60/api/orders/anr?where=" + search);
-            // TODO: Lade fkt in auftrag verlagern
+            //callAPIOrdersByANR("http://222.222.222.60/api/orders/anr?where=" + search);
+            callAPIOrdersByANR("http://222.222.222.60/api/orders/anr?where=" + search + "&fields=anr,mnr,ktxt,bemerkung,komm,kw,kj");
+            // TODO: Lade-fkt in auftrag verlagern
             // Auftrag auftrag = new Auftrag();
             //auftrag.loadOrderDataByANR(mContext,"http://222.222.222.60/api/orders/anr?where=" + search);
-            callAPIOrdersByMNR("http://222.222.222.60/api/orders/mnr/" + search);
+            callAPIOrdersByMNR("http://222.222.222.60/api/orders/mnr/" + search); //TODO: Fields in URL einbauen
             callAPIOrdersByKTXT("http://222.222.222.60/api/orders/ktxt?where=" + search + "&fields=anr,mnr,ktxt,bemerkung,komm,kw,kj");
         }
     }
