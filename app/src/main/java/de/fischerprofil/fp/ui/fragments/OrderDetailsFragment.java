@@ -24,6 +24,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.NumberFormat;
 import java.util.Locale;
 
 import de.fischerprofil.fp.AppController;
@@ -124,7 +125,7 @@ public  class OrderDetailsFragment extends Fragment {
             }
         });
         req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
-        mAppController.addToRequestQueue(req,VOLLEY_TAG);
+        mAppController.addToRequestQueue(req, VOLLEY_TAG);
     }
 
     private void callAPIAdresseByAdresseNr(String search) {
@@ -363,13 +364,20 @@ public  class OrderDetailsFragment extends Fragment {
             }
 
             //Summen anzeigen
-            tvNetto0.setText(String.format(Locale.GERMANY,"%.2f EUR", mAuftrag.getACPPARTNETTO0()));
-            tvGesamtrabatt.setText(String.format(Locale.GERMANY, "%.2f EUR", mAuftrag.getRABSUM()));
-            tvNetto1.setText(String.format(Locale.GERMANY, "%.2f EUR", mAuftrag.getNETTO1()));
-            tvZusatzaufwand.setText(String.format(Locale.GERMANY, "%.2f EUR", mAuftrag.getZSUM()));
-            tvNetto2.setText(String.format(Locale.GERMANY, "%.2f EUR", mAuftrag.getNETTO2()));
-            tvUmsatzsteuer.setText(String.format(Locale.GERMANY, "%.2f EUR", mAuftrag.getMWSTWERT()));
-            tvBrutto.setText(String.format(Locale.GERMANY, "%.2f EUR", mAuftrag.getBRUTTO()));
+            tvNetto0.setText(getGermanCurrencyFormat(mAuftrag.getACPPARTNETTO0()));
+            tvGesamtrabatt.setText(getGermanCurrencyFormat(mAuftrag.getRABSUM()));
+            tvNetto1.setText(getGermanCurrencyFormat(mAuftrag.getNETTO1()));
+            tvZusatzaufwand.setText(getGermanCurrencyFormat(mAuftrag.getZSUM()));
+            tvNetto2.setText(getGermanCurrencyFormat(mAuftrag.getNETTO2()));
+            tvUmsatzsteuer.setText(getGermanCurrencyFormat(mAuftrag.getMWSTWERT()));
+            tvBrutto.setText(getGermanCurrencyFormat(mAuftrag.getBRUTTO()));
+
         }
+    }
+
+    private String getGermanCurrencyFormat(double value) {
+        NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMAN);
+        nf.setGroupingUsed(true);
+        return nf.format(value) + " EUR";
     }
 }

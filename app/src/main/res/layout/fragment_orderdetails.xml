@@ -465,7 +465,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="&lt;Klasse>"
+                android:text="&lt;>"
                 android:id="@+id/tvKlassifizierung"
                 android:ellipsize="end"
                 android:layout_alignParentEnd="true"
@@ -569,7 +569,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Auftragswerte"
+                android:text="Auftragswert"
                 android:id="@+id/lblAuftragswerte"
                 android:ellipsize="end"
                 android:textAppearance="?android:attr/textAppearanceMedium"
