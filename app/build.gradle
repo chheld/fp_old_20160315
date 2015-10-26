@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 'Google Inc.:Google APIs:22'
+    compileSdkVersion 22
     buildToolsVersion '22.0.1'
     defaultConfig {
         applicationId "de.fischerprofil.fp"
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
-        versionName "0.44d-build-${buildLongDateTime()}"
+        versionName "0.44e-build-${buildLongDateTime()}"
     }
     buildTypes {
         release {

@@ -235,7 +235,7 @@ public class OrderListFragment extends Fragment {
                     mSearchRequestCounter--;
                     if (mSearchRequestCounter < 1) {
                         progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
-                        Toast.makeText(mContext, orders.length() + " Einträge über KTXT gefunden", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(mContext, orders.length() + " Einträge über KTXT gefunden", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

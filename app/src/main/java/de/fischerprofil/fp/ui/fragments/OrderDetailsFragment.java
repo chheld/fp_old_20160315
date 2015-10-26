@@ -62,7 +62,7 @@ public  class OrderDetailsFragment extends Fragment {
         mANr = "";
         //if (getArguments() != null) mANr = getArguments().getString("anr");
         mANr = getArguments().getString("anr");
-        //mANr = "400033"; // TEST
+        mANr = "400033"; // TEST
         callAPIOrderByANR("http://222.222.222.60/api/orders/anr?where=" + mANr);
 
         return mView;
@@ -312,25 +312,30 @@ public  class OrderDetailsFragment extends Fragment {
             if (mAuftrag.getSEGM6ZART()==231) setColorStatusIcon((ImageView) view.findViewById(R.id.ivRG), 10000);
             if (mAuftrag.getSEGM6ZART()==232) setColorStatusIcon((ImageView) view.findViewById(R.id.ivRG), 5000);
 
-            // Termin anzeigen
+            // Termine anzeigen
+            String[] parts;
+
             tvKdWunschTermin.setText(mAuftrag.getUSEINTREFFTERMIN()); //TODO: USEintreffTermin nicht in REST Abfrage ?
             if(tvKdWunschTermin.getText().toString().trim().length()==0) {
                 tvKdWunschTermin.setVisibility(View.GONE);
                 TextView lbl = (TextView) view.findViewById(R.id.lblKdWunschTermin);
                 lbl.setVisibility(View.GONE);
             }
+
             tvKdBestTermin.setText(mAuftrag.getUSEINTREFFTBEST()); // USEintreffTBest
             if(tvKdBestTermin.getText().toString().trim().length()==0) {
                 tvKdBestTermin.setVisibility(View.GONE);
                 TextView lbl = (TextView) view.findViewById(R.id.lblKdBestTermin);
                 lbl.setVisibility(View.GONE);
             }
+
             tvProdPlanTermin.setText(mAuftrag.getSEGM1TERM()); // Segm1.Term
             if(tvProdPlanTermin.getText().toString().trim().length()==0) {
                 tvProdPlanTermin.setVisibility(View.GONE);
                 TextView lbl = (TextView) view.findViewById(R.id.lblProdPlanTermin);
                 lbl.setVisibility(View.GONE);
             }
+
             tvProdDispTermin.setText(mAuftrag.getSEGM2TERM()); // Segm2.Term
             if(tvProdDispTermin.getText().toString().trim().length()==0) {
                 tvProdDispTermin.setVisibility(View.GONE);

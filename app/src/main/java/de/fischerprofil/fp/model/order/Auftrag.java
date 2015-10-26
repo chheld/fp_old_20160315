@@ -1663,7 +1663,15 @@ public class Auftrag implements Parcelable {
      * The SEGM1TERM
      */
     public String getSEGM1TERM() {
-        return SEGM1TERM;
+
+        String[] p;
+
+        if (StringUtils.isNotEmpty(SEGM1TERM)) {
+            p = SEGM1TERM.split(" ");
+            if (p.length==2) return p[0];
+        }
+        return "";
+//        return SEGM1TERM;
     }
 
     /**
@@ -1723,7 +1731,15 @@ public class Auftrag implements Parcelable {
      * The SEGM2TERM
      */
     public String getSEGM2TERM() {
-        return SEGM2TERM;
+
+        String[] p;
+
+        if (StringUtils.isNotEmpty(SEGM2TERM)) {
+            p = SEGM2TERM.split(" ");
+            if (p.length==2) return p[0];
+        }
+        return "";
+//        return SEGM2TERM;
     }
 
     /**
@@ -4283,7 +4299,15 @@ public class Auftrag implements Parcelable {
      * The USEINTREFFTBEST
      */
     public String getUSEINTREFFTBEST() {
-        return USEINTREFFTBEST;
+
+        String[] p;
+
+        if (StringUtils.isNotEmpty(USEINTREFFTBEST)) {
+            p = USEINTREFFTBEST.split(" ");
+            if (p.length==2) return p[0];
+        }
+        return "";
+        //return USEINTREFFTBEST;
     }
 
     /**
@@ -4303,7 +4327,15 @@ public class Auftrag implements Parcelable {
      * The USEINTREFFTERMIN
      */
     public String getUSEINTREFFTERMIN() {
-        return USEINTREFFTERMIN;
+
+        String[] p;
+
+        if (StringUtils.isNotEmpty(USEINTREFFTERMIN)) {
+            p = USEINTREFFTERMIN.split(" ");
+            if (p.length==2) return p[0];
+        }
+        return "";
+        //return USEINTREFFTERMIN;
     }
 
     /**
