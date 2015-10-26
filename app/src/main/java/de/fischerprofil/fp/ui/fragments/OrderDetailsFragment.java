@@ -24,6 +24,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -62,7 +63,7 @@ public  class OrderDetailsFragment extends Fragment {
         mANr = "";
         //if (getArguments() != null) mANr = getArguments().getString("anr");
         mANr = getArguments().getString("anr");
-        mANr = "400033"; // TEST
+//        mANr = "400033"; // TEST
         callAPIOrderByANR("http://222.222.222.60/api/orders/anr?where=" + mANr);
 
         return mView;
@@ -104,7 +105,7 @@ public  class OrderDetailsFragment extends Fragment {
                     Kontakt kontakt = gson.fromJson(contact.getJSONObject(0).toString(), Kontakt.class);
                     String vname = kontakt.getVORNAME() + " ";
                     String nachname = kontakt.getNAME();
-                    tvVertreterName.setText(vname  + nachname);
+                    tvVertreterName.setText(vname + nachname);
                     pbVertreter.setVisibility(View.GONE);
 
                 } catch (JSONException e) {
@@ -313,8 +314,6 @@ public  class OrderDetailsFragment extends Fragment {
             if (mAuftrag.getSEGM6ZART()==232) setColorStatusIcon((ImageView) view.findViewById(R.id.ivRG), 5000);
 
             // Termine anzeigen
-            String[] parts;
-
             tvKdWunschTermin.setText(mAuftrag.getUSEINTREFFTERMIN()); //TODO: USEintreffTermin nicht in REST Abfrage ?
             if(tvKdWunschTermin.getText().toString().trim().length()==0) {
                 tvKdWunschTermin.setVisibility(View.GONE);
@@ -330,6 +329,7 @@ public  class OrderDetailsFragment extends Fragment {
             }
 
             tvProdPlanTermin.setText(mAuftrag.getSEGM1TERM()); // Segm1.Term
+//            tvProdPlanTermin.setText(getGermanDateFormat(mAuftrag.getSEGM1TERM())); // Segm1.Term
             if(tvProdPlanTermin.getText().toString().trim().length()==0) {
                 tvProdPlanTermin.setVisibility(View.GONE);
                 TextView lbl = (TextView) view.findViewById(R.id.lblProdPlanTermin);
@@ -384,5 +384,9 @@ public  class OrderDetailsFragment extends Fragment {
         NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMAN);
         nf.setGroupingUsed(true);
         return nf.format(value) + " EUR";
+    }
+    private String getGermanDateFormat(String value) {
+        DateFormat nf = DateFormat.getDateInstance();
+        return nf.format(value);
     }
 }

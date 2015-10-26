@@ -34,8 +34,9 @@
             android:padding="10dp"
             android:id="@+id/container_auftrag"
             android:layout_margin="5dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="true">
+                android:clickable="true"
+                android:background="#ffffff"
+                android:elevation="5dp">
 
             <ImageView
                 android:layout_height="wrap_content"
@@ -149,9 +150,10 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="false"
             android:padding="10dp"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="#ffffff"
             android:layout_margin="5dp"
-            android:clickable="true">
+            android:clickable="true"
+            android:elevation="5dp">
 
             <ImageView
                 android:layout_height="wrap_content"
@@ -230,7 +232,8 @@
             android:padding="10dp"
             android:layout_margin="5dp"
             android:clickable="true"
-            android:background="?android:attr/selectableItemBackground">
+            android:background="#ffffff"
+            android:elevation="5dp">
 
             <ProgressBar
                 style="?android:attr/progressBarStyleSmall"
@@ -296,9 +299,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:padding="10dp"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="#ffffff"
             android:id="@+id/container_termine"
-            android:clickable="true">
+            android:clickable="true"
+            android:elevation="5dp">
 
             <ImageView
                 android:layout_height="wrap_content"
@@ -413,9 +417,10 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:layout_margin="5dp"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="#ffffff"
             android:id="@+id/container_kunde"
-            android:clickable="true">
+            android:clickable="true"
+            android:elevation="5dp">
 
             <ImageView
                 android:layout_height="wrap_content"
@@ -482,8 +487,9 @@
             android:layout_alignParentStart="true"
             android:padding="10dp"
             android:layout_margin="5dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="true">
+            android:background="#ffffff"
+            android:clickable="true"
+            android:elevation="5dp">
 
             <ProgressBar
                 style="?android:attr/progressBarStyleSmall"
@@ -551,9 +557,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:padding="10dp"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="#ffffff"
             android:id="@+id/container_auftragswerte"
-            android:clickable="true">
+            android:clickable="true"
+            android:elevation="5dp">
 
             <ImageView
                 android:layout_height="30dp"
@@ -733,9 +740,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:padding="10dp"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="#ffffff"
             android:id="@+id/container_artikel"
-            android:clickable="true">
+            android:clickable="true"
+            android:elevation="5dp">
 
             <ImageView
                 android:layout_height="wrap_content"

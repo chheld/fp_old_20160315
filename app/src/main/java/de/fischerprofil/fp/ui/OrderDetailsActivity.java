@@ -103,8 +103,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
         if(tabLayout == null) return;
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.addTab(tabLayout.newTab().setText("Übersicht"));
         tabLayout.addTab(tabLayout.newTab().setText("Details"));
-        tabLayout.addTab(tabLayout.newTab().setText("RAW"));
     }
 
     @Override
