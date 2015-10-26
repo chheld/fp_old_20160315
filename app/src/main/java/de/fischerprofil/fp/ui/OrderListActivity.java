@@ -22,15 +22,15 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Field;
+import java.net.URL;
+import java.net.URLConnection;
+
 import de.fischerprofil.fp.AppController;
 import de.fischerprofil.fp.provider.OrderSuggestionProvider;
 import de.fischerprofil.fp.ui.fragments.AboutFragment;
 import de.fischerprofil.fp.ui.fragments.HintFragment;
 import de.fischerprofil.fp.ui.fragments.OrderListFragment;
-
-import java.lang.reflect.Field;
-import java.net.URL;
-import java.net.URLConnection;
 
 public class OrderListActivity extends AppCompatActivity {
 
@@ -259,7 +259,9 @@ public class OrderListActivity extends AppCompatActivity {
                 PackageManager manager = mContext.getPackageManager();
                 Intent intent = manager.getLaunchIntentForPackage("app.openconnect");
                 //intent.putExtra("Fp", "upb ssl"); // zum direkten Öffenen der FP-Einstellungen, sonst weglassen
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //TODO: wirklich notwendig ?
+                intent.putExtra("app.openconnect","FP");
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //TODO: wirklich notwendig ?
+                intent.setAction(Intent.ACTION_MAIN); // alternative
                 mContext.startActivity(intent);
             }
             catch (Exception e)
