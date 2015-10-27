@@ -14,8 +14,8 @@ import android.widget.ProgressBar;
 import de.fischerprofil.fp.R;
 
 public class WWWFragment extends Fragment {
-	
-    String mURL = "http://222.222.222.60";
+
+    private String mURL = "http://222.222.222.60";
     private Activity mContext;
 
     public WWWFragment() {

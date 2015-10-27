@@ -45,6 +45,8 @@ public class OrderListFragment extends Fragment {
 
     private final String VOLLEY_TAG = "VOLLEY_TAG_OrderListFragment";
 
+    private final String URL = "http://222.222.222.60/api";
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -123,13 +125,13 @@ public class OrderListFragment extends Fragment {
             });
             // start http requests
             mSearchRequestCounter = 0;
-            //callAPIOrdersByANR("http://222.222.222.60/api/orders/anr?where=" + search);
-            callAPIOrdersByANR("http://222.222.222.60/api/orders/anr?where=" + search + "&fields=anr,mnr,ktxt,bemerkung,komm,kw,kj");
+            //callAPIOrdersByANR(URL+"/orders/anr?where=" + search);
+            callAPIOrdersByANR(URL+"/orders/anr?where=" + search + "&fields=anr,mnr,ktxt,bemerkung,komm,kw,kj");
             // TODO: Lade-fkt in auftrag verlagern
             // Auftrag auftrag = new Auftrag();
-            //auftrag.loadOrderDataByANR(mContext,"http://222.222.222.60/api/orders/anr?where=" + search);
-            callAPIOrdersByMNR("http://222.222.222.60/api/orders/mnr/" + search); //TODO: Fields in URL einbauen
-            callAPIOrdersByKTXT("http://222.222.222.60/api/orders/ktxt?where=" + search + "&fields=anr,mnr,ktxt,bemerkung,komm,kw,kj");
+            //auftrag.loadOrderDataByANR(mContext,URL+"/orders/anr?where=" + search);
+            callAPIOrdersByMNR(URL+"/orders/mnr/" + search); //TODO: Fields in URL einbauen
+            callAPIOrdersByKTXT(URL+"/orders/ktxt?where=" + search + "&fields=anr,mnr,ktxt,bemerkung,komm,kw,kj");
         }
     }
 

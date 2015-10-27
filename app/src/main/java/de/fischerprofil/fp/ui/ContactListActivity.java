@@ -1,15 +1,15 @@
 package de.fischerprofil.fp.ui;
 
-import android.content.pm.PackageManager;
-import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -22,16 +22,16 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Field;
+import java.net.URL;
+import java.net.URLConnection;
+
 import de.fischerprofil.fp.AppController;
 import de.fischerprofil.fp.R;
 import de.fischerprofil.fp.provider.OrderSuggestionProvider;
 import de.fischerprofil.fp.ui.fragments.AboutFragment;
 import de.fischerprofil.fp.ui.fragments.ContactListFragment;
 import de.fischerprofil.fp.ui.fragments.HintFragment;
-
-import java.lang.reflect.Field;
-import java.net.URL;
-import java.net.URLConnection;
 
 public class ContactListActivity extends AppCompatActivity {
 
@@ -43,6 +43,8 @@ public class ContactListActivity extends AppCompatActivity {
     private Context mContext;
 
     private final String VOLLEY_TAG = "VOLLEY_TAG_ContactListActivity";
+
+    private final String URL = "http://222.222.222.60/api";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -229,8 +231,8 @@ public class ContactListActivity extends AppCompatActivity {
         protected Boolean doInBackground(String... params) {
             String s = params[0];
             Boolean ret = false;
-            //isURLReachable(); //ok
-            ret  = isConnectedToServer("http://222.222.222.60", 2000);
+//            ret  = isConnectedToServer("http://222.222.222.60", 2000);
+            ret  = isConnectedToServer(URL, 2000);
             Log.d("isConnectedToServer", ret.toString());
             publishProgress(ret);
             return ret;

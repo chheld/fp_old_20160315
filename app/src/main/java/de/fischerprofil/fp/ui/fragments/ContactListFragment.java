@@ -46,6 +46,8 @@ public class ContactListFragment extends Fragment {
 
     private final String VOLLEY_TAG = "VOLLEY_TAG_ContactListFragment";
 
+    private final String URL = "http://222.222.222.60/api";
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -151,11 +153,11 @@ public class ContactListFragment extends Fragment {
             // start http requests
             mSearchRequestCounter = 0;
 
-            callAPIContactsByPersonNr("http://222.222.222.60/api/contacts/personnr?where=" + search);
+            callAPIContactsByPersonNr(URL+"/contacts/personnr?where=" + search);
             //Auftrag auftrag = new Auftrag();
-            //auftrag.loadOrderDataByANR(mContext,"http://222.222.222.60/api/orders/anr?where=" + search);
-            //callAPIOrdersByMNR("http://222.222.222.60/api/orders/mnr/" + search);
-            //callAPIOrdersByKTXT("http://222.222.222.60/api/orders/ktxt?where=" + search + "&fields=anr,mnr,ktxt,bemerkung,komm,kw,kj");
+            //auftrag.loadOrderDataByANR(mContext,URL+"/orders/anr?where=" + search);
+            //callAPIOrdersByMNR(URL+"/orders/mnr/" + search);
+            //callAPIOrdersByKTXT(URL+"/orders/ktxt?where=" + search + "&fields=anr,mnr,ktxt,bemerkung,komm,kw,kj");
         }
     }
 

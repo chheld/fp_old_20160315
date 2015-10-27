@@ -52,6 +52,8 @@ public  class OrderDetailsFragment extends Fragment {
 
     private final String VOLLEY_TAG = "VOLLEY_TAG_OrderDetailsFragment";
 
+    private final String URL = "http://222.222.222.60/api";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -64,7 +66,7 @@ public  class OrderDetailsFragment extends Fragment {
         //if (getArguments() != null) mANr = getArguments().getString("anr");
         mANr = getArguments().getString("anr");
 //        mANr = "400033"; // TEST
-        callAPIOrderByANR("http://222.222.222.60/api/orders/anr?where=" + mANr);
+        callAPIOrderByANR(URL+"/orders/anr?where=" + mANr);
 
         return mView;
     }
@@ -175,7 +177,7 @@ public  class OrderDetailsFragment extends Fragment {
 
     private void callAPIOrderByANR(String search) {
 
-        // Aufruf: callAPIOrderByANR("http://222.222.222.60/api/orders/anr?where=" + search);
+        // Aufruf: callAPIOrderByANR(URL+"/orders/anr?where=" + search);
 
         progressBarAuftrag.setVisibility(View.VISIBLE);
 
@@ -290,11 +292,11 @@ public  class OrderDetailsFragment extends Fragment {
                 layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        callAPIContactByPersonNr("http://222.222.222.60/api/contact/personnr?where=" + mAuftrag.getVERTRETER1());
+                        callAPIContactByPersonNr(URL+"/contact/personnr?where=" + mAuftrag.getVERTRETER1());
                     }
                 });
 
-                callAPIContactByPersonNr("http://222.222.222.60/api/contact/personnr?where=" + mAuftrag.getVERTRETER1());
+                callAPIContactByPersonNr(URL+"/contact/personnr?where=" + mAuftrag.getVERTRETER1());
             }
 
             // Status anzeigen
@@ -362,10 +364,10 @@ public  class OrderDetailsFragment extends Fragment {
                 ly.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        callAPIAdresseByAdresseNr("http://222.222.222.60/api/adresse/adressenr?where=" + mAuftrag.getADRNR2());
+                        callAPIAdresseByAdresseNr(URL+"/adresse/adressenr?where=" + mAuftrag.getADRNR2());
                     }
                 });
-                callAPIAdresseByAdresseNr("http://222.222.222.60/api/adresse/adressenr?where=" + mAuftrag.getADRNR2());
+                callAPIAdresseByAdresseNr(URL+"/adresse/adressenr?where=" + mAuftrag.getADRNR2());
             }
 
             //Summen anzeigen

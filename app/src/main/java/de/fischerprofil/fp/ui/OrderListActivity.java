@@ -43,6 +43,8 @@ public class OrderListActivity extends AppCompatActivity {
 
     private final String VOLLEY_TAG = "VOLLEY_TAG_OrderListActivity";
 
+    private final String URL = "http://222.222.222.60/api";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -229,8 +231,8 @@ public class OrderListActivity extends AppCompatActivity {
         protected Boolean doInBackground(String... params) {
             String s = params[0];
             Boolean ret = false;
-            //isURLReachable(); //ok
-            ret  = isConnectedToServer("http://222.222.222.60", 2000);
+//            ret  = isConnectedToServer("http://222.222.222.60", 2000);
+            ret  = isConnectedToServer(URL, 2000);
             Log.d("isConnectedToServer", ret.toString());
             publishProgress(ret);
             return ret;
