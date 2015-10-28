@@ -44,7 +44,7 @@ public class ContactListActivity extends AppCompatActivity {
 
     private final String VOLLEY_TAG = "VOLLEY_TAG_ContactListActivity";
 
-    private final String URL = "http://222.222.222.60/api";
+    private final String URL = "https://222.222.222.60/api";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -231,7 +231,7 @@ public class ContactListActivity extends AppCompatActivity {
         protected Boolean doInBackground(String... params) {
             String s = params[0];
             Boolean ret = false;
-//            ret  = isConnectedToServer("http://222.222.222.60", 2000);
+//            ret  = isConnectedToServer("https://222.222.222.60", 2000);
             ret  = isConnectedToServer(URL, 2000);
             Log.d("isConnectedToServer", ret.toString());
             publishProgress(ret);

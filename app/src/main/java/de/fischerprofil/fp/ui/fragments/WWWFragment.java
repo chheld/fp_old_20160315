@@ -1,11 +1,13 @@
 package de.fischerprofil.fp.ui.fragments;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
+import android.net.http.SslError;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -15,7 +17,8 @@ import de.fischerprofil.fp.R;
 
 public class WWWFragment extends Fragment {
 
-    private String mURL = "http://222.222.222.60";
+    private String mURL = "https://222.222.222.60";
+//    private String mURL = "https://10.0.2.1"; // test für localen server
     private Activity mContext;
 
     public WWWFragment() {
@@ -52,10 +55,6 @@ public class WWWFragment extends Fragment {
         return rootview;
     }
 
-
-
-
-
     private class CustomWebChromeClient extends WebChromeClient{
         @Override
         public void onProgressChanged(    WebView view,    int newProgress){
@@ -68,11 +67,7 @@ public class WWWFragment extends Fragment {
         }
     }
 
-
-
-
-
-     private class MyWebViewClient extends WebViewClient {
+    private class MyWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             mURL = url;
@@ -83,5 +78,9 @@ public class WWWFragment extends Fragment {
         public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
             //Toast.makeText(mContext, "Oh no! " + description, Toast.LENGTH_SHORT).show();
         }
-    }
+        @Override
+        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+            handler.proceed(); // Ignore SSL certificate errors
+        }
+     }
  }

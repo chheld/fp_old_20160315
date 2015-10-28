@@ -12,7 +12,7 @@ import java.net.URLConnection;
 
 public class VPNUtils {
 
-    private final String URL = "http://222.222.222.60/api";
+    private final String URL = "https://222.222.222.60/api";
 
     public static void makeToast(Context context, String text){
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
@@ -34,7 +34,7 @@ public class VPNUtils {
             String s = params[0];
             Boolean ret = false;
             //isURLReachable(); //ok
-//            ret  = isConnectedToServer("http://222.222.222.60", 2000);
+//            ret  = isConnectedToServer("https://222.222.222.60", 2000);
             ret  = isConnectedToServer(URL, 2000);
             Log.d("isConnectedToServer", ret.toString());
             publishProgress(ret);
