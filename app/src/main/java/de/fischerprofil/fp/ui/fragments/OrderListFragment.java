@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,6 @@ import android.widget.Toast;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
@@ -146,7 +146,7 @@ public class OrderListFragment extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    VolleyLog.v("Response:%n %s", response.toString(4));
+                    Log.v("Volley Response:%n %s", response.toString(4));
                     JSONArray orders = response.getJSONArray("orders");
                     mAuftragsliste.add(orders);
                     mAdapter.notifyDataSetChanged();
@@ -156,8 +156,8 @@ public class OrderListFragment extends Fragment {
                         Toast.makeText(mContext, orders.length() + " Einträge über ANR gefunden", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
-                    e.printStackTrace();
-                    VolleyLog.e("Error: ", e.getMessage());
+                    //e.printStackTrace();
+                    Log.e("Volley Error: ", e.toString());
                     Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                 }
@@ -166,7 +166,7 @@ public class OrderListFragment extends Fragment {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.e("Error: ", error.getMessage());
+                Log.e("Volley Error: ", error.toString());
                 Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
                 //DialogBox dialogBox = new DialogBox(mContext, "Fehler", error.getMessage());
                 //dialogBox.show();
@@ -189,7 +189,7 @@ public class OrderListFragment extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    //VolleyLog.v("Response:%n %s", response.toString(4));
+                    Log.v("Volley Response:%n %s", response.toString(4));
                     //Log.d("JSON", response.toString(4));
                     JSONArray orders = response.getJSONArray("orders");
                     mAuftragsliste.add(orders);
@@ -200,7 +200,7 @@ public class OrderListFragment extends Fragment {
                         Toast.makeText(mContext, orders.length() + " Einträge über MNR gefunden", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Log.e("Volley Error: ", e.toString());
                     progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                 }
             }
@@ -208,7 +208,7 @@ public class OrderListFragment extends Fragment {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.e("Error: ", error.getMessage());
+                Log.e("Volley Error: ", error.toString());
                 Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
                 mSearchRequestCounter--;
                 if (mSearchRequestCounter < 1) progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
@@ -229,7 +229,7 @@ public class OrderListFragment extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    VolleyLog.v("Response:%n %s", response.toString(4));
+                    Log.v("Volley Response:%n %s", response.toString(4));
                     //Log.d("JSON",response.toString(4));
                     JSONArray orders = response.getJSONArray("orders");
                     mAuftragsliste.add(orders);
@@ -240,7 +240,7 @@ public class OrderListFragment extends Fragment {
                         //Toast.makeText(mContext, orders.length() + " Einträge über KTXT gefunden", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Log.e("Volley Error: ", e.toString());
                     progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                 }
             }
@@ -248,7 +248,7 @@ public class OrderListFragment extends Fragment {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.e("Error: ", error.getMessage());
+                Log.e("Volley Error: ", error.toString());
                 Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
                 mSearchRequestCounter--;
                 if (mSearchRequestCounter < 1) progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
