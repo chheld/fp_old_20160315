@@ -51,6 +51,7 @@ public class VolleyGsonRequest<T> extends Request<T>{
     private final String mRequestBody;
 
     private Gson mGson;
+
     private Class<T> mJavaClass;
 
     public VolleyGsonRequest(int method,

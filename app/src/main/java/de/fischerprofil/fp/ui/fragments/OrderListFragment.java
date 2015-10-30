@@ -174,7 +174,8 @@ public class OrderListFragment extends Fragment {
                 if (mSearchRequestCounter < 1) progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
             }
         });
-        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
+//        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
+        req.setRetryPolicy(new DefaultRetryPolicy(0, 0, 0));
         mAppController.addToRequestQueue(req, VOLLEY_TAG);
     }
 
