@@ -7,7 +7,7 @@
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="match_parent"
-        android:layout_height="4dp"
+        android:layout_height="wrap_content"
         style="?android:attr/progressBarStyleHorizontal"
         android:indeterminateTint="#3B7AD6"
         android:indeterminateTintMode="src_in"
@@ -25,7 +25,5 @@
         android:footerDividersEnabled="true"
         android:clickable="true"
         android:dividerHeight="1dp"/>
-
-
 
 </RelativeLayout>

@@ -26,6 +26,4 @@
         android:clickable="true"
         android:dividerHeight="1dp"/>
 
-
-
 </RelativeLayout>
