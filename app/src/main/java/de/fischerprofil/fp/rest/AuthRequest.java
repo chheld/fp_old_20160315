@@ -41,7 +41,8 @@ public class AuthRequest extends JsonObjectRequest {
 
     @Override
     public Map<String, String> getHeaders() throws AuthFailureError {
-        return createBasicAuthHeader("christoph.held@fischerprofil.de", "depp12");
+
+            return createBasicAuthHeader("christoph.held@fischerprofil.de", "depp12");
     }
 
     Map<String, String> createBasicAuthHeader(String username, String password) {
@@ -50,9 +51,11 @@ public class AuthRequest extends JsonObjectRequest {
 
         String credentials = username + ":" + password;
 //        String encodedCredentials = Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-        String encodedCredentials = Base64.encodeToString(credentials.getBytes(), Base64.URL_SAFE|Base64.NO_WRAP);
+        String encodedCredentials = Base64.encodeToString(credentials.getBytes(), Base64.DEFAULT);
         headerMap.put("Authorization", "Basic " + encodedCredentials);
-
+        //headerMap.put("Authorization", "Basic Y2hyaXN0b3BoLmhlbGRAZmlzY2hlcnByb2ZpbC5kZTpkZXBwMTI=" );
+        //Y2hyaXN0b3BoLmhlbGRAZmlzY2hlcnByb2ZpbC5kZTpkZXBwMTI=
         return headerMap;
     }
+
 }
