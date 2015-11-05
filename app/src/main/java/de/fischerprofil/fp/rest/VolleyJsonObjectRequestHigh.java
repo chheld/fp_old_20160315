@@ -1,10 +1,16 @@
 package de.fischerprofil.fp.rest;
 
+import android.util.Base64;
+
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by held on 29.09.2015.
@@ -13,7 +19,9 @@ public class VolleyJsonObjectRequestHigh extends JsonObjectRequest {
 
     Request.Priority mPriority;
 
-    public VolleyJsonObjectRequestHigh(String url, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+    public VolleyJsonObjectRequestHigh(String url,
+                                       Response.Listener<JSONObject> listener,
+                                       Response.ErrorListener errorListener) {
         super(url, listener, errorListener);
         this.setShouldCache(true);
         this.setPriority(Priority.HIGH);
@@ -39,4 +47,20 @@ public class VolleyJsonObjectRequestHigh extends JsonObjectRequest {
         return mPriority != null ? mPriority : Priority.HIGH;
     }
 
+    @Override
+    public Map<String, String> getHeaders() throws AuthFailureError {
+        return createBasicAuthHeader("christoph.held@fischerprofil.de", "xxx");
+    }
+
+    Map<String, String> createBasicAuthHeader(String username, String password) {
+
+        Map<String, String> headerMap = new HashMap<String, String>();
+
+        String credentials = username + ":" + password;
+//        String encodedCredentials = Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+        String encodedCredentials = Base64.encodeToString(credentials.getBytes(), Base64.URL_SAFE | Base64.NO_WRAP);
+        headerMap.put("Authorization", "Basic " + encodedCredentials);
+
+        return headerMap;
+    }
 }

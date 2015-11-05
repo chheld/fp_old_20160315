@@ -27,6 +27,7 @@ import de.fischerprofil.fp.AppController;
 import de.fischerprofil.fp.R;
 import de.fischerprofil.fp.model.order.Auftrag;
 import de.fischerprofil.fp.model.order.Auftragsliste;
+import de.fischerprofil.fp.rest.AuthRequest;
 import de.fischerprofil.fp.ui.OrderDetailsActivity;
 import de.fischerprofil.fp.ui.adapter.OrderListAdapter;
 
@@ -131,8 +132,9 @@ public class OrderListFragment extends Fragment {
             // TODO: Lade-fkt in auftrag verlagern
             // Auftrag auftrag = new Auftrag();
             //auftrag.loadOrderDataByANR(mContext,URL+"/orders/anr?where=" + search);
-            callAPIOrdersByMNR(URL+"/orders/mnr/" + search); //TODO: Fields in URL einbauen
-            callAPIOrdersByKTXT(URL+"/orders/ktxt?where=" + search + "&fields=anr,mnr,ktxt,bemerkung,komm,kw,kj");
+
+            //callAPIOrdersByMNR(URL+"/orders/mnr/" + search); //TODO: Fields in URL einbauen
+            //callAPIOrdersByKTXT(URL+"/orders/ktxt?where=" + search + "&fields=anr,mnr,ktxt,bemerkung,komm,kw,kj");
         }
     }
 
@@ -141,7 +143,8 @@ public class OrderListFragment extends Fragment {
         // Increase counter for pending search requests
         mSearchRequestCounter++;
 
-        JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
+//        JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
+        JsonObjectRequest req = new AuthRequest(search, new Response.Listener<JSONObject>() {
         //VolleyJsonObjectRequestHigh req = new VolleyJsonObjectRequestHigh(search, new Response.Listener<JSONObject>() {
 
             @Override
