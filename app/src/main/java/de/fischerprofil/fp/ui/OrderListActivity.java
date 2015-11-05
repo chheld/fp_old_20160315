@@ -43,7 +43,8 @@ public class OrderListActivity extends AppCompatActivity {
 
     private final String VOLLEY_TAG = "VOLLEY_TAG_OrderListActivity";
 
-    private final String URL = "https://222.222.222.60/api";
+//    private final String URL = "https://222.222.222.60/api";
+    private final String URL = "https://fpvk.fischerprofil.de/api";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,8 +94,8 @@ public class OrderListActivity extends AppCompatActivity {
         }
 
         //TODO: fertigstellen in eigener Klasse VPNUtils
-        checkServerConnection checkServerConnection = new checkServerConnection();
-        checkServerConnection.execute("qw1");
+        //checkServerConnection checkServerConnection = new checkServerConnection();
+        //checkServerConnection.execute("qw1");
     }
 
     @Override

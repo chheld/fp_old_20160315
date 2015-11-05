@@ -52,7 +52,8 @@ public  class OrderDetailsFragment extends Fragment {
 
     private final String VOLLEY_TAG = "VOLLEY_TAG_OrderDetailsFragment";
 
-    private final String URL = "https://222.222.222.60/api";
+    private final String URL = "https://fpvk.fischerprofil.de/api";
+//    private final String URL = "https://222.222.222.60/api";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

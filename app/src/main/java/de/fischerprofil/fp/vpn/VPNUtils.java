@@ -12,7 +12,8 @@ import java.net.URLConnection;
 
 public class VPNUtils {
 
-    private final String URL = "https://222.222.222.60/api";
+    private final String URL = "https://fpvk.fischerprofil.de/api";
+//    private final String URL = "https://222.222.222.60/api";
 
     public static void makeToast(Context context, String text){
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();

@@ -45,7 +45,8 @@ public class OrderListFragment extends Fragment {
 
     private final String VOLLEY_TAG = "VOLLEY_TAG_OrderListFragment";
 
-    private final String URL = "https://222.222.222.60/api";
+    private final String URL = "https://fpvk.fischerprofil.de/api";
+//    private final String URL = "https://222.222.222.60/api";
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -174,8 +175,8 @@ public class OrderListFragment extends Fragment {
                 if (mSearchRequestCounter < 1) progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
             }
         });
-//        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
-        req.setRetryPolicy(new DefaultRetryPolicy(0, 0, 0));
+        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
+//        req.setRetryPolicy(new DefaultRetryPolicy(0, 0, 0));
         mAppController.addToRequestQueue(req, VOLLEY_TAG);
     }
 
@@ -215,8 +216,8 @@ public class OrderListFragment extends Fragment {
                 if (mSearchRequestCounter < 1) progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
             }
         });
-        //req.setRetryPolicy(new DefaultRetryPolicy(3000, 2, 2));
-        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
+        req.setRetryPolicy(new DefaultRetryPolicy(3000, 2, 2));
+//        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
         mAppController.addToRequestQueue(req, VOLLEY_TAG);
     }
 
@@ -255,8 +256,8 @@ public class OrderListFragment extends Fragment {
                 if (mSearchRequestCounter < 1) progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
             }
         });
-        //req.setRetryPolicy(new DefaultRetryPolicy(3000, 2, 3));
-        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
+        req.setRetryPolicy(new DefaultRetryPolicy(3000, 2, 3));
+//        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
         mAppController.addToRequestQueue(req, VOLLEY_TAG);
     }
 }

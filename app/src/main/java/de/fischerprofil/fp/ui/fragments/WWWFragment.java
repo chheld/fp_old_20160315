@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.HttpAuthHandler;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -17,7 +18,8 @@ import de.fischerprofil.fp.R;
 
 public class WWWFragment extends Fragment {
 
-    private String mURL = "https://222.222.222.60";
+    private String mURL = "https://fpvk.fischerprofil.de";
+//    private String mURL = "https://222.222.222.60";
 //    private String mURL = "https://10.0.2.1"; // test für localen server
     private Activity mContext;
 
@@ -61,9 +63,7 @@ public class WWWFragment extends Fragment {
             final ProgressBar progress=(ProgressBar)getView().findViewById(R.id.progressBar);
             progress.setProgress(newProgress);
             progress.setVisibility(View.VISIBLE);
-            if (newProgress == 100) {
-                progress.setVisibility(View.GONE);
-            }
+            if (newProgress == 100) progress.setVisibility(View.GONE);
         }
     }
 
@@ -82,5 +82,9 @@ public class WWWFragment extends Fragment {
         public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
             handler.proceed(); // Ignore SSL certificate errors
         }
-     }
+        @Override
+        public void onReceivedHttpAuthRequest(WebView view, HttpAuthHandler handler, String host, String realm) {
+            handler.proceed("christoph.held@fischerprofil.de", "depp12"); //TODO: Password in Settings speichern
+        }
+    }
  }
