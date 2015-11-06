@@ -19,7 +19,6 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,6 +27,9 @@ import org.json.JSONObject;
 import de.fischerprofil.fp.AppController;
 import de.fischerprofil.fp.model.contact.Kontakt;
 import de.fischerprofil.fp.model.contact.Kontaktliste;
+import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
+import de.fischerprofil.fp.rest.HttpsTrustManager;
+import de.fischerprofil.fp.rest.RestUtils;
 import de.fischerprofil.fp.ui.ContactListActivity;
 import de.fischerprofil.fp.ui.adapter.ContactListAdapter;
 
@@ -46,7 +48,8 @@ public class ContactListFragment extends Fragment {
 
     private final String VOLLEY_TAG = "VOLLEY_TAG_ContactListFragment";
 
-    private final String URL = "https://fpvk.fischerprofil.de/api";
+    private final String URL = RestUtils.getURL();
+//    private final String URL = "https://fpvk.fischerprofil.de/api";
 //    private final String URL = "https://222.222.222.60/api";
 
     @Override
@@ -167,7 +170,10 @@ public class ContactListFragment extends Fragment {
         // Increase counter for pending search requests
         mSearchRequestCounter++;
 
-        JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
+        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+
+        HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
+//            JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {

@@ -29,6 +29,7 @@ import java.net.URLConnection;
 import de.fischerprofil.fp.AppController;
 import de.fischerprofil.fp.R;
 import de.fischerprofil.fp.provider.OrderSuggestionProvider;
+import de.fischerprofil.fp.rest.RestUtils;
 import de.fischerprofil.fp.ui.fragments.AboutFragment;
 import de.fischerprofil.fp.ui.fragments.ContactListFragment;
 import de.fischerprofil.fp.ui.fragments.HintFragment;
@@ -44,7 +45,8 @@ public class ContactListActivity extends AppCompatActivity {
 
     private final String VOLLEY_TAG = "VOLLEY_TAG_ContactListActivity";
 
-    private final String URL = "https://fpvk.fischerprofil.de/api";
+    private final String URL = RestUtils.getURL();
+//    private final String URL = "https://fpvk.fischerprofil.de/api";
 //    private final String URL = "https://222.222.222.60/api";
 
     @Override

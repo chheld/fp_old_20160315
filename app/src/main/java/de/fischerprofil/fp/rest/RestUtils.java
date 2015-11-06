@@ -7,7 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-class VolleyUtils {
+public class RestUtils {
 
     public static void makeToast(Context context, String text){
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
@@ -61,5 +61,9 @@ class VolleyUtils {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static String getURL(){
+        return "https://fpvk.fischerprofil.de/api";
     }
 }

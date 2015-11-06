@@ -17,7 +17,6 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -33,6 +32,9 @@ import de.fischerprofil.fp.R;
 import de.fischerprofil.fp.model.address.Adresse;
 import de.fischerprofil.fp.model.contact.Kontakt;
 import de.fischerprofil.fp.model.order.Auftrag;
+import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
+import de.fischerprofil.fp.rest.HttpsTrustManager;
+import de.fischerprofil.fp.rest.RestUtils;
 
 public  class OrderDetailsFragment extends Fragment {
 
@@ -52,7 +54,7 @@ public  class OrderDetailsFragment extends Fragment {
 
     private final String VOLLEY_TAG = "VOLLEY_TAG_OrderDetailsFragment";
 
-    private final String URL = "https://fpvk.fischerprofil.de/api";
+    private final String URL = RestUtils.getURL();
 //    private final String URL = "https://222.222.222.60/api";
 
     @Override
@@ -95,7 +97,10 @@ public  class OrderDetailsFragment extends Fragment {
 
         pbVertreter.setVisibility(View.VISIBLE);
 
-        JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
+        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+
+        HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
+//            JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
         //VolleyJsonObjectRequestHigh req = new VolleyJsonObjectRequestHigh(search, new Response.Listener<JSONObject>() {
 
             @Override
@@ -136,7 +141,10 @@ public  class OrderDetailsFragment extends Fragment {
 
         pbLieferadresse.setVisibility(View.VISIBLE);
 
-        JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
+        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+
+        HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
+//            JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
         //VolleyJsonObjectRequestHigh req = new VolleyJsonObjectRequestHigh(search, new Response.Listener<JSONObject>() {
 
             @Override
@@ -182,7 +190,10 @@ public  class OrderDetailsFragment extends Fragment {
 
         progressBarAuftrag.setVisibility(View.VISIBLE);
 
-        JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
+        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+
+        HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
+//            JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
         //VolleyJsonObjectRequestHigh req = new VolleyJsonObjectRequestHigh (search, new Response.Listener<JSONObject>() {
 
             @Override

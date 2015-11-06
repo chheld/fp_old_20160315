@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,7 +26,9 @@ import de.fischerprofil.fp.AppController;
 import de.fischerprofil.fp.R;
 import de.fischerprofil.fp.model.order.Auftrag;
 import de.fischerprofil.fp.model.order.Auftragsliste;
-import de.fischerprofil.fp.rest.AuthRequest;
+import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
+import de.fischerprofil.fp.rest.HttpsTrustManager;
+import de.fischerprofil.fp.rest.RestUtils;
 import de.fischerprofil.fp.ui.OrderDetailsActivity;
 import de.fischerprofil.fp.ui.adapter.OrderListAdapter;
 
@@ -46,10 +47,7 @@ public class OrderListFragment extends Fragment {
 
     private final String VOLLEY_TAG = "VOLLEY_TAG_OrderListFragment";
 
-    private final String URL = "https://fpvk.fischerprofil.de/api";
-//    private final String URL = "https://222.222.222.60/api";
-
-    @Override
+    private final String URL = RestUtils.getURL();
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null) {
@@ -88,8 +86,7 @@ public class OrderListFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        // This will tell to Volley to cancel all the pending requests
-        mAppController.cancelPendingRequests(VOLLEY_TAG);
+        mAppController.cancelPendingRequests(VOLLEY_TAG); // Cancel all volley pending requests
     }
 
     private void doSearch(String search) {
@@ -133,18 +130,19 @@ public class OrderListFragment extends Fragment {
             // Auftrag auftrag = new Auftrag();
             //auftrag.loadOrderDataByANR(mContext,URL+"/orders/anr?where=" + search);
 
-            //callAPIOrdersByMNR(URL+"/orders/mnr/" + search); //TODO: Fields in URL einbauen
-            //callAPIOrdersByKTXT(URL+"/orders/ktxt?where=" + search + "&fields=anr,mnr,ktxt,bemerkung,komm,kw,kj");
+            callAPIOrdersByMNR(URL+"/orders/mnr/" + search); //TODO: Fields in URL einbauen
+            callAPIOrdersByKTXT(URL + "/orders/ktxt?where=" + search + "&fields=anr,mnr,ktxt,bemerkung,komm,kw,kj");
         }
     }
 
     private void callAPIOrdersByANR(String search) {
 
-        // Increase counter for pending search requests
-        mSearchRequestCounter++;
+        mSearchRequestCounter++; // Increase counter for pending search requests
 
-//        JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
-        JsonObjectRequest req = new AuthRequest(search, new Response.Listener<JSONObject>() {
+        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+
+        HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
+        //JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
         //VolleyJsonObjectRequestHigh req = new VolleyJsonObjectRequestHigh(search, new Response.Listener<JSONObject>() {
 
             @Override
@@ -179,16 +177,17 @@ public class OrderListFragment extends Fragment {
             }
         });
         req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
-//        req.setRetryPolicy(new DefaultRetryPolicy(0, 0, 0));
         mAppController.addToRequestQueue(req, VOLLEY_TAG);
     }
 
     private void callAPIOrdersByMNR(String search) {
 
-        // Increase counter for pending search requests
-        mSearchRequestCounter++;
+        mSearchRequestCounter++; // Increase counter for pending search requests
 
-        JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
+        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+
+        HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
+//        JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
         //VolleyJsonObjectRequestHigh req = new VolleyJsonObjectRequestHigh(search, new Response.Listener<JSONObject>() {
 
             @Override
@@ -219,17 +218,18 @@ public class OrderListFragment extends Fragment {
                 if (mSearchRequestCounter < 1) progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
             }
         });
-        req.setRetryPolicy(new DefaultRetryPolicy(3000, 2, 2));
-//        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
+        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
         mAppController.addToRequestQueue(req, VOLLEY_TAG);
     }
 
     private void callAPIOrdersByKTXT(String search) {
 
-        // Increase Counter for Progressbar
-        mSearchRequestCounter++;
+        mSearchRequestCounter++; // Increase Counter for Progressbar
 
-        JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
+        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+
+        HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
+//            JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -259,8 +259,7 @@ public class OrderListFragment extends Fragment {
                 if (mSearchRequestCounter < 1) progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
             }
         });
-        req.setRetryPolicy(new DefaultRetryPolicy(3000, 2, 3));
-//        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
+        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
         mAppController.addToRequestQueue(req, VOLLEY_TAG);
     }
 }

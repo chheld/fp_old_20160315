@@ -10,9 +10,12 @@ import android.widget.Toast;
 import java.net.URL;
 import java.net.URLConnection;
 
+import de.fischerprofil.fp.rest.RestUtils;
+
 public class VPNUtils {
 
-    private final String URL = "https://fpvk.fischerprofil.de/api";
+    private final String URL = RestUtils.getURL();
+//    private final String URL = "https://fpvk.fischerprofil.de/api";
 //    private final String URL = "https://222.222.222.60/api";
 
     public static void makeToast(Context context, String text){
