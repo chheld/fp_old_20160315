@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case "Einstellungen Demo":
-                //showSettings();
+                showSettings();
                 break;
 
             default:
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showSettings(){
-//        Intent intent = new Intent(this, test_SettingsActivity.class);
+//        Intent intent = new Intent(this, SetPreferenceActivity.class);
 //        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //        startActivity(intent);
     }
