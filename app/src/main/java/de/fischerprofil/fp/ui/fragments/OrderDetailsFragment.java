@@ -56,7 +56,6 @@ public  class OrderDetailsFragment extends Fragment {
     private final String VOLLEY_TAG = "VOLLEY_TAG_OrderDetailsFragment";
 
     private final String URL = RestUtils.getURL();
-//    private final String URL = "https://222.222.222.60/api";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,9 +68,20 @@ public  class OrderDetailsFragment extends Fragment {
         mANr = "";
         //if (getArguments() != null) mANr = getArguments().getString("anr");
         mANr = getArguments().getString("anr");
-//        mANr = "400033"; // TEST
+        //mANr = "400033"; // TEST
 
-//        callAPIOrderByANR(URL+"/orders/anr?where=" + mANr);
+        //        callAPIOrderByANR(URL+"/orders/anr?where=" + mANr);
+
+        // Auftragsinhalte: manuell laden ermöglichen
+        RelativeLayout layout = (RelativeLayout)  mView.findViewById(R.id.container_auftrag);
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callAPIOrderByANR(URL + "/orders?qry=byANr&anr=" + mANr);
+            }
+        });
+
+        // Auftragsinhalte automatisch laden
         callAPIOrderByANR(URL+"/orders?qry=byANr&anr=" + mANr);
 
         return mView;
@@ -188,8 +198,6 @@ public  class OrderDetailsFragment extends Fragment {
     }
 
     private void callAPIOrderByANR(String search) {
-
-        // Aufruf: callAPIOrderByANR(URL+"/orders/anr?where=" + search);
 
         progressBarAuftrag.setVisibility(View.VISIBLE);
 

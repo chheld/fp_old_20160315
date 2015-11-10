@@ -11,15 +11,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/container_progressbar">
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/progressBarAuftrag"
-            android:indeterminate="true"
-            android:indeterminateTint="#3B7AD6"
-            android:indeterminateTintMode="src_in"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp" />
 
         <LinearLayout
 
@@ -38,7 +29,17 @@
                 android:background="#ffffff"
                 android:elevation="5dp">
 
-            <ImageView
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/progressBarAuftrag"
+                    android:indeterminate="true"
+                    android:indeterminateTint="#3B7AD6"
+                    android:indeterminateTintMode="src_in"
+                    android:layout_centerInParent="true"
+                    style="?android:attr/progressBarStyleSmall" />
+
+                <ImageView
                 android:layout_height="wrap_content"
                 android:id="@+id/ivOrder"
                 android:src="@drawable/ic_order"
@@ -140,7 +141,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_alignTop="@+id/lblAuftrag" />
 
-        </RelativeLayout>
+            </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -244,8 +245,7 @@
                 android:indeterminate="true"
                 android:indeterminateTint="#3B7AD6"
                 android:indeterminateTintMode="src_in"
-                android:layout_gravity="center"
-                android:visibility="gone" />
+                android:layout_gravity="center" />
 
             <ImageView
                 android:layout_height="wrap_content"
@@ -470,7 +470,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="&lt;>"
+                android:text="&lt;Klasse>"
                 android:id="@+id/tvKlassifizierung"
                 android:ellipsize="end"
                 android:layout_alignParentEnd="true"
@@ -500,8 +500,7 @@
                 android:indeterminate="true"
                 android:indeterminateTint="#3B7AD6"
                 android:indeterminateTintMode="src_in"
-                android:layout_gravity="center"
-                android:visibility="gone" />
+                android:layout_gravity="center" />
 
             <ImageView
                 android:layout_height="wrap_content"
@@ -767,7 +766,11 @@
         </RelativeLayout>
 
 
-    </LinearLayout>
+        </LinearLayout>
+
+
+
 
     </RelativeLayout>
+
 </ScrollView>

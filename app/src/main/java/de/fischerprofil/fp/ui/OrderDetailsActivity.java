@@ -46,7 +46,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-            //getSupportActionBar().setTitle("Auftrag " + s);
+            getSupportActionBar().setTitle("Auftrag " + anr);
             //getSupportActionBar().setSubtitle(a);
             //TODO:  in setupToolbar() auslagern;
         }

@@ -15,11 +15,12 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import de.fischerprofil.fp.R;
+import de.fischerprofil.fp.rest.RestUtils;
 
 public class WWWFragment extends Fragment {
 
-    private String mURL = "https://fpvk.fischerprofil.de/api/contact/personnr?where=57";
-//    private String mURL = RestUtils.getURL();
+//    private String mURL = "https://fpvk.fischerprofil.de/api/contact/personnr?where=57";
+    private String mURL = RestUtils.getURL();
 //    private String mURL = "https://fpvk.fischerprofil.de";
 //    private String mURL = "https://222.222.222.60";
 //    private String mURL = "https://10.0.2.1"; // test für localen server

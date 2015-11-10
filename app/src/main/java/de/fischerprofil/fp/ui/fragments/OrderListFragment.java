@@ -86,7 +86,7 @@ public class OrderListFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        mAppController.cancelPendingRequests(VOLLEY_TAG); // Cancel all volley pending requests
+        mAppController.cancelPendingRequests(VOLLEY_TAG); // Cancel all Volley pending requests
     }
 
     private void doSearch(String search) {
@@ -128,11 +128,11 @@ public class OrderListFragment extends Fragment {
 //            callAPIOrdersByMNR(URL+"/orders/mnr/" + search); //TODO: Fields in URL einbauen
 //            callAPIOrdersByKTXT(URL + "/orders/ktxt?where=" + search + "&fields=anr,mnr,ktxt,bemerkung,komm,kw,kj");
 
-            callAPIOrdersByANR(URL + "/orders?qry=ListByANr&anr=" + search + "%25"); // % = %25
-            callAPIOrdersByMNR(URL + "/orders?qry=ListByMNr&mnr=" + search + "%25");// % = %25
-            callAPIOrdersByKTXT(URL + "/orders?qry=ListByKtxt&ktxt=" + search + "%25");// % = %25
+            callAPIOrdersByANR(URL + "/orders?qry=OrderListByANr&anr=" + search + "%25"); // % = %25
+            callAPIOrdersByMNR(URL + "/orders?qry=OrderListByMNr&mnr=" + search + "%25");// % = %25
+            callAPIOrdersByKTXT(URL + "/orders?qry=OrderListByKtxt&ktxt=" + search + "%25");// % = %25
 
-            // TODO: Lade-fkt in auftrag verlagern
+            // TODO: Lade-Fkt in auftrag verlagern
             // Auftrag auftrag = new Auftrag();
             //auftrag.loadOrderDataByANR(mContext,URL+"/orders/anr?where=" + search);
         }
@@ -161,7 +161,6 @@ public class OrderListFragment extends Fragment {
                         Toast.makeText(mContext, orders.length() + " Einträge über ANR gefunden", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
-                    //e.printStackTrace();
                     Log.e("Volley Error: ", e.toString());
                     Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
@@ -195,7 +194,6 @@ public class OrderListFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 try {
                     Log.v("Volley Response:%n %s", response.toString(4));
-                    //Log.d("JSON", response.toString(4));
                     JSONArray orders = response.getJSONArray("orders");
                     mAuftragsliste.add(orders);
                     mAdapter.notifyDataSetChanged();
@@ -237,7 +235,6 @@ public class OrderListFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 try {
                     Log.v("Volley Response:%n %s", response.toString(4));
-                    //Log.d("JSON",response.toString(4));
                     JSONArray orders = response.getJSONArray("orders");
                     mAuftragsliste.add(orders);
                     mAdapter.notifyDataSetChanged();
