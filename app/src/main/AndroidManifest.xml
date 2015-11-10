@@ -25,15 +25,6 @@
         </activity>
 
         <activity
-            android:name="de.fischerprofil.fp.test.test_SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:parentActivityName="de.fischerprofil.fp.ui.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.fischerprofil.fp.ui.MainActivity" />
-        </activity>
-
-        <activity
             android:name="de.fischerprofil.fp.ui.OrderListActivity"
             android:label="@string/title_activity_orders"
             android:launchMode="singleTop"

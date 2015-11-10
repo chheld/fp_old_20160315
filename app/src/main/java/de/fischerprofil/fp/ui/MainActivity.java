@@ -17,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import de.fischerprofil.fp.test.test_SettingsActivity;
 import de.fischerprofil.fp.ui.fragments.AboutFragment;
 import de.fischerprofil.fp.ui.fragments.WWWFragment;
 
@@ -65,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
         switch (i) {
 
             case "Home": // testeintrag
-                //fragment = new test_PrefsFragment();//test_FragmentOne();
                 break;
 
             case "Browser":
@@ -92,8 +90,8 @@ public class MainActivity extends AppCompatActivity {
                 //activateVPN();
                 break;
 
-            case "Einstellungen":
-                showSettings();
+            case "Einstellungen Demo":
+                //showSettings();
                 break;
 
             default:
@@ -123,9 +121,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showSettings(){
-        Intent intent = new Intent(this, test_SettingsActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+//        Intent intent = new Intent(this, test_SettingsActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(intent);
     }
 
     @Override
