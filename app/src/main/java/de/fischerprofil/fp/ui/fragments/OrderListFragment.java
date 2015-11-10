@@ -124,14 +124,17 @@ public class OrderListFragment extends Fragment {
             });
             // start http requests
             mSearchRequestCounter = 0;
-            //callAPIOrdersByANR(URL+"/orders/anr?where=" + search);
-            callAPIOrdersByANR(URL+"/orders/anr?where=" + search + "&fields=anr,mnr,ktxt,bemerkung,komm,kw,kj");
+//            callAPIOrdersByANR(URL+"/orders/anr?where=" + search + "&fields=anr,mnr,ktxt,bemerkung,komm,kw,kj");
+//            callAPIOrdersByMNR(URL+"/orders/mnr/" + search); //TODO: Fields in URL einbauen
+//            callAPIOrdersByKTXT(URL + "/orders/ktxt?where=" + search + "&fields=anr,mnr,ktxt,bemerkung,komm,kw,kj");
+
+            callAPIOrdersByANR(URL + "/orders?qry=ListByANr&anr=" + search + "%25"); // % = %25
+            callAPIOrdersByMNR(URL + "/orders?qry=ListByMNr&mnr=" + search + "%25");// % = %25
+            callAPIOrdersByKTXT(URL + "/orders?qry=ListByKtxt&ktxt=" + search + "%25");// % = %25
+
             // TODO: Lade-fkt in auftrag verlagern
             // Auftrag auftrag = new Auftrag();
             //auftrag.loadOrderDataByANR(mContext,URL+"/orders/anr?where=" + search);
-
-            callAPIOrdersByMNR(URL+"/orders/mnr/" + search); //TODO: Fields in URL einbauen
-            callAPIOrdersByKTXT(URL + "/orders/ktxt?where=" + search + "&fields=anr,mnr,ktxt,bemerkung,komm,kw,kj");
         }
     }
 
@@ -170,8 +173,6 @@ public class OrderListFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 Log.e("Volley Error: ", error.toString());
                 Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
-                //DialogBox dialogBox = new DialogBox(mContext, "Fehler", error.getMessage());
-                //dialogBox.show();
                 mSearchRequestCounter--;
                 if (mSearchRequestCounter < 1) progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
             }
@@ -205,6 +206,7 @@ public class OrderListFragment extends Fragment {
                     }
                 } catch (JSONException e) {
                     Log.e("Volley Error: ", e.toString());
+                    Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                 }
             }
@@ -242,10 +244,11 @@ public class OrderListFragment extends Fragment {
                     mSearchRequestCounter--;
                     if (mSearchRequestCounter < 1) {
                         progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
-                        //Toast.makeText(mContext, orders.length() + " Einträge über KTXT gefunden", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, orders.length() + " Einträge über KTXT gefunden", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     Log.e("Volley Error: ", e.toString());
+                    Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                 }
             }

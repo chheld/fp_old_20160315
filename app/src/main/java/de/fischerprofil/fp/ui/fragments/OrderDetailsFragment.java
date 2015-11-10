@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.ClipDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,7 +70,9 @@ public  class OrderDetailsFragment extends Fragment {
         //if (getArguments() != null) mANr = getArguments().getString("anr");
         mANr = getArguments().getString("anr");
 //        mANr = "400033"; // TEST
-        callAPIOrderByANR(URL+"/orders/anr?where=" + mANr);
+
+//        callAPIOrderByANR(URL+"/orders/anr?where=" + mANr);
+        callAPIOrderByANR(URL+"/orders?qry=byANr&anr=" + mANr);
 
         return mView;
     }
@@ -199,17 +202,16 @@ public  class OrderDetailsFragment extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    //VolleyLog.v("Response:%n %s", response.toString(4));
+                    Log.v("Volley Response:%n %s", response.toString(4));
                     JSONArray orders = response.getJSONArray("orders");
                     Gson gson = new Gson();
                     mAuftrag = gson.fromJson(orders.getJSONObject(0).toString(), Auftrag.class);
                     setupLayout(mView);
                     progressBarAuftrag.setVisibility(View.GONE);  // Fortschritt ausblenden
-                    //Toast.makeText(mContext, orders.length() + " Einträge über ANR gefunden", Toast.LENGTH_SHORT).show();
                 }
                 catch (JSONException e) {
-                    e.printStackTrace();
-                    VolleyLog.e("Error: ", e.getMessage());
+                    //e.printStackTrace();
+                    Log.e("Volley Error: ", e.toString());
                     Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
                     progressBarAuftrag.setVisibility(View.GONE);  // Fortschritt ausblenden
                 }
@@ -218,7 +220,7 @@ public  class OrderDetailsFragment extends Fragment {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.e("Error: ", error.getMessage());
+                Log.e("Volley Error: ", error.toString());
                 Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
                 progressBarAuftrag.setVisibility(View.GONE);  // Fortschritt ausblenden
             }
