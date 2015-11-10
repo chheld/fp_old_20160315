@@ -284,7 +284,7 @@ public  class OrderDetailsFragment extends Fragment {
         if (mAuftrag!=null) {
 
             // Auftrag anzeigen
-            tvANr.setText(mAuftrag.getANR());
+            tvANr.setText("Auftrag Nr. " + mAuftrag.getANR());
             tvBemerkung.setText(mAuftrag.getBEMERKUNG());
             if(tvBemerkung.getText().toString().trim().length()==0)  tvBemerkung.setVisibility(View.GONE);
             tvBestellnummer.setText(mAuftrag.getBELEGNRBEST());
@@ -409,6 +409,7 @@ public  class OrderDetailsFragment extends Fragment {
         nf.setGroupingUsed(true);
         return nf.format(value) + " EUR";
     }
+
     private String getGermanDateFormat(String value) {
         DateFormat nf = DateFormat.getDateInstance();
         return nf.format(value);
