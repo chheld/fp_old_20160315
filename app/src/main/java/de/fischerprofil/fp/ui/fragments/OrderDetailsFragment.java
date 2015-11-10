@@ -303,7 +303,7 @@ public  class OrderDetailsFragment extends Fragment {
             }
 
             // Vertreter anzeigen
-            tvVertr1.setText(mAuftrag.getVERTRETER1());
+            tvVertr1.setText("Verkäufer Nr. " + mAuftrag.getVERTRETER1());
             if(tvVertr1.getText().toString().trim().length()==0) {
                 tvVertr1.setVisibility(View.GONE);
             }
@@ -368,14 +368,14 @@ public  class OrderDetailsFragment extends Fragment {
             }
 
             // Kunden anzeigen
-            tvKdNr.setText(mAuftrag.getMNR());
+            tvKdNr.setText("Kunde Nr. " + mAuftrag.getMNR());
             tvKTxt.setText(mAuftrag.getKTXT());
             if(tvKTxt.getText().toString().trim().length()==0)  tvKTxt.setVisibility(View.GONE);
             tvKW.setText(Integer.toString(mAuftrag.getKW()));
             tvKJ.setText(Integer.toString(mAuftrag.getKJ()));
 
             // Lieferanschrift anzeigen
-            tvLieferadresseNr.setText(mAuftrag.getADRNR2());
+            tvLieferadresseNr.setText("Adresse Nr. " + mAuftrag.getADRNR2());
             if(tvLieferadresseNr.getText().toString().trim().length()==0) {
                 tvLieferadresseNr.setVisibility(View.GONE);
             }
