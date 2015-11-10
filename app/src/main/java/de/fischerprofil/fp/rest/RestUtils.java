@@ -9,6 +9,9 @@ import java.io.InputStreamReader;
 
 public class RestUtils {
 
+    private String mUsername;
+    private String mPassword;
+
     public static void makeToast(Context context, String text){
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
     }
@@ -66,4 +69,9 @@ public class RestUtils {
     public static String getURL(){
         return "https://fpvk.fischerprofil.de/api";
     }
+
+    public String getUsername() {return mUsername;}
+
+    public String getPassword() {return mPassword;}
+
 }
