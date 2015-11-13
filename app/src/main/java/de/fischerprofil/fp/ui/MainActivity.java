@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import de.fischerprofil.fp.test.UserSettingsActivity;
 import de.fischerprofil.fp.ui.fragments.AboutFragment;
 import de.fischerprofil.fp.ui.fragments.WWWFragment;
 
@@ -121,9 +122,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showSettings(){
-//        Intent intent = new Intent(this, SetPreferenceActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        startActivity(intent);
+        Intent intent = new Intent(this, UserSettingsActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     @Override

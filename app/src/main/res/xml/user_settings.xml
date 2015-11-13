@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Zugangsdaten">
+
+        <Preference
+            android:title="Benutzer"
+            android:summary="max.mustermann@fischerprofil.de"
+            android:key="username" />
+
+        <Preference
+            android:title="Passwort"
+            android:summary="meinPasswort"
+            android:key="password" />
+
+        <EditTextPreference
+            android:title="Email"
+            android:summary="max.mustermann@fischerprofil.de"
+            android:key="email" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="DEMO Advanced">
+
+        <CheckBoxPreference
+            android:title="Receive Notifications"
+            android:summary="Want to receive Push Notifications ?"
+            android:key="receiveNotifications"
+            android:defaultValue="true" />
+
+        <!--<ListPreference-->
+            <!--android:title="Country"-->
+            <!--android:key="country"-->
+            <!--android:entries="@array/country"-->
+            <!--android:entryValues="@array/countryValues" />-->
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="DEMO Sub Screens">
+
+        <PreferenceScreen
+            android:key="voicemail_category"
+            android:title="Voicemail"
+            android:persistent="false">
+
+            <Preference
+                android:title="Provider"
+                android:summary="Airtel"
+                android:key="provider" />
+
+            <!-- and other preference objects ... -->
+
+        </PreferenceScreen>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

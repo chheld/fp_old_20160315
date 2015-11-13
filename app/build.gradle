@@ -8,7 +8,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
-        versionName "0.48b-build-${buildLongDateTime()}"
+        versionName "0.48d-build-${buildLongDateTime()}"
     }
     buildTypes {
         release {
@@ -34,6 +34,7 @@ dependencies {
     compile 'com.android.support:support-annotations:22.0.1'
     compile 'org.apache.directory.studio:org.apache.commons.lang:2.6'
     compile 'com.mcxiaoke.volley:library:1.0.19'
+//    compile 'org.lucasr.dspec:dspec:0.1.1'
 }
 
 def buildLongDateTime() {
