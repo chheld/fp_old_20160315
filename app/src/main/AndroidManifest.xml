@@ -13,20 +13,21 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.DesignDemo"
+        android:theme="@style/Theme.FP"
         android:name="de.fischerprofil.fp.AppController" >
 
 
-        <activity android:name="de.fischerprofil.fp.test.UserSettingsActivity" >
+        <activity android:name="de.fischerprofil.fp.test.UserSettingsActivity"
+            android:theme="@style/PreferenceScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
 
-        <activity android:name="de.fischerprofil.fp.ui.MainActivity" >
+        <activity
+            android:name="de.fischerprofil.fp.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />

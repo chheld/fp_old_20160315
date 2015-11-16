@@ -406,6 +406,7 @@ public  class OrderDetailsFragment extends Fragment {
 
     private String getGermanCurrencyFormat(double value) {
         NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMAN);
+        nf.setMaximumIntegerDigits(2);
         nf.setGroupingUsed(true);
         return nf.format(value) + " EUR";
     }

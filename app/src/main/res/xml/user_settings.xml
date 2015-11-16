@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
     <PreferenceCategory
         android:title="Zugangsdaten">
 
@@ -17,7 +16,8 @@
         <EditTextPreference
             android:title="Email"
             android:summary="max.mustermann@fischerprofil.de"
-            android:key="email" />
+            android:key="email"
+            android:defaultValue="vorname.nachname@fischerprofil.de"/>
 
     </PreferenceCategory>
 
