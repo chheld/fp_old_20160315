@@ -29,6 +29,7 @@ public class EditTextPreferenceWithSummary extends EditTextPreference {
     public void updateSummary()
     {
         String value = "";
+        String text = "";
         int variation = (this.getEditText().getInputType() & InputType.TYPE_MASK_VARIATION);
         Boolean isPassword = ((variation  == InputType.TYPE_NUMBER_VARIATION_PASSWORD)
                 ||(variation  == InputType.TYPE_TEXT_VARIATION_PASSWORD)
@@ -36,7 +37,11 @@ public class EditTextPreferenceWithSummary extends EditTextPreference {
 
         if (isPassword)
         {
-            value = this.getText().replaceAll(".", "*");
+            text=this.getText();
+            if (text!=null) {
+                if (text.length()!=0) value = "**********";
+            }
+//            value = this.getText().replaceAll("ooo", "*");
         }
         else
         {
