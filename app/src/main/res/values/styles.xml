@@ -3,27 +3,13 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style
-        name="Theme.FP"
-        parent="Base.Theme.DesignDemo">
-    </style>
-
-    <style
-        name="Base.Theme.DesignDemo"
-        parent="Theme.AppCompat.Light.NoActionBar">
+        name="Theme.FP" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">#3B7AD6</item>
         <item name="colorPrimaryDark">#3064B1</item>
-        <item name="colorAccent">#DDDDDD</item>
+        <item name="colorAccent">#3B7AD6</item>
         <item name="android:windowBackground">@color/window_background</item>
 
     </style>
 
-    <style name="PreferenceScreen" parent="Theme.FP">
-        <item name="android:textColor">#3B7AD6</item>
-        <item name="android:preferenceCategoryStyle">@style/PreferenceCat</item>
-    </style>
-
-    <style name="PreferenceCat" parent="">
-        <item name="android:textColor">#3B7AD6</item>
-    </style>
 
 </resources>

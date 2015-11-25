@@ -17,8 +17,7 @@
         android:name="de.fischerprofil.fp.AppController" >
 
 
-        <activity android:name="de.fischerprofil.fp.test.UserSettingsActivity"
-            android:theme="@style/PreferenceScreen">
+        <activity android:name="de.fischerprofil.fp.test.UserSettingsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

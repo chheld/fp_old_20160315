@@ -3,26 +3,29 @@
     <PreferenceCategory
         android:title="Zugangsdaten">
 
-        <Preference
-            android:title="Benutzer"
-            android:summary="max.mustermann@fischerprofil.de"
+        <EditTextPreference
+            android:title="Benutzername"
+            android:hint="Benutzernamen eingeben"
+            android:icon="@drawable/ic_contact"
             android:key="username" />
 
-        <Preference
+        <de.fischerprofil.fp.test.EditTextPreferenceWithSummary
             android:title="Passwort"
-            android:summary="meinPasswort"
-            android:key="password" />
+            android:inputType="textPassword"
+            android:key="password"
+            android:password="true"
+            android:hint="Passwort eingeben"
+            android:icon="@drawable/ic_lock"/>
 
         <EditTextPreference
-            android:title="Email"
-            android:summary="max.mustermann@fischerprofil.de"
-            android:key="email"
-            android:defaultValue="vorname.nachname@fischerprofil.de"/>
+            android:title="E-Mail"
+            android:hint="E-Mail-Adresse eingeben"
+            android:key="email" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="DEMO Advanced">
+        android:title="TEST Advanced">
 
         <CheckBoxPreference
             android:title="Receive Notifications"
@@ -39,7 +42,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="DEMO Sub Screens">
+        android:title="TEST Sub Screens">
 
         <PreferenceScreen
             android:key="voicemail_category"
