@@ -31,6 +31,10 @@
         android:title="Frachten"
         android:enabled="false"/>
     <item
+        android:id="@+id/nav_references"
+        android:title="Referenzen"
+        android:enabled="false"/>
+    <item
         android:id="@+id/nav_www"
         android:icon="@drawable/ic_browser"
         android:title="Browser" />
@@ -45,11 +49,11 @@
             <item
                 android:id="@+id/nav_settings_2"
                 android:icon="@drawable/ic_settings"
-                android:title="Einstellungen Demo"/>
+                android:title="Einstellungen"/>
             <item
                 android:id="@+id/nav_about"
                 android:icon="@drawable/ic_logo_small_transparent"
-                android:title="Über ..." />
+                android:title="Über diese App ..." />
         </menu>
     </item>
 </menu>

@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new WWWFragment();
                 break;
 
-            case "Über ...":
+            case "Über diese App ...":
                 fragment = new AboutFragment();
                 break;
 
@@ -86,12 +86,10 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case "VPN":
-                //startVPN();
                 showVPN();
-                //activateVPN();
                 break;
 
-            case "Einstellungen Demo":
+            case "Einstellungen":
                 showSettings();
                 break;
 

@@ -1,4 +1,4 @@
-package de.fischerprofil.fp.test;
+package de.fischerprofil.fp.ui.edittextpreference;
 
 import android.content.Context;
 import android.preference.EditTextPreference;
@@ -8,14 +8,14 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class EditTextPreferenceWithSummary extends EditTextPreference {
+public class EditTextPreferenceForPassword extends EditTextPreference {
 
-    public EditTextPreferenceWithSummary(Context context, AttributeSet attrs) {
+    public EditTextPreferenceForPassword(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public EditTextPreferenceWithSummary(Context context) {
+    public EditTextPreferenceForPassword(Context context) {
         super(context);
         init();
     }
@@ -29,7 +29,6 @@ public class EditTextPreferenceWithSummary extends EditTextPreference {
     public void updateSummary()
     {
         String value = "";
-        String text = "";
         int variation = (this.getEditText().getInputType() & InputType.TYPE_MASK_VARIATION);
         Boolean isPassword = ((variation  == InputType.TYPE_NUMBER_VARIATION_PASSWORD)
                 ||(variation  == InputType.TYPE_TEXT_VARIATION_PASSWORD)
@@ -37,11 +36,9 @@ public class EditTextPreferenceWithSummary extends EditTextPreference {
 
         if (isPassword)
         {
-            text=this.getText();
-            if (text!=null) {
-                if (text.length()!=0) value = "**********";
+            if (this.getText()!=null) {
+                if (this.getText().length()!=0) value = "**********";
             }
-//            value = this.getText().replaceAll("ooo", "*");
         }
         else
         {
@@ -54,7 +51,7 @@ public class EditTextPreferenceWithSummary extends EditTextPreference {
         setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                EditTextPreferenceWithSummary pref = (EditTextPreferenceWithSummary) preference;
+                EditTextPreferenceForPassword pref = (EditTextPreferenceForPassword) preference;
                 pref.updateSummary();
                 return true;
             }

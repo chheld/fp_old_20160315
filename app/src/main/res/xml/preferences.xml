@@ -4,22 +4,21 @@
         android:title="Zugangsdaten">
 
         <EditTextPreference
-            android:title="Benutzername"
-            android:hint="Benutzernamen eingeben"
-            android:icon="@drawable/ic_contact"
+            android:title="Login-Name"
+            android:hint="Login-Namen eingeben"
             android:key="username" />
 
-        <de.fischerprofil.fp.test.EditTextPreferenceWithSummary
+        <de.fischerprofil.fp.ui.edittextpreference.EditTextPreferenceForPassword
             android:title="Passwort"
             android:inputType="textPassword"
             android:key="password"
             android:password="true"
-            android:hint="Passwort eingeben"
-            android:icon="@drawable/ic_lock"/>
+            android:hint="Passwort eingeben" />
 
         <EditTextPreference
             android:title="E-Mail"
             android:hint="E-Mail-Adresse eingeben"
+            android:inputType="textEmailAddress"
             android:key="email" />
 
     </PreferenceCategory>

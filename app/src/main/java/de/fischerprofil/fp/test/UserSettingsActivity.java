@@ -56,7 +56,7 @@ public class UserSettingsActivity extends AppCompatActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
-            addPreferencesFromResource(R.xml.user_settings);
+            addPreferencesFromResource(R.xml.preferences);
 
             // show the current value in the settings screen
             for (int i = 0; i < getPreferenceScreen().getPreferenceCount(); i++) {
