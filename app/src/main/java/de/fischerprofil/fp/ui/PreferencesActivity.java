@@ -1,4 +1,4 @@
-package de.fischerprofil.fp.test;
+package de.fischerprofil.fp.ui;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,14 +12,14 @@ import android.view.MenuItem;
 
 import de.fischerprofil.fp.R;
 
-public class UserSettingsActivity extends AppCompatActivity {
+public class PreferencesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_user_settings);
 
-        // TODO: Layout für Activity hinzufügen
+        // TODO: menubar für Activity hinzufügen
         //android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         //actionBar.setDisplayHomeAsUpEnabled(true);
 
