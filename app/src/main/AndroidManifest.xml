@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="de.fischerprofil.fp.ui.MainActivity">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -28,10 +28,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="de.fischerprofil.fp.ui.OrderListActivity"
+        <activity android:name=".ui.OrderListActivity"
             android:label="@string/title_activity_orders"
             android:launchMode="singleTop"
-            android:parentActivityName="de.fischerprofil.fp.ui.MainActivity" >
+            android:parentActivityName=".ui.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -43,19 +43,19 @@
                 android:resource="@xml/searchable" />
         </activity>
 
-        <activity android:name="de.fischerprofil.fp.ui.OrderDetailsActivity"
+        <activity android:name=".ui.OrderDetailsActivity"
             android:launchMode="singleTop"
             android:label="@string/title_activity_order"
-            android:parentActivityName="de.fischerprofil.fp.ui.OrderListActivity" >
+            android:parentActivityName=".ui.OrderListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.fischerprofil.fp.ui.OrderListActivity" />
         </activity>
 
-        <activity android:name="de.fischerprofil.fp.ui.ContactListActivity"
+        <activity android:name=".ui.ContactListActivity"
             android:label="Kontakte"
             android:launchMode="singleTop"
-            android:parentActivityName="de.fischerprofil.fp.ui.MainActivity" >
+            android:parentActivityName=".ui.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
