@@ -39,7 +39,6 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        //Auftrag auftrag = (Auftrag) intent.getParcelableExtra("auftrag");
         String anr = intent.getStringExtra("anr");
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.activity_orderdetails_toolbar);
@@ -110,23 +109,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_orderdetails_actions, menu);
+        getMenuInflater().inflate(R.menu.menu_activity_orderdetails, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-/*
-        int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-*/
-        return super.onOptionsItemSelected(item);
     }
 
     private void showFragment(String key, @Nullable Bundle args) {
@@ -163,4 +147,24 @@ public class OrderDetailsActivity extends AppCompatActivity {
         mAppController.cancelPendingRequests(VOLLEY_TAG);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        switch (id) {
+
+            case de.fischerprofil.fp.R.id.action_settings:
+                showSettings();
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showSettings(){
+        Intent intent = new Intent(this, PreferencesActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 }

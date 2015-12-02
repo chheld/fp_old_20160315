@@ -44,9 +44,7 @@ public class OrderListActivity extends AppCompatActivity {
 
     private final String VOLLEY_TAG = "VOLLEY_TAG_OrderListActivity";
 
-//    private final String URL = "https://222.222.222.60/api";
     private final String URL = RestUtils.getURL();
-//    private final String URL = "https://fpvk.fischerprofil.de/api";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,14 +120,15 @@ public class OrderListActivity extends AppCompatActivity {
 
         switch (id) {
 
-            case de.fischerprofil.fp.R.id.action_settings: // TODO
+            case de.fischerprofil.fp.R.id.action_settings:
+                showSettings();
                 return true;
 
-            case de.fischerprofil.fp.R.id.itm_action_search: // ok
+            case de.fischerprofil.fp.R.id.itm_action_search:
                 showSearch(true);
                 return true;
 
-            case de.fischerprofil.fp.R.id.action_clear_history: // ok
+            case de.fischerprofil.fp.R.id.action_clear_history:
                 suggestions.clearHistory();
                 return true;
         }
@@ -290,4 +289,9 @@ public class OrderListActivity extends AppCompatActivity {
         }
     }
 
+    private void showSettings(){
+        Intent intent = new Intent(this, PreferencesActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 }

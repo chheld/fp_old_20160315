@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new WWWFragment();
                 break;
 
-            case "Über diese App ...":
+            case "Über diese App":
                 fragment = new AboutFragment();
                 break;
 
