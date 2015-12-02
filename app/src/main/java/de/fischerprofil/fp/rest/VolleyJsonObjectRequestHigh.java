@@ -12,6 +12,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.fischerprofil.fp.AppController;
+
 /**
  * Created by held on 29.09.2015.
  */
@@ -49,7 +51,9 @@ public class VolleyJsonObjectRequestHigh extends JsonObjectRequest {
 
     @Override
     public Map<String, String> getHeaders() throws AuthFailureError {
-        return createBasicAuthHeader("christoph.held@fischerprofil.de", "xxx");
+        String username = AppController.preferences.getString( "username", "oh no" );
+        String pw = AppController.preferences.getString("password", "oh no");
+        return createBasicAuthHeader(username,pw);
     }
 
     Map<String, String> createBasicAuthHeader(String username, String password) {

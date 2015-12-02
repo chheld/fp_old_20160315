@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import de.fischerprofil.fp.AppController;
+
 public class RestUtils {
 
     private String mUsername;
@@ -67,7 +69,13 @@ public class RestUtils {
     }
 
     public static String getURL(){
-        return "https://fpvk.fischerprofil.de/api";
+
+        if (AppController.inEmulatorMode) {
+            return "https://222.222.222.60/api"; // internal URL
+        }
+        else {
+            return "https://fpvk.fischerprofil.de/api"; // external URL
+        }
     }
 
     public String getUsername() {return mUsername;}

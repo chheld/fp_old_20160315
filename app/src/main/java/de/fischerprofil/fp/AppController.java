@@ -1,6 +1,8 @@
 package de.fischerprofil.fp;
 
 import android.app.Application;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.text.TextUtils;
 
 import com.android.volley.Request;
@@ -10,6 +12,9 @@ import com.android.volley.toolbox.Volley;
 
 
 public class AppController extends Application {
+
+    public static SharedPreferences preferences;
+    public static Boolean inEmulatorMode;
 
     /**
      * Log or request VOLLEY_PATTERNS
@@ -29,8 +34,10 @@ public class AppController extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        // initialize the singleton
+
         sInstance = this;
+        preferences = getSharedPreferences( getPackageName() + "_preferences", MODE_PRIVATE);
+        inEmulatorMode = "generic".equals(Build.BRAND.toLowerCase());
     }
 
     /**

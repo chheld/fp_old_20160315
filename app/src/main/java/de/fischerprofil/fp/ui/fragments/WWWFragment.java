@@ -14,16 +14,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import de.fischerprofil.fp.AppController;
 import de.fischerprofil.fp.R;
 import de.fischerprofil.fp.rest.RestUtils;
 
 public class WWWFragment extends Fragment {
 
-//    private String mURL = "https://fpvk.fischerprofil.de/api/contact/personnr?where=57";
     private String mURL = RestUtils.getURL();
-//    private String mURL = "https://fpvk.fischerprofil.de";
-//    private String mURL = "https://222.222.222.60";
-//    private String mURL = "https://10.0.2.1"; // test für localen server
     private Activity mContext;
 
     public WWWFragment() {
@@ -87,7 +84,9 @@ public class WWWFragment extends Fragment {
         }
         @Override
         public void onReceivedHttpAuthRequest(WebView view, HttpAuthHandler handler, String host, String realm) {
-            handler.proceed("christoph.held@fischerprofil.de", "depp12"); //TODO: Password in Settings speichern
+            String username = AppController.preferences.getString( "username", "oh no" );
+            String pw = AppController.preferences.getString("password", "oh no");
+            handler.proceed(username, pw);
         }
     }
  }
