@@ -536,13 +536,13 @@
                 android:layout_marginBottom="5dp" />
 
             <ImageButton
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:id="@+id/btnMaps"
                 android:layout_alignBottom="@+id/lblLieferadresse"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_browser"
-                android:backgroundTintMode="screen" />
+                android:backgroundTintMode="screen"
+                android:src="@drawable/ic_location" />
 
             <TextView
                 android:layout_width="match_parent"

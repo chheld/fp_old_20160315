@@ -49,8 +49,6 @@ public class ContactListFragment extends Fragment {
     private final String VOLLEY_TAG = "VOLLEY_TAG_ContactListFragment";
 
     private final String URL = RestUtils.getURL();
-//    private final String URL = "https://fpvk.fischerprofil.de/api";
-//    private final String URL = "https://222.222.222.60/api";
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

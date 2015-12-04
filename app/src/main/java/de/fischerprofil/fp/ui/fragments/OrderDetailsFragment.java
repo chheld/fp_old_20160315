@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -30,12 +31,14 @@ import java.util.Locale;
 
 import de.fischerprofil.fp.AppController;
 import de.fischerprofil.fp.R;
+import de.fischerprofil.fp.StringUtils;
 import de.fischerprofil.fp.model.address.Adresse;
 import de.fischerprofil.fp.model.contact.Kontakt;
 import de.fischerprofil.fp.model.order.Auftrag;
 import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
 import de.fischerprofil.fp.rest.HttpsTrustManager;
 import de.fischerprofil.fp.rest.RestUtils;
+import de.fischerprofil.fp.ui.UIUtils;
 
 public  class OrderDetailsFragment extends Fragment {
 
@@ -167,10 +170,14 @@ public  class OrderDetailsFragment extends Fragment {
                     JSONArray address = response.getJSONArray("address");
                     Gson gson = new Gson();
                     Adresse adresse = gson.fromJson(address.getJSONObject(0).toString(), Adresse.class);
-                    String adr1 = adresse.getZUSATZ1() + "\n";
-                    String adr2 = adresse.getZUSATZ2() + "\n";
-                    String str = adresse.getSTRASSE() + "\n";
-                    String plz = adresse.getPLZORT() + " ";
+                    String adr1 = adresse.getZUSATZ1();
+                    if (StringUtils.IsNotNullOrEmpty(adr1)) adr1 = adr1 + "\n";
+                    String adr2 = adresse.getZUSATZ2();
+                    if (StringUtils.IsNotNullOrEmpty(adr2)) adr2 = adr2 + "\n";
+                    String str = adresse.getSTRASSE();
+                    if (StringUtils.IsNotNullOrEmpty(str)) str = str + "\n";
+                    String plz = adresse.getPLZORT();
+                    if (StringUtils.IsNotNullOrEmpty(plz)) plz = plz + " ";
                     String ort = adresse.getORT();
                     tvLieferadresse.setText(adr1 + adr2 + str + plz + ort);
                     pbLieferadresse.setVisibility(View.GONE);
@@ -292,14 +299,14 @@ public  class OrderDetailsFragment extends Fragment {
                 tvBestellnummer.setVisibility(View.GONE);
             } else
             {
-                tvBestellnummer.setText("Bestellung: " + mAuftrag.getBELEGNRBEST());
+                tvBestellnummer.setText("Bestellung " + mAuftrag.getBELEGNRBEST());
             }
             tvKommission.setText(mAuftrag.getKOMM());
             if(tvKommission.getText().toString().trim().length()==0) {
                 tvKommission.setVisibility(View.GONE);
             } else
             {
-                tvKommission.setText("Kommission: " + mAuftrag.getKOMM());
+                tvKommission.setText("Kommission " + mAuftrag.getKOMM());
             }
 
             // Vertreter anzeigen
@@ -353,7 +360,6 @@ public  class OrderDetailsFragment extends Fragment {
             }
 
             tvProdPlanTermin.setText(mAuftrag.getSEGM1TERM()); // Segm1.Term
-//            tvProdPlanTermin.setText(getGermanDateFormat(mAuftrag.getSEGM1TERM())); // Segm1.Term
             if(tvProdPlanTermin.getText().toString().trim().length()==0) {
                 tvProdPlanTermin.setVisibility(View.GONE);
                 TextView lbl = (TextView) view.findViewById(R.id.lblProdPlanTermin);
@@ -374,14 +380,14 @@ public  class OrderDetailsFragment extends Fragment {
             tvKW.setText(Integer.toString(mAuftrag.getKW()));
             tvKJ.setText(Integer.toString(mAuftrag.getKJ()));
 
-            // Lieferanschrift anzeigen
+            // Lieferadresse anzeigen
             tvLieferadresseNr.setText("Adresse " + mAuftrag.getADRNR2());
             if(tvLieferadresseNr.getText().toString().trim().length()==0) {
                 tvLieferadresseNr.setVisibility(View.GONE);
             }
             else
             {
-                RelativeLayout ly = (RelativeLayout)  view.findViewById(R.id.container_lieferadresse);
+                RelativeLayout ly = (RelativeLayout) view.findViewById(R.id.container_lieferadresse);
 
                 ly.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -389,7 +395,18 @@ public  class OrderDetailsFragment extends Fragment {
                         callAPIAdresseByAdresseNr(URL+"/adresse/adressenr?where=" + mAuftrag.getADRNR2());
                     }
                 });
-                callAPIAdresseByAdresseNr(URL+"/adresse/adressenr?where=" + mAuftrag.getADRNR2());
+                callAPIAdresseByAdresseNr(URL + "/adresse/adressenr?where=" + mAuftrag.getADRNR2());
+
+
+                ImageButton img = (ImageButton) view.findViewById(R.id.btnMaps);
+
+                img.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //callAPIAdresseByAdresseNr(URL + "/adresse/adressenr?where=" + mAuftrag.getADRNR2());
+                        UIUtils.makeToast(getActivity(), "TODO: Maps starten...");
+                    }
+                });
             }
 
             //Summen anzeigen
