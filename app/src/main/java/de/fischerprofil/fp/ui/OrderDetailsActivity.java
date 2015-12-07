@@ -7,7 +7,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -33,14 +32,13 @@ public class OrderDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        mAppController = AppController.getInstance();
-
         setContentView(R.layout.activity_orderdetails);
 
+        mAppController = AppController.getInstance();
+
+/*
         Intent intent = getIntent();
-
         String anr = intent.getStringExtra("anr");
-
         Toolbar mToolbar = (Toolbar) findViewById(R.id.activity_orderdetails_toolbar);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
@@ -49,17 +47,18 @@ public class OrderDetailsActivity extends AppCompatActivity {
             //getSupportActionBar().setSubtitle(a);
             //TODO:  in setupToolbar() auslagern;
         }
+*/
+        setupToolbar();
 
-        setupTablayout();
+        setupTabLayout();
 
         // ######################
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final OrderTabPagerAdapter adapter = new OrderTabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+
         Bundle bundle = new Bundle();
-        //bundle.putParcelable("auftrag",auftrag); // version 1
-        bundle.putString("anr",anr); // version 2
-        //bundle.putString("hint",auftrag.getObjectAsString());
+        bundle.putString("anr",getIntent().getStringExtra("anr"));
         adapter.setArguments(bundle);
 
         viewPager.setAdapter(adapter);
@@ -85,17 +84,20 @@ public class OrderDetailsActivity extends AppCompatActivity {
     }
 
     private void setupToolbar(){
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        if(mToolbar != null)
-            setSupportActionBar(mToolbar);
 
-        // Show menu icon
-        final ActionBar ab = getSupportActionBar();
-        //ab.setHomeAsUpIndicator(R.drawable.ic_menu);
-        //ab.setDisplayHomeAsUpEnabled(true);
+        Intent intent = getIntent();
+        String anr = intent.getStringExtra("anr");
+
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.activity_orderdetails_toolbar);
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setTitle("Auftrag " + anr);
+            //getSupportActionBar().setSubtitle(a);
+        }
     }
 
-    private void setupTablayout(){
+    private void setupTabLayout(){
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
@@ -109,8 +111,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_activity_orderdetails, menu);
-        return true;
+        getMenuInflater().inflate(de.fischerprofil.fp.R.menu.menu_activity_orderdetails, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void showFragment(String key, @Nullable Bundle args) {

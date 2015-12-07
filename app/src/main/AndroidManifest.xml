@@ -67,7 +67,8 @@
                 android:resource="@xml/searchable" />
         </activity>
 
-        <provider android:name="de.fischerprofil.fp.provider.OrderSuggestionProvider"
+        <provider
+            android:name="de.fischerprofil.fp.provider.OrderSuggestionProvider"
             android:authorities="de.fischerprofil.fp.provider.OrderSuggestionProvider"
             android:exported="false" />
 
