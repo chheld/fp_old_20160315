@@ -21,9 +21,7 @@ import de.fischerprofil.fp.ui.fragments.OrderDetailsFragment;
 
 public class OrderDetailsActivity extends AppCompatActivity {
 
-    private int mSearchRequestCounter = 0;
-    private Toolbar mToolbar;
-    private TabLayout tabLayout;
+    private TabLayout mTabLayout;
     private AppController mAppController;
 
     private final String VOLLEY_TAG = "VOLLEY_TAG_OrderDetailsActivity";
@@ -36,34 +34,20 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
         mAppController = AppController.getInstance();
 
-/*
-        Intent intent = getIntent();
-        String anr = intent.getStringExtra("anr");
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.activity_orderdetails_toolbar);
-        if (mToolbar != null) {
-            setSupportActionBar(mToolbar);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setTitle("Auftrag " + anr);
-            //getSupportActionBar().setSubtitle(a);
-            //TODO:  in setupToolbar() auslagern;
-        }
-*/
         setupToolbar();
 
         setupTabLayout();
 
-        // ######################
-
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final OrderTabPagerAdapter adapter = new OrderTabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        final OrderTabPagerAdapter adapter = new OrderTabPagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount());
 
         Bundle bundle = new Bundle();
-        bundle.putString("anr",getIntent().getStringExtra("anr"));
+        bundle.putString("anr", getIntent().getStringExtra("anr"));
         adapter.setArguments(bundle);
 
         viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+        mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -99,18 +83,17 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
     private void setupTabLayout(){
 
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
-        if(tabLayout == null) return;
+        if(mTabLayout == null) return;
 
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        tabLayout.addTab(tabLayout.newTab().setText("Übersicht"));
-        tabLayout.addTab(tabLayout.newTab().setText("Details"));
+        mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        mTabLayout.addTab(mTabLayout.newTab().setText("Übersicht"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Details"));
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(de.fischerprofil.fp.R.menu.menu_activity_orderdetails, menu);
         return super.onCreateOptionsMenu(menu);
     }

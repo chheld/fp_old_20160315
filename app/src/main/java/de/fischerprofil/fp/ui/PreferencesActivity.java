@@ -16,6 +16,7 @@ public class PreferencesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_user_settings);
 
@@ -24,9 +25,7 @@ public class PreferencesActivity extends AppCompatActivity {
         //actionBar.setDisplayHomeAsUpEnabled(true);
 
         // Display the fragment as the main content
-        getFragmentManager().beginTransaction()
-                .replace(android.R.id.content, new SettingsFragment())
-                .commit();
+        setupFragment();
     }
 
     public static class SettingsFragment extends PreferenceFragment
@@ -120,5 +119,12 @@ public class PreferencesActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setupFragment() {
+
+        getFragmentManager().beginTransaction()
+                .replace(android.R.id.content, new SettingsFragment())
+                .commit();
     }
 }

@@ -1,7 +1,9 @@
 package de.fischerprofil.fp.ui.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ClipDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -404,7 +406,7 @@ public  class OrderDetailsFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         //callAPIAdresseByAdresseNr(URL + "/adresse/adressenr?where=" + mAuftrag.getADRNR2());
-                        UIUtils.makeToast(getActivity(), "TODO: Maps starten...");
+                        showMaps();
                     }
                 });
             }
@@ -431,5 +433,21 @@ public  class OrderDetailsFragment extends Fragment {
     private String getGermanDateFormat(String value) {
         DateFormat nf = DateFormat.getDateInstance();
         return nf.format(value);
+    }
+
+    private void showMaps() {
+
+        UIUtils.makeToast(mContext, "TODO: Google Maps starten..."); //TEST
+
+        Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4194");
+
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        if (mapIntent.resolveActivity(mContext.getPackageManager()) != null) {
+            startActivity(mapIntent);
+        }
+        else {
+            UIUtils.makeToast(mContext, "Google Maps ist nicht installiert!");
+        }
     }
 }
