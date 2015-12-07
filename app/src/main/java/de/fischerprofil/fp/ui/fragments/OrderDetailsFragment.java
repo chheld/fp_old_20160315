@@ -73,7 +73,7 @@ public  class OrderDetailsFragment extends Fragment {
         mANr = "";
         //if (getArguments() != null) mANr = getArguments().getString("anr");
         mANr = getArguments().getString("anr");
-        //mANr = "400033"; // TEST
+        //if (mANr.equals("")) mANr = "400006"; // TEST
 
         //        callAPIOrderByANR(URL+"/orders/anr?where=" + mANr);
 
@@ -425,8 +425,9 @@ public  class OrderDetailsFragment extends Fragment {
 
     private String getGermanCurrencyFormat(double value) {
         NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMAN);
-        nf.setMaximumIntegerDigits(2);
-        nf.setGroupingUsed(true);
+        //nf.setGroupingUsed(true);
+        nf.setMinimumFractionDigits(2);
+        nf.setMaximumFractionDigits(2);
         return nf.format(value) + " EUR";
     }
 
