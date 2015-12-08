@@ -2,8 +2,10 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:showIn="@layout/fragment_orderdetails">
 
     <ImageView
         android:layout_width="22dp"
@@ -37,9 +39,9 @@
 
     <ImageView
         android:layout_width="22dp"
-        android:layout_height="23dp"
+        android:layout_height="20dp"
         android:id="@+id/ivRG"
-        android:background="@drawable/ic_money"
+        android:background="@drawable/ic_banknotes"
         android:backgroundTint="#2b000000"
         android:backgroundTintMode="src_in"
         android:src="@xml/clip_orderdetails_status_invoice" />

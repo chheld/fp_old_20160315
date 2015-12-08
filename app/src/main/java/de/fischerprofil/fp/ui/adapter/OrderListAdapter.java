@@ -8,9 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import de.fischerprofil.fp.model.order.Auftrag;
-
 import java.util.ArrayList;
+
+import de.fischerprofil.fp.model.order.Auftrag;
 
 public class OrderListAdapter extends ArrayAdapter<Auftrag> {
 
@@ -47,7 +47,7 @@ public class OrderListAdapter extends ArrayAdapter<Auftrag> {
         // Populate the data into the template view using the data object
         viewHolder.ivIcon.setImageResource(ord.getIcon());
         viewHolder.tvANr.setText(ord.getANR());
-        viewHolder.tvKdNr.setText(ord.getMNR());
+        viewHolder.tvKdNr.setText("Kunde " + ord.getMNR());
         viewHolder.tvKTxt.setText(ord.getKTXT());
         viewHolder.tvBemerkung.setText(ord.getBEMERKUNG());
         // Hier weitere Zuweisungen hinzufuegen

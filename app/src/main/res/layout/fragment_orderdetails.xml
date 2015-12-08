@@ -60,8 +60,8 @@
                 android:layout_alignBottom="@+id/ivOrder"
                 android:layout_toRightOf="@+id/ivOrder"
                 android:layout_toEndOf="@+id/ivOrder"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_marginBottom="5dp" />
+                android:layout_marginBottom="5dp"
+                android:textAppearance="@android:style/TextAppearance.Theme" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -185,8 +185,8 @@
                 android:layout_toRightOf="@+id/ivStatus"
                 android:layout_toEndOf="@+id/ivStatus"
                 android:layout_alignBottom="@+id/ivStatus"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_marginBottom="5dp" />
+                android:layout_marginBottom="5dp"
+                android:textAppearance="@android:style/TextAppearance.Theme" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -296,8 +296,8 @@
                 android:layout_toRightOf="@+id/ivKontakt"
                 android:layout_toEndOf="@+id/ivKontakt"
                 android:layout_alignBottom="@+id/ivKontakt"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_marginBottom="5dp" />
+                android:layout_marginBottom="5dp"
+                android:textAppearance="@android:style/TextAppearance.Theme" />
 
 
 
@@ -332,10 +332,10 @@
                 android:text="Termine"
                 android:id="@+id/lblTermine"
                 android:ellipsize="end"
-                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_toRightOf="@+id/ivCalendar"
                 android:layout_alignBottom="@+id/ivCalendar"
-                android:layout_marginBottom="5dp" />
+                android:layout_marginBottom="5dp"
+                android:textAppearance="@android:style/TextAppearance.Theme" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -355,7 +355,6 @@
                 android:layout_alignParentEnd="true"
                 android:gravity="right"
                 android:layout_below="@+id/lblTermine"
-                android:layout_marginTop="5dp"
                 android:layout_marginLeft="60dp"
                 android:maxLines="1" />
 
@@ -454,8 +453,8 @@
                 android:layout_alignBottom="@+id/ivFirma"
                 android:layout_toRightOf="@+id/ivFirma"
                 android:layout_toEndOf="@+id/ivFirma"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_marginBottom="5dp" />
+                android:layout_marginBottom="5dp"
+                android:textAppearance="@android:style/TextAppearance.Theme" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -532,8 +531,8 @@
                 android:layout_toRightOf="@+id/ivLKW"
                 android:layout_toEndOf="@+id/ivLKW"
                 android:layout_alignBottom="@+id/ivLKW"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_marginBottom="5dp" />
+                android:layout_marginBottom="5dp"
+                android:textAppearance="@android:style/TextAppearance.Theme" />
 
             <ImageButton
                 android:layout_width="30dp"
@@ -579,14 +578,14 @@
             android:elevation="5dp">
 
             <ImageView
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/ivSummen"
-                android:src="@drawable/ic_money"
-                android:layout_width="30dp"
+                android:src="@drawable/ic_banknotes"
+                android:layout_width="25dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginRight="7dp"
+                android:layout_marginRight="12dp"
                 android:contentDescription="Geld" />
 
             <TextView
@@ -595,10 +594,10 @@
                 android:text="Auftragswerte"
                 android:id="@+id/lblAuftragswerte"
                 android:ellipsize="end"
-                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_toRightOf="@+id/ivSummen"
                 android:layout_alignBottom="@+id/ivSummen"
-                android:layout_marginBottom="5dp" />
+                android:layout_marginBottom="5dp"
+                android:textAppearance="@android:style/TextAppearance.Theme" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -779,7 +778,7 @@
                 android:ellipsize="end"
                 android:layout_toRightOf="@+id/imageView4"
                 android:layout_alignBottom="@+id/imageView4"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="@android:style/TextAppearance.Theme" />
         </RelativeLayout>
 
 

@@ -19,7 +19,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/lblKontakt"
         android:text="Kontakt"
-        android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_toRightOf="@+id/ivKontakt"
         android:layout_alignParentTop="true"
         android:layout_marginRight="5dp" />
@@ -29,7 +28,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/tvPersonNr"
         android:text="Nr"
-        android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_toRightOf="@+id/lblKontakt"
         android:layout_alignParentTop="false"
         android:layout_alignTop="@+id/lblKontakt" />
