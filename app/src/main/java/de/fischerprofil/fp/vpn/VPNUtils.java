@@ -15,6 +15,7 @@ import de.fischerprofil.fp.rest.RestUtils;
 public class VPNUtils {
 
     private final String URL = RestUtils.getURL();
+
 //    private final String URL = "https://fpvk.fischerprofil.de/api";
 //    private final String URL = "https://222.222.222.60/api";
 
@@ -89,5 +90,4 @@ public class VPNUtils {
             return false;
         }
     }
-
 }

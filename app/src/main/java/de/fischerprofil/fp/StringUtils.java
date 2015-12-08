@@ -1,8 +1,5 @@
 package de.fischerprofil.fp;
 
-/**
- * Created by held on 04.12.2015.
- */
 public class StringUtils {
 
     public static boolean IsNullOrEmpty(String s) {

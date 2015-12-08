@@ -23,7 +23,6 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
     private TabLayout mTabLayout;
     private AppController mAppController;
-
     private final String VOLLEY_TAG = "VOLLEY_TAG_OrderDetailsActivity";
 
     @Override
@@ -67,35 +66,39 @@ public class OrderDetailsActivity extends AppCompatActivity {
         });
     }
 
-    private void setupToolbar(){
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
-        Intent intent = getIntent();
-        String anr = intent.getStringExtra("anr");
-
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.activity_orderdetails_toolbar);
-        if (mToolbar != null) {
-            setSupportActionBar(mToolbar);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setTitle("Auftrag " + anr);
-            //getSupportActionBar().setSubtitle(a);
-        }
-    }
-
-    private void setupTabLayout(){
-
-        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
-
-        if(mTabLayout == null) return;
-
-        mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        mTabLayout.addTab(mTabLayout.newTab().setText("Übersicht"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("Details"));
+        getMenuInflater().inflate(de.fischerprofil.fp.R.menu.menu_activity_orderdetails, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(de.fischerprofil.fp.R.menu.menu_activity_orderdetails, menu);
-        return super.onCreateOptionsMenu(menu);
+    public void onStop() {
+        super.onStop();
+        // This will tell to Volley to cancel all the pending requests
+        mAppController.cancelPendingRequests(VOLLEY_TAG);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // Menüauswahl verarbeiten
+        int id = item.getItemId();
+
+        switch (id) {
+
+            case de.fischerprofil.fp.R.id.action_settings:
+                showSettings();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showSettings(){
+        Intent intent = new Intent(this, PreferencesActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private void showFragment(String key, @Nullable Bundle args) {
@@ -125,31 +128,29 @@ public class OrderDetailsActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        // This will tell to Volley to cancel all the pending requests
-        mAppController.cancelPendingRequests(VOLLEY_TAG);
-    }
+    private void setupToolbar(){
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = getIntent();
+        String anr = intent.getStringExtra("anr");
 
-        int id = item.getItemId();
-
-        switch (id) {
-
-            case de.fischerprofil.fp.R.id.action_settings:
-                showSettings();
-                return true;
-
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.activity_orderdetails_toolbar);
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setTitle("Auftrag " + anr);
+            //getSupportActionBar().setSubtitle(a);
         }
-        return super.onOptionsItemSelected(item);
     }
 
-    private void showSettings(){
-        Intent intent = new Intent(this, PreferencesActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+    private void setupTabLayout(){
+
+        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
+
+        if(mTabLayout == null) return;
+
+        mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        mTabLayout.addTab(mTabLayout.newTab().setText("Übersicht"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Details"));
     }
+
 }

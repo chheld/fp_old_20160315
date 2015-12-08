@@ -32,26 +32,25 @@ import de.fischerprofil.fp.rest.RestUtils;
 import de.fischerprofil.fp.ui.OrderDetailsActivity;
 import de.fischerprofil.fp.ui.adapter.OrderListAdapter;
 
-
 @SuppressLint("ValidFragment")
 public class OrderListFragment extends Fragment {
 
     private Context mContext;
     private Auftragsliste mAuftragsliste = new Auftragsliste();
     private OrderListAdapter mAdapter = null;
-    private int mSearchRequestCounter = 0;      // Zaehler fuer die http-Anfragen
+    private int mSearchRequestCounter = 0;      // Zähler für die http-Anfragen initialisieren
     private String mSearchString;
     private ListView listView;
     private ProgressBar progressBar;
     private AppController mAppController;
-
     private final String VOLLEY_TAG = "VOLLEY_TAG_OrderListFragment";
-
     private final String URL = RestUtils.getURL();
+
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null) {
             //TODO: Restore the fragment's state here
+            mSearchString= savedInstanceState.getString("search");
         }
     }
 
@@ -59,6 +58,7 @@ public class OrderListFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         //TODO: Save the fragment's state here
+        outState.putString("search",mSearchString);
     }
 
     @Override
@@ -77,7 +77,7 @@ public class OrderListFragment extends Fragment {
         listView = (ListView) view.findViewById(R.id.listview);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
-        mSearchString = getArguments().getString("search", null); // evtl. uebergebene SUCH-Parameter ermitteln
+        mSearchString = getArguments().getString("search", null); // evtl. übergebene Such-Parameter ermitteln
         if (mSearchString != null) doSearch(mSearchString);
 
         return view;
@@ -116,25 +116,20 @@ public class OrderListFragment extends Fragment {
                     //TODO: speichern des Auftrags in letzte Vorgänge
 
                     Intent intent = new Intent(mContext, OrderDetailsActivity.class);
-                    //intent.putExtra("auftrag",auftrag); // Version 1
-                    intent.putExtra("anr",auftrag.getANR()); // Version 2
-                    //NavUtils.navigateUpFromSameTask(intent);
+                    intent.putExtra("anr",auftrag.getANR());
                     startActivity(intent);
                 }
             });
             // start http requests
             mSearchRequestCounter = 0;
-//            callAPIOrdersByANR(URL+"/orders/anr?where=" + search + "&fields=anr,mnr,ktxt,bemerkung,komm,kw,kj");
-//            callAPIOrdersByMNR(URL+"/orders/mnr/" + search); //TODO: Fields in URL einbauen
-//            callAPIOrdersByKTXT(URL + "/orders/ktxt?where=" + search + "&fields=anr,mnr,ktxt,bemerkung,komm,kw,kj");
 
-            callAPIOrdersByANR(URL + "/orders?qry=OrderListByANr&anr=" + search + "%25"); // % = %25
-            callAPIOrdersByMNR(URL + "/orders?qry=OrderListByMNr&mnr=" + search + "%25");// % = %25
-            callAPIOrdersByKTXT(URL + "/orders?qry=OrderListByKtxt&ktxt=" + search + "%25");// % = %25
+            callAPIOrdersByANR(URL + "/orders?qry=OrderListByANr&anr=" + search + "%25"); // '%' = %25
+            callAPIOrdersByMNR(URL + "/orders?qry=OrderListByMNr&mnr=" + search + "%25"); // '%' = %25
+            callAPIOrdersByKTXT(URL + "/orders?qry=OrderListByKtxt&ktxt=" + search + "%25"); // '%' = %25
 
             // TODO: Lade-Fkt in auftrag verlagern
             // Auftrag auftrag = new Auftrag();
-            //auftrag.loadOrderDataByANR(mContext,URL+"/orders/anr?where=" + search);
+            // auftrag.loadOrderDataByANR(mContext,URL+"/orders/anr?where=" + search);
         }
     }
 
@@ -145,8 +140,6 @@ public class OrderListFragment extends Fragment {
         HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
 
         HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
-        //JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
-        //VolleyJsonObjectRequestHigh req = new VolleyJsonObjectRequestHigh(search, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -187,8 +180,6 @@ public class OrderListFragment extends Fragment {
         HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
 
         HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
-//        JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
-        //VolleyJsonObjectRequestHigh req = new VolleyJsonObjectRequestHigh(search, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -229,7 +220,6 @@ public class OrderListFragment extends Fragment {
         HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
 
         HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
-//            JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {

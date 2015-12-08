@@ -1,9 +1,7 @@
 package de.fischerprofil.fp.ui.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -45,9 +43,7 @@ public class ContactListFragment extends Fragment {
     private String mSearchString;
     private ListView mListView;
     private ProgressBar mProgressBar;
-
     private final String VOLLEY_TAG = "VOLLEY_TAG_ContactListFragment";
-
     private final String URL = RestUtils.getURL();
 
     @Override
@@ -93,32 +89,6 @@ public class ContactListFragment extends Fragment {
         mAppController.cancelPendingRequests(VOLLEY_TAG);
     }
 
-    private class DialogBox extends Builder {
-
-        private Context context;
-
-
-        public DialogBox(Context c) {
-            super(c);
-            context = c;
-        }
-
-
-        public DialogBox(Context context, String title, String message) {
-            super(context);
-            this.context = context;
-            setMessage(message);
-            setTitle(title);
-            setCancelable(false);
-            setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    dialog.dismiss(); // It's just for info so we don't really care what this does
-                }
-            });
-        }
-    }
-
     private void doSearch(String search) {
 
         if (search.length() < 1) {
@@ -138,8 +108,6 @@ public class ContactListFragment extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                    // This will tell to Volley to cancel all the pending requests
-                    //mAppController.cancelPendingRequests(VOLLEY_TAG);
                     mProgressBar.setVisibility(View.GONE);  // Fortschrittsanzeige ausblenden
 
                     Kontakt kontakt = (Kontakt) parent.getItemAtPosition(position);
@@ -148,16 +116,18 @@ public class ContactListFragment extends Fragment {
 
                     Intent intent = new Intent(mContext, ContactListActivity.class);
                     intent.putExtra("kontakt", kontakt);
-                    //NavUtils.navigateUpFromSameTask(intent);
                     startActivity(intent);
                 }
             });
             // start http requests
             mSearchRequestCounter = 0;
 
-            callAPIContactsByPersonNr(URL+"/contacts/personnr?where=" + search);
+            callAPIContactsByPersonNr(URL+"/contacts?qry=ContactlistByPersonnr&relperson__personnr=" + search + "%25"); // '%' = %25
+//            callAPIContactsByPersonNr(URL+"/contacts/personnr?where=" + search); //TODO: umstellen auf neue Abfrage
+
             //Auftrag auftrag = new Auftrag();
             //auftrag.loadOrderDataByANR(mContext,URL+"/orders/anr?where=" + search);
+
             //callAPIOrdersByMNR(URL+"/orders/mnr/" + search);
             //callAPIOrdersByKTXT(URL+"/orders/ktxt?where=" + search + "&fields=anr,mnr,ktxt,bemerkung,komm,kw,kj");
         }

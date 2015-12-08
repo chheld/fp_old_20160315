@@ -24,7 +24,6 @@ public class PreferencesActivity extends AppCompatActivity {
         //android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         //actionBar.setDisplayHomeAsUpEnabled(true);
 
-        // Display the fragment as the main content
         setupFragment();
     }
 
@@ -101,19 +100,15 @@ public class PreferencesActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // wenn ein Menü angezeigt werden soll, hier aktivieren
-        // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.menu_user_settings, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // Menüauswahl hier verarbeiten
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }

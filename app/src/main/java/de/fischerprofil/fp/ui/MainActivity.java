@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import de.fischerprofil.fp.R;
 import de.fischerprofil.fp.ui.fragments.AboutFragment;
 import de.fischerprofil.fp.ui.fragments.WWWFragment;
 
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
-    private String mSelectedMenuItem = "";
+    private MenuItem mSelectedItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,57 +49,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (savedInstanceState == null) {
-            //SelectItem("Über ..."); //TODO: restore saved fragment
+            //showFragment("Über ..."); //TODO: restore saved fragment
         }
 
-    }
-
-    private void SelectItem(String i) {
-
-        if (i=="") return;
-
-        Fragment fragment = null;
-        Bundle args = new Bundle();
-        Intent intent = null;
-
-        switch (i) {
-
-            case "Home": // testeintrag
-                break;
-
-            case "Browser":
-                fragment = new WWWFragment();
-                break;
-
-            case "Über diese App":
-                fragment = new AboutFragment();
-                break;
-
-            case "Kontakte":
-                intent = new Intent(this, ContactListActivity.class);
-                startActivity(intent);
-                break;
-
-            case "Aufträge":
-                intent = new Intent(this, OrderListActivity.class);
-                startActivity(intent);
-                break;
-
-            case "VPN":
-                showVPN();
-                break;
-
-            case "Einstellungen":
-                showSettings();
-                break;
-
-            default:
-                break;
-        }
-        if (fragment != null) {
-            FragmentManager frgManager = getSupportFragmentManager();
-            frgManager.beginTransaction().replace(de.fischerprofil.fp.R.id.fragment_container, fragment).commit();
-        }
     }
 
     @Override
@@ -107,33 +60,16 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void showVPN() {
-        // TODO: VPN automatisch aktivieren statt VPN app zu starten
-        PackageManager manager = this.getPackageManager();
-        Intent intent = manager.getLaunchIntentForPackage("app.openconnect");
-        //intent.addCategory(Intent.CATEGORY_LAUNCHER); //TODO: wirklich notwendig ?
-        intent.putExtra("Fp", "upb ssl"); // zum direkten Öffenen der FP-Einstellungen, sonst weglassen
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //TODO: wirklich notwendig ?
-        this.startActivity(intent);
-        //startActivityForResult(intent, 1);
-    }
-
-    private void showSettings(){
-        Intent intent = new Intent(this, PreferencesActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
 
-            case de.fischerprofil.fp.R.id.home:
+            case R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
 
-            case de.fischerprofil.fp.R.id.action_settings:
+            case R.id.action_settings:
                 showSettings();
                 return true;
         }
@@ -142,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -170,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
                 menuItem.setChecked(true);
                 mDrawerLayout.closeDrawers();
-                mSelectedMenuItem=menuItem.toString();
+                mSelectedItem = menuItem;
                 return true;
             }
         });
@@ -194,10 +129,75 @@ public class MainActivity extends AppCompatActivity {
                 super.onDrawerClosed(view);
                 getSupportActionBar().setTitle(de.fischerprofil.fp.R.string.app_name);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-                SelectItem(mSelectedMenuItem); //Event erst starten nachdem Drawer geschlossen ist
+                showFragment(mSelectedItem); //Event erst starten nachdem Drawer geschlossen ist
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
     }
+
+    private void showFragment(MenuItem i) {
+
+        int id = i.getItemId();
+
+        Fragment fragment = null;
+        Intent intent = null;
+
+        switch (id) {
+
+            case R.id.nav_home: // TODO: Zuletzt verwendete Vorgänge
+                break;
+
+            case R.id.nav_www:
+                fragment = new WWWFragment();
+                break;
+
+            case R.id.nav_about:
+                fragment = new AboutFragment();
+                break;
+
+            case R.id.nav_contacts:
+                intent = new Intent(this, ContactListActivity.class);
+                startActivity(intent);
+                break;
+
+            case R.id.nav_orders:
+                intent = new Intent(this, OrderListActivity.class);
+                startActivity(intent);
+                break;
+
+            case R.id.nav_vpn:
+                showVPN();
+                break;
+
+            case R.id.nav_settings_2:
+                showSettings();
+                break;
+
+            default:
+                break;
+        }
+        if (fragment != null) {
+            FragmentManager frgManager = getSupportFragmentManager();
+            frgManager.beginTransaction().replace(de.fischerprofil.fp.R.id.fragment_container, fragment).commit();
+        }
+    }
+
+    private void showVPN() {
+        // TODO: VPN automatisch aktivieren statt VPN app zu starten
+        PackageManager manager = this.getPackageManager();
+        Intent intent = manager.getLaunchIntentForPackage("app.openconnect");
+        //intent.addCategory(Intent.CATEGORY_LAUNCHER); //TODO: wirklich notwendig ?
+        intent.putExtra("Fp", "upb ssl"); // zum direkten Öffenen der FP-Einstellungen, sonst weglassen
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //TODO: wirklich notwendig ?
+        this.startActivity(intent);
+        //startActivityForResult(intent, 1);
+    }
+
+    private void showSettings(){
+        Intent intent = new Intent(this, PreferencesActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
 }

@@ -19,11 +19,6 @@ public  class AboutFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_about, container, false);
 
-        // evtl. übergebene Parameter ermitteln
-        //Integer pos = getArguments().getInt("position");
-
-        //Menu anzeigen
-
         // Versions-Information aus dem Package auslesen
         String versionName = "xxx";
         String packageName = "xxx";
@@ -46,7 +41,5 @@ public  class AboutFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
         //setHasOptionsMenu(false);
-
-
     }
 }

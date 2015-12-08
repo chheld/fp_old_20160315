@@ -27,7 +27,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -47,19 +46,14 @@ public  class OrderDetailsFragment extends Fragment {
     private AppController mAppController;
     private Context mContext;
     private View mView;
-
     private Auftrag mAuftrag;
     private ProgressBar progressBarAuftrag;
-    private String mANr;
-
+    private String mANr = "";
     private TextView tvVertreterName;
     private ProgressBar pbVertreter;
-
     private TextView tvLieferadresse;
     private ProgressBar pbLieferadresse;
-
     private final String VOLLEY_TAG = "VOLLEY_TAG_OrderDetailsFragment";
-
     private final String URL = RestUtils.getURL();
 
     @Override
@@ -70,12 +64,8 @@ public  class OrderDetailsFragment extends Fragment {
         mView = inflater.inflate(R.layout.fragment_orderdetails, container, false);
         progressBarAuftrag = (ProgressBar) mView.findViewById(R.id.progressBarAuftrag);
 
-        mANr = "";
-        //if (getArguments() != null) mANr = getArguments().getString("anr");
         mANr = getArguments().getString("anr");
         //if (mANr.equals("")) mANr = "400006"; // TEST
-
-        //        callAPIOrderByANR(URL+"/orders/anr?where=" + mANr);
 
         // Auftragsinhalte: manuell laden ermöglichen
         RelativeLayout layout = (RelativeLayout)  mView.findViewById(R.id.container_auftrag);
@@ -111,7 +101,7 @@ public  class OrderDetailsFragment extends Fragment {
         cdAB.setLevel(cdAB.getLevel() + level); // min 0 - max 10000
     }
 
-    private void callAPIContactByPersonNr(String search) {
+    private void callAPIContactsByPersonNr(String search) {
 
         pbVertreter.setVisibility(View.VISIBLE);
 
@@ -125,7 +115,7 @@ public  class OrderDetailsFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 try {
                     VolleyLog.v("Response:%n %s", response.toString(4));
-                    JSONArray contact = response.getJSONArray("contact");
+                    JSONArray contact = response.getJSONArray("contacts");
                     JSONObject jsonA = contact.getJSONObject(0);
                     Gson gson = new Gson();
                     Kontakt kontakt = gson.fromJson(contact.getJSONObject(0).toString(), Kontakt.class);
@@ -312,7 +302,7 @@ public  class OrderDetailsFragment extends Fragment {
             }
 
             // Vertreter anzeigen
-            tvVertr1.setText("Verkäufer " + mAuftrag.getVERTRETER1());
+            tvVertr1.setText("Vertreter " + mAuftrag.getVERTRETER1());
             if(tvVertr1.getText().toString().trim().length()==0) {
                 tvVertr1.setVisibility(View.GONE);
             }
@@ -323,11 +313,11 @@ public  class OrderDetailsFragment extends Fragment {
                 layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        callAPIContactByPersonNr(URL+"/contact/personnr?where=" + mAuftrag.getVERTRETER1());
+                        callAPIContactsByPersonNr(URL + "/contacts?qry=ContactlistByPersonnr&relperson__personnr=" + mAuftrag.getVERTRETER1());
                     }
                 });
 
-                callAPIContactByPersonNr(URL+"/contact/personnr?where=" + mAuftrag.getVERTRETER1());
+                callAPIContactsByPersonNr(URL + "/contacts?qry=ContactlistByPersonnr&relperson__personnr=" + mAuftrag.getVERTRETER1()); // '%' = %25
             }
 
             // Status anzeigen
@@ -394,11 +384,10 @@ public  class OrderDetailsFragment extends Fragment {
                 ly.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        callAPIAdresseByAdresseNr(URL+"/adresse/adressenr?where=" + mAuftrag.getADRNR2());
+                        callAPIAdresseByAdresseNr(URL+"/adresse/adressenr?where=" + mAuftrag.getADRNR2()); //TODO: umstellen auf neue API
                     }
                 });
-                callAPIAdresseByAdresseNr(URL + "/adresse/adressenr?where=" + mAuftrag.getADRNR2());
-
+                callAPIAdresseByAdresseNr(URL + "/adresse/adressenr?where=" + mAuftrag.getADRNR2()); //TODO: umstellen auf neue API
 
                 ImageButton img = (ImageButton) view.findViewById(R.id.btnMaps);
 
@@ -429,11 +418,6 @@ public  class OrderDetailsFragment extends Fragment {
         nf.setMinimumFractionDigits(2);
         nf.setMaximumFractionDigits(2);
         return nf.format(value) + " EUR";
-    }
-
-    private String getGermanDateFormat(String value) {
-        DateFormat nf = DateFormat.getDateInstance();
-        return nf.format(value);
     }
 
     private void showMaps() {
