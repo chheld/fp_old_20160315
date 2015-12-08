@@ -159,7 +159,7 @@ public  class OrderDetailsFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 try {
                     VolleyLog.v("Response:%n %s", response.toString(4));
-                    JSONArray address = response.getJSONArray("address");
+                    JSONArray address = response.getJSONArray("addresses");
                     Gson gson = new Gson();
                     Adresse adresse = gson.fromJson(address.getJSONObject(0).toString(), Adresse.class);
                     String adr1 = adresse.getZUSATZ1();
@@ -384,10 +384,10 @@ public  class OrderDetailsFragment extends Fragment {
                 ly.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        callAPIAdresseByAdresseNr(URL+"/adresse/adressenr?where=" + mAuftrag.getADRNR2()); //TODO: umstellen auf neue API
+                        callAPIAdresseByAdresseNr(URL + "/addresses?qry=AddressByAdresseNr&reladresse__adressenr=" + mAuftrag.getADRNR2());
                     }
                 });
-                callAPIAdresseByAdresseNr(URL + "/adresse/adressenr?where=" + mAuftrag.getADRNR2()); //TODO: umstellen auf neue API
+                callAPIAdresseByAdresseNr(URL + "/addresses?qry=AddressByAdresseNr&reladresse__adressenr=" + mAuftrag.getADRNR2());
 
                 ImageButton img = (ImageButton) view.findViewById(R.id.btnMaps);
 
@@ -413,8 +413,8 @@ public  class OrderDetailsFragment extends Fragment {
     }
 
     private String getGermanCurrencyFormat(double value) {
+        //TODO: in StringUTILS verschieben
         NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMAN);
-        //nf.setGroupingUsed(true);
         nf.setMinimumFractionDigits(2);
         nf.setMaximumFractionDigits(2);
         return nf.format(value) + " EUR";
