@@ -48,7 +48,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginRight="12dp"
+                android:layout_marginRight="15dp"
                 android:contentDescription="AB" />
 
             <TextView
@@ -173,7 +173,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginRight="12dp"
+                android:layout_marginRight="15dp"
                 android:contentDescription="Kreis" />
 
             <TextView
@@ -264,7 +264,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginRight="12dp"
+                android:layout_marginRight="15dp"
                 android:contentDescription="Person" />
 
             <TextView
@@ -323,7 +323,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginRight="12dp"
+                android:layout_marginRight="15dp"
                 android:contentDescription="Termin" />
 
             <TextView
@@ -441,7 +441,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginRight="12dp"
+                android:layout_marginRight="15dp"
                 android:contentDescription="Haus" />
 
             <TextView
@@ -519,7 +519,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginRight="12dp"
+                android:layout_marginRight="15dp"
                 android:contentDescription="LKW" />
 
             <TextView
@@ -538,10 +538,11 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:id="@+id/btnMaps"
-                android:layout_alignBottom="@+id/lblLieferadresse"
+                android:layout_alignBottom="@+id/tvLieferAdresse"
                 android:layout_alignParentEnd="true"
-                android:backgroundTintMode="screen"
-                android:src="@drawable/ic_location" />
+                android:src="@drawable/ic_location"
+                android:background="@android:color/transparent"
+                android:contentDescription="Maps" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -585,7 +586,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginRight="12dp"
+                android:layout_marginRight="15dp"
                 android:contentDescription="Geld" />
 
             <TextView
@@ -768,7 +769,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginRight="12dp" />
+                android:layout_marginRight="15dp" />
 
             <TextView
                 android:layout_width="wrap_content"

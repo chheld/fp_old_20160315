@@ -27,19 +27,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.NumberFormat;
-import java.util.Locale;
-
 import de.fischerprofil.fp.AppController;
 import de.fischerprofil.fp.R;
-import de.fischerprofil.fp.StringUtils;
+import de.fischerprofil.fp.utils.StringUtils;
+import de.fischerprofil.fp.utils.UIUtils;
 import de.fischerprofil.fp.model.address.Adresse;
 import de.fischerprofil.fp.model.contact.Kontakt;
 import de.fischerprofil.fp.model.order.Auftrag;
 import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
 import de.fischerprofil.fp.rest.HttpsTrustManager;
 import de.fischerprofil.fp.rest.RestUtils;
-import de.fischerprofil.fp.ui.UIUtils;
 
 public  class OrderDetailsFragment extends Fragment {
 
@@ -401,17 +398,18 @@ public  class OrderDetailsFragment extends Fragment {
             }
 
             //Summen anzeigen
-            tvNetto0.setText(getGermanCurrencyFormat(mAuftrag.getACPPARTNETTO0()));
-            tvGesamtrabatt.setText(getGermanCurrencyFormat(mAuftrag.getRABSUM()));
-            tvNetto1.setText(getGermanCurrencyFormat(mAuftrag.getNETTO1()));
-            tvZusatzaufwand.setText(getGermanCurrencyFormat(mAuftrag.getZSUM()));
-            tvNetto2.setText(getGermanCurrencyFormat(mAuftrag.getNETTO2()));
-            tvUmsatzsteuer.setText(getGermanCurrencyFormat(mAuftrag.getMWSTWERT()));
-            tvBrutto.setText(getGermanCurrencyFormat(mAuftrag.getBRUTTO()));
+            tvNetto0.setText(StringUtils.getGermanCurrencyFormat(mAuftrag.getACPPARTNETTO0()));
+            tvGesamtrabatt.setText(StringUtils.getGermanCurrencyFormat(mAuftrag.getRABSUM()));
+            tvNetto1.setText(StringUtils.getGermanCurrencyFormat(mAuftrag.getNETTO1()));
+            tvZusatzaufwand.setText(StringUtils.getGermanCurrencyFormat(mAuftrag.getZSUM()));
+            tvNetto2.setText(StringUtils.getGermanCurrencyFormat(mAuftrag.getNETTO2()));
+            tvUmsatzsteuer.setText(StringUtils.getGermanCurrencyFormat(mAuftrag.getMWSTWERT()));
+            tvBrutto.setText(StringUtils.getGermanCurrencyFormat(mAuftrag.getBRUTTO()));
 
         }
     }
 
+/*
     private String getGermanCurrencyFormat(double value) {
         //TODO: in StringUTILS verschieben
         NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMAN);
@@ -419,6 +417,7 @@ public  class OrderDetailsFragment extends Fragment {
         nf.setMaximumFractionDigits(2);
         return nf.format(value) + " EUR";
     }
+*/
 
     private void showMaps() {
 

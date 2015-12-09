@@ -113,7 +113,8 @@ public class OrderListFragment extends Fragment {
                     progressBar.setVisibility(View.GONE);  // Fortschrittsanzeige ausblenden
 
                     Auftrag auftrag = (Auftrag) parent.getItemAtPosition(position);
-                    //TODO: speichern des Auftrags in letzte Vorgänge
+
+                    //TODO: speichern des Auftrags in HOME - letzte Vorgänge
 
                     Intent intent = new Intent(mContext, OrderDetailsActivity.class);
                     intent.putExtra("anr",auftrag.getANR());
