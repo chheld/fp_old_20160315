@@ -29,8 +29,8 @@ import org.json.JSONObject;
 
 import de.fischerprofil.fp.AppController;
 import de.fischerprofil.fp.R;
-import de.fischerprofil.fp.utils.StringUtils;
-import de.fischerprofil.fp.utils.UIUtils;
+import de.fischerprofil.fp.StringUtils;
+import de.fischerprofil.fp.ui.UIUtils;
 import de.fischerprofil.fp.model.address.Adresse;
 import de.fischerprofil.fp.model.contact.Kontakt;
 import de.fischerprofil.fp.model.order.Auftrag;
