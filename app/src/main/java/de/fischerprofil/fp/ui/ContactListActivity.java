@@ -29,7 +29,7 @@ import java.net.URLConnection;
 import de.fischerprofil.fp.AppController;
 import de.fischerprofil.fp.R;
 import de.fischerprofil.fp.provider.OrderSuggestionProvider;
-import de.fischerprofil.fp.rest.RestUtils;
+import de.fischerprofil.fp.utils.RestUtils;
 import de.fischerprofil.fp.ui.fragments.AboutFragment;
 import de.fischerprofil.fp.ui.fragments.ContactListFragment;
 import de.fischerprofil.fp.ui.fragments.HintFragment;
