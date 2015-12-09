@@ -30,13 +30,13 @@ import org.json.JSONObject;
 import de.fischerprofil.fp.AppController;
 import de.fischerprofil.fp.R;
 import de.fischerprofil.fp.StringUtils;
-import de.fischerprofil.fp.ui.UIUtils;
 import de.fischerprofil.fp.model.address.Adresse;
 import de.fischerprofil.fp.model.contact.Kontakt;
 import de.fischerprofil.fp.model.order.Auftrag;
 import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
 import de.fischerprofil.fp.rest.HttpsTrustManager;
 import de.fischerprofil.fp.rest.RestUtils;
+import de.fischerprofil.fp.ui.UIUtils;
 
 public  class OrderDetailsFragment extends Fragment {
 
@@ -44,6 +44,7 @@ public  class OrderDetailsFragment extends Fragment {
     private Context mContext;
     private View mView;
     private Auftrag mAuftrag;
+    private String mMapsAddress;
     private ProgressBar progressBarAuftrag;
     private String mANr = "";
     private TextView tvVertreterName;
@@ -168,6 +169,7 @@ public  class OrderDetailsFragment extends Fragment {
                     String plz = adresse.getPLZORT();
                     if (StringUtils.IsNotNullOrEmpty(plz)) plz = plz + " ";
                     String ort = adresse.getORT();
+                    mMapsAddress = str + "," + plz + " " + ort;
                     tvLieferadresse.setText(adr1 + adr2 + str + plz + ort);
                     pbLieferadresse.setVisibility(View.GONE);
 
@@ -409,29 +411,23 @@ public  class OrderDetailsFragment extends Fragment {
         }
     }
 
-/*
-    private String getGermanCurrencyFormat(double value) {
-        //TODO: in StringUTILS verschieben
-        NumberFormat nf = NumberFormat.getNumberInstance(Locale.GERMAN);
-        nf.setMinimumFractionDigits(2);
-        nf.setMaximumFractionDigits(2);
-        return nf.format(value) + " EUR";
-    }
-*/
-
     private void showMaps() {
 
-        UIUtils.makeToast(mContext, "TODO: Google Maps starten..."); //TEST
+        UIUtils.makeToast(mContext, "Starte Navi-App ..."); //TEST
 
-        Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4194");
+        try {
+            // Aufruf für Google Maps
+//            Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4194");
+//            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+//            mapIntent.setPackage("com.google.android.apps.maps");
 
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-        mapIntent.setPackage("com.google.android.apps.maps");
-        if (mapIntent.resolveActivity(mContext.getPackageManager()) != null) {
-            startActivity(mapIntent);
+            // Aufruf für hinterlegte Navi-App
+            String address = mMapsAddress; //"Kiefernweg 15, 57250 Netphen";
+            Intent geoIntent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + address));
+            startActivity(geoIntent);
         }
-        else {
-            UIUtils.makeToast(mContext, "Google Maps ist nicht installiert!");
+        catch (Exception e) {
+            UIUtils.makeToast(mContext, "Keine Navi-App installiert"); //TEST
         }
     }
 }

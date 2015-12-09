@@ -5,18 +5,38 @@ import java.util.Locale;
 
 public class StringUtils {
 
-    public static boolean IsNullOrEmpty(String s) {
+    public static boolean IsNullOrEmpty(Object o) {
         boolean r = true;
-        if (s != null) {
-            if (s.length() != 0) r = false;
+        String s;
+
+        try {
+            s = o.toString();
+            if (s != null) {
+                if (s.length() != 0) r = false;
+            }
+        }
+        catch (Exception e) {
+            r = true;
         }
         return r;
     }
 
-    public static boolean IsNotNullOrEmpty(String s) {
+    public static boolean IsNotNullOrEmpty(Object o) {
         boolean r = false;
-        if (s != null) {
-            if (s.length() != 0) r = true;
+        String s;
+
+        try {
+            s = o.toString();
+            if (s != null) {
+                if (s.length() != 0) {
+                    if (!s.equals("null")) {
+                        r = true;
+                    }
+                }
+            }
+        }
+        catch (Exception e) {
+            r = false;
         }
         return r;
     }
