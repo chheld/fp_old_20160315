@@ -3,8 +3,6 @@ package de.fischerprofil.fp.ui;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
 import android.support.annotation.Nullable;
@@ -14,22 +12,17 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.lang.reflect.Field;
-import java.net.URL;
-import java.net.URLConnection;
 
 import de.fischerprofil.fp.AppController;
 import de.fischerprofil.fp.R;
 import de.fischerprofil.fp.provider.OrderSuggestionProvider;
-import de.fischerprofil.fp.rest.RestUtils;
 import de.fischerprofil.fp.ui.fragments.AboutFragment;
 import de.fischerprofil.fp.ui.fragments.ContactListFragment;
 import de.fischerprofil.fp.ui.fragments.HintFragment;
@@ -37,17 +30,12 @@ import de.fischerprofil.fp.ui.fragments.HintFragment;
 public class ContactListActivity extends AppCompatActivity {
 
     private MenuItem searchItem;
-    private SearchRecentSuggestions suggestions;
-    private SearchView searchView;
-    private TextView tvHinweis;
+    private SearchRecentSuggestions mSuggestions;
+    private SearchView mSearchView;
+    private TextView mHinweis;
     private AppController mAppController;
-    private Context mContext;
 
     private final String VOLLEY_TAG = "VOLLEY_TAG_ContactListActivity";
-
-    private final String URL = RestUtils.getURL();
-//    private final String URL = "https://fpvk.fischerprofil.de/api";
-//    private final String URL = "https://222.222.222.60/api";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +44,8 @@ public class ContactListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_contactlist);
 
         mAppController = AppController.getInstance();
-        mContext = this;
 
-        tvHinweis = (TextView) findViewById(R.id.tvHinweis);
+        mHinweis = (TextView) findViewById(R.id.tvHinweis);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_contacts_toolbar);
         if (toolbar != null) {
@@ -67,16 +54,16 @@ public class ContactListActivity extends AppCompatActivity {
             //getSupportActionBar().setSubtitle(null);
         }
 
-        suggestions = new SearchRecentSuggestions(this, OrderSuggestionProvider.AUTHORITY, OrderSuggestionProvider.MODE);
+        mSuggestions = new SearchRecentSuggestions(this, OrderSuggestionProvider.AUTHORITY, OrderSuggestionProvider.MODE);
 
         // Associate searchable configuration with the SearchView
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchView = new SearchView(getSupportActionBar().getThemedContext());
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setIconifiedByDefault(true);
-        searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH); // Lupe anzeigen in der Tastatur
-        //searchView.setSubmitButtonEnabled(true); //OK-Button anzeigen
-        SearchView.SearchAutoComplete searchAutoComplete = (SearchView.SearchAutoComplete) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        mSearchView = new SearchView(getSupportActionBar().getThemedContext());
+        mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        mSearchView.setIconifiedByDefault(true);
+        mSearchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH); // Lupe anzeigen in der Tastatur
+        //mSearchView.setSubmitButtonEnabled(true); //OK-Button anzeigen
+        SearchView.SearchAutoComplete searchAutoComplete = (SearchView.SearchAutoComplete) mSearchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
 
         // Collapse the search menu when the user hits the back key
         searchAutoComplete.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -95,9 +82,6 @@ public class ContactListActivity extends AppCompatActivity {
 
         } catch (Exception e) {
         }
-
-        checkServerConnection checkServerConnection = new checkServerConnection();
-        checkServerConnection.execute("qw1");
     }
 
     @Override
@@ -109,7 +93,7 @@ public class ContactListActivity extends AppCompatActivity {
         // Search Icon referenzieren
         searchItem = menu.findItem(R.id.itm_action_search);
 
-        MenuItemCompat.setActionView(searchItem, searchView);
+        MenuItemCompat.setActionView(searchItem, mSearchView);
         MenuItemCompat.setShowAsAction(searchItem, MenuItemCompat.SHOW_AS_ACTION_ALWAYS | MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
 
         return super.onCreateOptionsMenu(menu);
@@ -122,15 +106,16 @@ public class ContactListActivity extends AppCompatActivity {
 
         switch (id) {
 
-            case R.id.action_settings: // TODO
+            case R.id.action_settings:
+                showSettings();
                 return true;
 
-            case R.id.itm_action_search: // TODO
+            case R.id.itm_action_search:
                 showSearch(true);
                 return true;
 
-            case R.id.action_clear_history: // ok
-                suggestions.clearHistory();
+            case R.id.action_clear_history:
+                clearSuggestions();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -149,9 +134,7 @@ public class ContactListActivity extends AppCompatActivity {
             Bundle extras = intent.getExtras();
             String userQuery = String.valueOf(extras.get(SearchManager.USER_QUERY));
             String query = String.valueOf(extras.get(SearchManager.QUERY));
-            suggestions.saveRecentQuery(query, "in Kontakten");
-
-            //Toast.makeText(this, "query: " + query + " user_query: " + userQuery, Toast.LENGTH_SHORT).show(); // TEST Meldung
+            mSuggestions.saveRecentQuery(query, "in Kontakten");
 
             Bundle args = new Bundle(); // Uebergabe-Parameter für Fragment erstellen
             args.putString("search", query);
@@ -191,7 +174,7 @@ public class ContactListActivity extends AppCompatActivity {
 
     private void showFragment(String key, @Nullable Bundle args) {
 
-        tvHinweis.setVisibility(View.GONE);
+        mHinweis.setVisibility(View.GONE);
 
         Fragment fragment = null;
         switch (key) {
@@ -228,63 +211,14 @@ public class ContactListActivity extends AppCompatActivity {
         mAppController.cancelPendingRequests(VOLLEY_TAG);
     }
 
-    public class checkServerConnection extends AsyncTask<String, Boolean, Boolean> {
+    private void clearSuggestions() {
 
-        @Override
-        protected Boolean doInBackground(String... params) {
-            String s = params[0];
-            Boolean ret = false;
-//            ret  = isConnectedToServer("https://222.222.222.60", 2000);
-            ret  = isConnectedToServer(URL, 2000);
-            Log.d("isConnectedToServer", ret.toString());
-            publishProgress(ret);
-            return ret;
-        }
-        @Override
-        protected void onProgressUpdate(Boolean... values) {
-            Log.d("isConnectedToServer", "onProgressUpdate(): " + values[0]);
-        }
+        mSuggestions.clearHistory();
+    }
 
-        @Override
-        protected void onPostExecute(Boolean res) {
-
-            super.onPostExecute(res);
-            Log.d("isConnectedToServer", "onPostExecute(): " + res);
-            if (res==false) {
-                Toast.makeText(mContext, "Keine Serververbindung", Toast.LENGTH_SHORT).show();
-                showVPN();
-            }
-
-            //showEditDialog();
-        }
-
-        private void showVPN() {
-
-            try {
-                PackageManager manager = mContext.getPackageManager();
-                Intent intent = manager.getLaunchIntentForPackage("app.openconnect");
-                //intent.putExtra("Fp", "upb ssl"); // zum direkten Öffenen der FP-Einstellungen, sonst weglassen
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //TODO: wirklich notwendig ?
-                mContext.startActivity(intent);
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-                Toast.makeText(mContext, "VPN App ist nicht installiert", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        private Boolean isConnectedToServer(String url, int timeout) {
-            try{
-                URL myUrl = new URL(url);
-                URLConnection connection = myUrl.openConnection();
-                connection.setConnectTimeout(timeout);
-                connection.connect();
-                return true;
-            } catch (Exception e) {
-                // Handle your exceptions
-            }
-            return false;
-        }
+    private void showSettings(){
+        Intent intent = new Intent(this, PreferencesActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

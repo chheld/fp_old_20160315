@@ -40,7 +40,7 @@ public class OrderListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(de.fischerprofil.fp.R.layout.activity_orderlist);
+        setContentView(R.layout.activity_orderlist);
 
         mAppController = AppController.getInstance();
 
@@ -80,7 +80,6 @@ public class OrderListActivity extends AppCompatActivity {
             mCursorDrawableRes.set(searchAutoComplete, 0);
 
         } catch (Exception e) {
-
         }
 
         if (savedInstanceState != null) {
@@ -191,7 +190,7 @@ public class OrderListActivity extends AppCompatActivity {
         }
         if (fragment != null) {
             FragmentManager frgManager = getSupportFragmentManager();
-            frgManager.beginTransaction().replace(de.fischerprofil.fp.R.id.fragment_container, fragment).commit();
+            frgManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
         }
     }
 
