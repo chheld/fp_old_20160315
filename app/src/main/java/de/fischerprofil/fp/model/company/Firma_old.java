@@ -1154,46 +1154,6 @@ public class Firma_old implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(mIcon);
-        dest.writeString(IK);
-        dest.writeString(SYSF);
-        dest.writeString(CREATEDATE);
-        dest.writeString(MODIFYDATE);
-        dest.writeString(CREATEUSER);
-        dest.writeString(MODIFYUSER);
-        dest.writeString(CID);
-        dest.writeString(ADRESSENR);
-        dest.writeString(PERSONNR);
-        dest.writeString(FIRMANR);
-        dest.writeString(ANSCHRIFTNR);
-        dest.writeString(LASTEINM);
-        dest.writeString(STATUS1);
-        dest.writeString(STATUS2);
-        dest.writeString(STATUS3);
-        dest.writeString(STATUS4);
-        dest.writeString(STATUS5);
-        dest.writeString(STATUS6);
-        dest.writeString(NAME);
-        dest.writeString(VORNAME);
-        dest.writeString(ANREDE);
-        dest.writeString(TITEL);
-        dest.writeString(SPRACHKNZ);
-        dest.writeString(VERTRGRP);
-        dest.writeString(VERWENDUNG1);
-        dest.writeString(VERWENDUNG2);
-        dest.writeString(VERWENDUNG3);
-        dest.writeString(VERWENDUNG4);
-        dest.writeString(VERWENDUNG5);
-        dest.writeString(CRMPERSONID);
-        dest.writeString(MAILINGLOCKFLAG);
-        dest.writeString(SEX);
-        dest.writeString(USGESPERRT);
-        dest.writeString(USSPERRGRUND);
-        dest.writeString(NAME_);
-        dest.writeString(VORNAME_);
-        dest.writeString(ANREDE_);
-        dest.writeString(TITEL_);
-        dest.writeString(RELFIRMA_NAME);
-        dest.writeString(RELFIRMA_KTXT);
+
     }
 }
