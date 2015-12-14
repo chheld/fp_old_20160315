@@ -112,6 +112,7 @@ public class ContactListFragment extends Fragment {
 
                     Kontakt kontakt = (Kontakt) parent.getItemAtPosition(position);
                     Toast.makeText(mContext, kontakt.getPERSONNR(), Toast.LENGTH_SHORT).show();
+
                     //TODO: speichern des Auftrags in letzte Vorgänge
 
                     Intent intent = new Intent(mContext, ContactListActivity.class);
@@ -121,15 +122,9 @@ public class ContactListFragment extends Fragment {
             });
             // start http requests
             mSearchRequestCounter = 0;
-
-            callAPIContactsByPersonNr(URL+"/contacts?qry=ContactlistByPersonnr&relperson__personnr=" + search + "%25"); // '%' = %25
-//            callAPIContactsByPersonNr(URL+"/contacts/personnr?where=" + search); //TODO: umstellen auf neue Abfrage
-
-            //Auftrag auftrag = new Auftrag();
-            //auftrag.loadOrderDataByANR(mContext,URL+"/orders/anr?where=" + search);
-
-            //callAPIOrdersByMNR(URL+"/orders/mnr/" + search);
-            //callAPIOrdersByKTXT(URL+"/orders/ktxt?where=" + search + "&fields=anr,mnr,ktxt,bemerkung,komm,kw,kj");
+            callAPIContactsByPersonNr(URL + "/contacts?relperson__personnr=" + RestUtils.cleanURL(search) + "%25"); // '%' = %25
+            callAPIContactsByFirmaNr(URL + "/contacts?relfirma__firmanr=" + RestUtils.cleanURL(search) + "%25"); // '%' = %25
+            callAPIContactsByFirmaKTxt(URL + "/contacts?relfirma__ktxt=" + RestUtils.cleanURL(search) + "%25"); // '%' = %25
         }
     }
 
@@ -168,6 +163,89 @@ public class ContactListFragment extends Fragment {
                 Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
                 //DialogBox dialogBox = new DialogBox(mContext, "Fehler", error.getMessage());
                 //dialogBox.show();
+                mSearchRequestCounter--;
+                if (mSearchRequestCounter < 1) mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+            }
+        });
+        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
+        AppController.getInstance().addToRequestQueue(req,VOLLEY_TAG);
+    }
+
+    private void callAPIContactsByFirmaNr(String search) {
+
+        // Increase counter for pending search requests
+        mSearchRequestCounter++;
+
+        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+
+        HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
+//            JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    VolleyLog.v("Response:%n %s", response.toString(4));
+                    JSONArray contacts = response.getJSONArray("contacts");
+                    mListe.add(contacts);
+                    mAdapter.notifyDataSetChanged();
+                    mSearchRequestCounter--;
+                    if (mSearchRequestCounter < 1) {
+                        mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+                        Toast.makeText(mContext, contacts.length() + " Einträge über FIRMANR gefunden", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("Error: ", error.getMessage());
+                Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
+                //DialogBox dialogBox = new DialogBox(mContext, "Fehler", error.getMessage());
+                //dialogBox.show();
+                mSearchRequestCounter--;
+                if (mSearchRequestCounter < 1) mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+            }
+        });
+        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
+        AppController.getInstance().addToRequestQueue(req,VOLLEY_TAG);
+    }
+
+    private void callAPIContactsByFirmaKTxt(String search) {
+
+        // Increase counter for pending search requests
+        mSearchRequestCounter++;
+
+        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+
+        HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    VolleyLog.v("Response:%n %s", response.toString(4));
+                    JSONArray contacts = response.getJSONArray("contacts");
+                    mListe.add(contacts);
+                    mAdapter.notifyDataSetChanged();
+                    mSearchRequestCounter--;
+                    if (mSearchRequestCounter < 1) {
+                        mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+                        Toast.makeText(mContext, contacts.length() + " Einträge über FIRMA_KTXT gefunden", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("Error: ", error.getMessage());
+                Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
                 mSearchRequestCounter--;
                 if (mSearchRequestCounter < 1) mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
             }

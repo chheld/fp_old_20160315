@@ -282,7 +282,7 @@ public  class OrderDetailsFragment extends Fragment {
         if (mAuftrag!=null) {
 
             // Auftrag anzeigen
-            tvANr.setText("Auftrag " + mAuftrag.getANR());
+            tvANr.setText(mAuftrag.getANR());
             tvBemerkung.setText(mAuftrag.getBEMERKUNG());
             if(tvBemerkung.getText().toString().trim().length()==0)  tvBemerkung.setVisibility(View.GONE);
             tvBestellnummer.setText(mAuftrag.getBELEGNRBEST());
@@ -301,7 +301,7 @@ public  class OrderDetailsFragment extends Fragment {
             }
 
             // Vertreter anzeigen
-            tvVertr1.setText("Vertreter " + mAuftrag.getVERTRETER1());
+            tvVertr1.setText(mAuftrag.getVERTRETER1());
             if(tvVertr1.getText().toString().trim().length()==0) {
                 tvVertr1.setVisibility(View.GONE);
             }
@@ -312,11 +312,13 @@ public  class OrderDetailsFragment extends Fragment {
                 layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        callAPIContactsByPersonNr(URL + "/contacts?qry=ContactlistByPersonnr&relperson__personnr=" + mAuftrag.getVERTRETER1());
+                        callAPIContactsByPersonNr(URL + "/contacts?relperson__personnr=" + mAuftrag.getVERTRETER1());
+//                        callAPIContactsByPersonNr(URL + "/contacts?qry=ContactlistByPersonnr&relperson__personnr=" + mAuftrag.getVERTRETER1());
                     }
                 });
 
-                callAPIContactsByPersonNr(URL + "/contacts?qry=ContactlistByPersonnr&relperson__personnr=" + mAuftrag.getVERTRETER1()); // '%' = %25
+                callAPIContactsByPersonNr(URL + "/contacts?relperson__personnr=" + mAuftrag.getVERTRETER1()); // '%' = %25
+//                callAPIContactsByPersonNr(URL + "/contacts?qry=ContactlistByPersonnr&relperson__personnr=" + mAuftrag.getVERTRETER1()); // '%' = %25
             }
 
             // Status anzeigen
@@ -365,14 +367,14 @@ public  class OrderDetailsFragment extends Fragment {
             }
 
             // Kunden anzeigen
-            tvKdNr.setText("Kunde " + mAuftrag.getMNR());
+            tvKdNr.setText(mAuftrag.getMNR());
             tvKTxt.setText(mAuftrag.getKTXT());
             if(tvKTxt.getText().toString().trim().length()==0)  tvKTxt.setVisibility(View.GONE);
             tvKW.setText(Integer.toString(mAuftrag.getKW()));
             tvKJ.setText(Integer.toString(mAuftrag.getKJ()));
 
             // Lieferadresse anzeigen
-            tvLieferadresseNr.setText("Adresse " + mAuftrag.getADRNR2());
+            tvLieferadresseNr.setText(mAuftrag.getADRNR2());
             if(tvLieferadresseNr.getText().toString().trim().length()==0) {
                 tvLieferadresseNr.setVisibility(View.GONE);
             }

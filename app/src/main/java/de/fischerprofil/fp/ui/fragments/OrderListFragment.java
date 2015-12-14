@@ -124,9 +124,9 @@ public class OrderListFragment extends Fragment {
             // start http requests
             mSearchRequestCounter = 0;
 
-            callAPIOrdersByANR(URL + "/orders?qry=OrderListByANr&anr=" + search + "%25"); // '%' = %25
-            callAPIOrdersByMNR(URL + "/orders?qry=OrderListByMNr&mnr=" + search + "%25"); // '%' = %25
-            callAPIOrdersByKTXT(URL + "/orders?qry=OrderListByKtxt&ktxt=" + search + "%25"); // '%' = %25
+            callAPIOrdersByANR(URL + "/orders?qry=OrderListByANr&anr=" + RestUtils.cleanURL(search) + "%25"); // '%' = %25
+            callAPIOrdersByMNR(URL + "/orders?qry=OrderListByMNr&mnr=" + RestUtils.cleanURL(search) + "%25"); // '%' = %25
+            callAPIOrdersByKTXT(URL + "/orders?qry=OrderListByKtxt&ktxt=" + RestUtils.cleanURL(search) + "%25"); // '%' = %25
 
             // TODO: Lade-Fkt in auftrag verlagern
             // Auftrag auftrag = new Auftrag();

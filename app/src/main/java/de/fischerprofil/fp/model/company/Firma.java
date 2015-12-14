@@ -7,6 +7,8 @@ import com.google.gson.annotations.SerializedName;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import de.fischerprofil.fp.R;
+
 public class Firma implements Parcelable {
 
     private int mIcon;      // Icon des Auftrags
@@ -207,94 +209,96 @@ public class Firma implements Parcelable {
          *
          */
         public Firma() {
+            super();
+            this.mIcon = R.drawable.ic_organization;
         }
 
-    protected Firma(Parcel in) {
-        mIcon = in.readInt();
-        IK = in.readString();
-        SYSF = in.readString();
-        CREATEDATE = in.readString();
-        MODIFYDATE = in.readString();
-        CREATEUSER = in.readString();
-        MODIFYUSER = in.readString();
-        CID = in.readString();
-        STATUS1 = in.readString();
-        STATUS2 = in.readString();
-        STATUS3 = in.readString();
-        STATUS4 = in.readString();
-        STATUS5 = in.readString();
-        STATUS6 = in.readString();
-        FIRMANR = in.readString();
-        SUCHBEGRIFF = in.readString();
-        NAME = in.readString();
-        GFORM = in.readString();
-        KTXT = in.readString();
-        SPRACHKNZ = in.readString();
-        ABCKLAS = in.readString();
-        LIEFERMODELL = in.readString();
-        STANDARDLIEFERZEIT = in.readString();
-        FGKNZ_1 = in.readString();
-        FGKNZ_2 = in.readString();
-        FGKNZ_5 = in.readString();
-        VERWENDUNG1 = in.readString();
-        VERWENDUNG2 = in.readString();
-        VERWENDUNG3 = in.readString();
-        VERWENDUNG4 = in.readString();
-        VERWENDUNG5 = in.readString();
-        VERWENDUNG6 = in.readString();
-        VERWENDUNG7 = in.readString();
-        VERWENDUNG8 = in.readString();
-        VERWENDUNG9 = in.readString();
-        VERWENDUNG10 = in.readString();
-        VERWENDUNG11 = in.readString();
-        VERWENDUNG12 = in.readString();
-        VERWENDUNG13 = in.readString();
-        VERWENDUNG14 = in.readString();
-        VERWENDUNG15 = in.readString();
-        VERWENDUNG16 = in.readString();
-        UMSZIEL = in.readString();
-        UMSBONUS = in.readString();
-        KNGBONUS = in.readString();
-        REFERENZ = in.readString();
-        EVALUATIONACTIVE = in.readString();
-        CRMCOMPANYID = in.readString();
-        MAILINGLOCKFLAG = in.readString();
-        SHIPPINGCOST = in.readString();
-        ROHSUPDATEMODE = in.readString();
-        SUPPLYWEBSUPPLIER = in.readString();
-        PURCHASEORDERACTIVE = in.readString();
-        RECEIPTACTIVE = in.readString();
-        POCONFIRMATIONACTIVE = in.readString();
-        DELADVISEACTIVE = in.readString();
-        CREDITNOTEACTIVE = in.readString();
-        MASTERDATAACTIVE = in.readString();
-        USTRANSPORTZEIT = in.readString();
-        USGESPERRT = in.readString();
-        USSPERRGRUND = in.readString();
-        SUCHBEGRIFF_ = in.readString();
-        NAME_ = in.readString();
-        KTXT_ = in.readString();
-        RELZTGK_KTXT = in.readString();
-    }
-
-    public static final Creator<Firma> CREATOR = new Creator<Firma>() {
-        @Override
-        public Firma createFromParcel(Parcel in) {
-            return new Firma(in);
+        protected Firma(Parcel in) {
+            mIcon = in.readInt();
+            IK = in.readString();
+            SYSF = in.readString();
+            CREATEDATE = in.readString();
+            MODIFYDATE = in.readString();
+            CREATEUSER = in.readString();
+            MODIFYUSER = in.readString();
+            CID = in.readString();
+            STATUS1 = in.readString();
+            STATUS2 = in.readString();
+            STATUS3 = in.readString();
+            STATUS4 = in.readString();
+            STATUS5 = in.readString();
+            STATUS6 = in.readString();
+            FIRMANR = in.readString();
+            SUCHBEGRIFF = in.readString();
+            NAME = in.readString();
+            GFORM = in.readString();
+            KTXT = in.readString();
+            SPRACHKNZ = in.readString();
+            ABCKLAS = in.readString();
+            LIEFERMODELL = in.readString();
+            STANDARDLIEFERZEIT = in.readString();
+            FGKNZ_1 = in.readString();
+            FGKNZ_2 = in.readString();
+            FGKNZ_5 = in.readString();
+            VERWENDUNG1 = in.readString();
+            VERWENDUNG2 = in.readString();
+            VERWENDUNG3 = in.readString();
+            VERWENDUNG4 = in.readString();
+            VERWENDUNG5 = in.readString();
+            VERWENDUNG6 = in.readString();
+            VERWENDUNG7 = in.readString();
+            VERWENDUNG8 = in.readString();
+            VERWENDUNG9 = in.readString();
+            VERWENDUNG10 = in.readString();
+            VERWENDUNG11 = in.readString();
+            VERWENDUNG12 = in.readString();
+            VERWENDUNG13 = in.readString();
+            VERWENDUNG14 = in.readString();
+            VERWENDUNG15 = in.readString();
+            VERWENDUNG16 = in.readString();
+            UMSZIEL = in.readString();
+            UMSBONUS = in.readString();
+            KNGBONUS = in.readString();
+            REFERENZ = in.readString();
+            EVALUATIONACTIVE = in.readString();
+            CRMCOMPANYID = in.readString();
+            MAILINGLOCKFLAG = in.readString();
+            SHIPPINGCOST = in.readString();
+            ROHSUPDATEMODE = in.readString();
+            SUPPLYWEBSUPPLIER = in.readString();
+            PURCHASEORDERACTIVE = in.readString();
+            RECEIPTACTIVE = in.readString();
+            POCONFIRMATIONACTIVE = in.readString();
+            DELADVISEACTIVE = in.readString();
+            CREDITNOTEACTIVE = in.readString();
+            MASTERDATAACTIVE = in.readString();
+            USTRANSPORTZEIT = in.readString();
+            USGESPERRT = in.readString();
+            USSPERRGRUND = in.readString();
+            SUCHBEGRIFF_ = in.readString();
+            NAME_ = in.readString();
+            KTXT_ = in.readString();
+            RELZTGK_KTXT = in.readString();
         }
 
-        @Override
-        public Firma[] newArray(int size) {
-            return new Firma[size];
-        }
-    };
+        public static final Creator<Firma> CREATOR = new Creator<Firma>() {
+            @Override
+            public Firma createFromParcel(Parcel in) {
+                return new Firma(in);
+            }
 
-    /**
-         *
-         * @return
-         * The IK
-         */
-        public String getIK() {
+            @Override
+            public Firma[] newArray(int size) {
+                return new Firma[size];
+            }
+        };
+
+        /**
+             *
+             * @return
+             * The IK
+             */
+            public String getIK() {
             return IK;
         }
 

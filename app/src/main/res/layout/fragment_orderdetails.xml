@@ -57,22 +57,23 @@
                 android:text="Auftrag"
                 android:id="@+id/lblAuftrag"
                 android:ellipsize="end"
-                android:layout_alignBottom="@+id/ivOrder"
                 android:layout_toRightOf="@+id/ivOrder"
                 android:layout_toEndOf="@+id/ivOrder"
+                android:textAppearance="@android:style/TextAppearance.Theme"
+                android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
-                android:textAppearance="@android:style/TextAppearance.Theme" />
+                android:layout_alignBottom="@+id/ivOrder" />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                android:text="Auftrag &lt;Nr>"
+                android:text="&lt;Nr>"
                 android:id="@+id/tvANr"
                 android:ellipsize="end"
-                    android:layout_below="@+id/lblAuftrag"
-                    android:layout_alignLeft="@+id/lblAuftrag"
-                    android:layout_alignStart="@+id/lblAuftrag"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_alignBottom="@+id/lblAuftrag"
+                    android:layout_toRightOf="@+id/lblAuftrag"
+                    android:layout_toEndOf="@+id/lblAuftrag"
+                    android:textAppearance="@android:style/TextAppearance.Theme" />
 
 
                 <TextView
@@ -81,10 +82,10 @@
                 android:text="Bemerkung"
                 android:id="@+id/tvName"
                 android:ellipsize="end"
-                android:layout_below="@+id/tvANr"
-                android:layout_alignLeft="@+id/lblAuftrag"
-                android:layout_alignStart="@+id/lblAuftrag"
-                android:layout_alignParentEnd="true" />
+                android:layout_below="@+id/lblAuftrag"
+                    android:layout_alignStart="@+id/lblAuftrag"
+                android:layout_alignParentEnd="true"
+                    android:layout_toRightOf="@+id/ivOrder" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -116,7 +117,8 @@
                 android:layout_below="@+id/tvName"
                 android:layout_alignLeft="@+id/tvName"
                 android:layout_alignStart="@+id/tvName"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="5dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -127,7 +129,8 @@
                 android:layout_below="@+id/tvBestellnummer"
                 android:layout_alignLeft="@+id/tvBestellnummer"
                 android:layout_alignStart="@+id/tvBestellnummer"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="5dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -195,7 +198,6 @@
                 android:id="@+id/tvSpezifizierung"
                 android:ellipsize="end"
                 android:layout_below="@+id/tvZDesc"
-                android:layout_alignLeft="@+id/lblStatus"
                 android:layout_toRightOf="@+id/ivStatus"
                 android:layout_alignParentEnd="true" />
 
@@ -206,7 +208,6 @@
                 android:id="@+id/tvStatus2"
                 android:ellipsize="end"
                 android:layout_below="@+id/tvSpezifizierung"
-                android:layout_alignLeft="@+id/tvSpezifizierung"
                 android:layout_toRightOf="@+id/ivStatus"
                 android:layout_alignParentEnd="true" />
 
@@ -217,7 +218,6 @@
                 android:id="@+id/tvZDesc"
                 android:ellipsize="end"
                 android:layout_centerVertical="true"
-                android:layout_alignLeft="@+id/lblStatus"
                 android:layout_alignStart="@+id/lblStatus"
                 android:layout_below="@+id/lblStatus"
                 android:layout_toRightOf="@+id/ivStatus" />
@@ -268,22 +268,22 @@
                 android:contentDescription="Person" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Verkäufer &lt;Nr>"
+                android:text="&lt;Nr>"
                 android:id="@+id/tvVertreter1"
                 android:ellipsize="end"
-                android:layout_below="@+id/lblKontakt"
-                android:layout_alignParentEnd="true"
-                android:layout_toRightOf="@+id/ivKontakt" />
+                android:layout_alignBottom="@+id/lblKontakt"
+                android:layout_toRightOf="@+id/lblKontakt"
+                android:textAppearance="@android:style/TextAppearance.Theme" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="&lt;Verkäufer>"
+                android:text="&lt;Vorname Nachname>"
                 android:id="@+id/tvVertreterName"
                 android:ellipsize="end"
-                android:layout_below="@+id/tvVertreter1"
+                android:layout_below="@+id/lblKontakt"
                 android:layout_alignParentEnd="true"
                 android:layout_toRightOf="@+id/ivKontakt" />
 
@@ -297,7 +297,8 @@
                 android:layout_toEndOf="@+id/ivKontakt"
                 android:layout_alignBottom="@+id/ivKontakt"
                 android:layout_marginBottom="5dp"
-                android:textAppearance="@android:style/TextAppearance.Theme" />
+                android:textAppearance="@android:style/TextAppearance.Theme"
+                android:layout_marginRight="5dp" />
 
 
 
@@ -454,17 +455,18 @@
                 android:layout_toRightOf="@+id/ivFirma"
                 android:layout_toEndOf="@+id/ivFirma"
                 android:layout_marginBottom="5dp"
-                android:textAppearance="@android:style/TextAppearance.Theme" />
+                android:textAppearance="@android:style/TextAppearance.Theme"
+                android:layout_marginRight="5dp" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kunde &lt;Nr>"
+                android:text="&lt;Nr>"
                 android:id="@+id/tvKdNr"
                 android:ellipsize="end"
-                android:layout_below="@+id/lblKunde"
-                android:layout_alignParentEnd="true"
-                android:layout_toRightOf="@+id/ivFirma" />
+                android:layout_alignBottom="@+id/lblKunde"
+                android:layout_toRightOf="@+id/lblKunde"
+                android:textAppearance="@android:style/TextAppearance.Theme" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -472,14 +474,14 @@
                 android:text="&lt;Kundensuchbezeichnung>"
                 android:id="@+id/tvKTxt"
                 android:ellipsize="end"
-                android:layout_below="@+id/tvKdNr"
+                android:layout_below="@+id/lblKunde"
                 android:layout_alignParentEnd="true"
                 android:layout_toRightOf="@+id/ivFirma" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="&lt;Klassifizierung>"
+                android:text="&lt;Klasse>"
                 android:id="@+id/tvKlassifizierung"
                 android:ellipsize="end"
                 android:layout_alignParentEnd="true"
@@ -529,10 +531,10 @@
                 android:id="@+id/lblLieferadresse"
                 android:ellipsize="end"
                 android:layout_toRightOf="@+id/ivLKW"
-                android:layout_toEndOf="@+id/ivLKW"
                 android:layout_alignBottom="@+id/ivLKW"
                 android:layout_marginBottom="5dp"
-                android:textAppearance="@android:style/TextAppearance.Theme" />
+                android:textAppearance="@android:style/TextAppearance.Theme"
+                android:layout_marginRight="5dp" />
 
             <ImageButton
                 android:layout_width="30dp"
@@ -542,17 +544,19 @@
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_location"
                 android:background="@android:color/transparent"
-                android:contentDescription="Maps" />
+                android:contentDescription="Maps"
+                android:layout_marginLeft="15dp" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Adresse &lt;Nr>"
+                android:text="&lt;Nr>"
                 android:id="@+id/tvAdresseNr"
                 android:ellipsize="end"
-                android:layout_below="@+id/lblLieferadresse"
-                android:layout_toRightOf="@+id/ivLKW"
-                android:layout_alignParentEnd="true" />
+                android:layout_toRightOf="@+id/lblLieferadresse"
+                android:layout_alignParentEnd="false"
+                android:layout_alignBottom="@+id/lblLieferadresse"
+                android:textAppearance="@android:style/TextAppearance.Theme" />
                 android:maxLines="1" />
 
             <TextView
@@ -561,9 +565,9 @@
                 android:text="&lt;Adresse>"
                 android:id="@+id/tvLieferAdresse"
                 android:ellipsize="end"
-                android:layout_below="@+id/tvAdresseNr"
+                android:layout_below="@+id/lblLieferadresse"
                 android:layout_toRightOf="@+id/ivLKW"
-                android:layout_alignParentEnd="true" />
+                android:layout_toLeftOf="@+id/btnMaps" />
 
         </RelativeLayout>
 

@@ -82,4 +82,10 @@ public class RestUtils {
 
     public String getPassword() {return mPassword;}
 
+    public static String cleanURL(String s) {
+        s = s.replace(" ","%20");
+        s = s.replace(".","__");
+        return s;
+    }
+
 }

@@ -18,18 +18,15 @@ public class Firmenliste {
         mListe = lst;
     }
 
-
     public Firmenliste() {
         super();
         mListe = new ArrayList<Firma>();
     }
 
-
     public void add(Firma a) {
         mListe.add(a);
         OnFirmaAdded(a.getFIRMANR());
     }
-
 
     public void add(JSONArray array) {
 
@@ -37,32 +34,29 @@ public class Firmenliste {
         //gsonBuilder.setDateFormat("yyyy-MM-dd HH:mm:ss"); //Format of our JSON dates
         //Gson gson = gsonBuilder.create();
         Gson gson=new Gson();
-        Firma Firma;
+        Firma firma;
         try {
             for (int i = 0; i<=array.length(); i++) {
-                Firma = gson.fromJson(array.getJSONObject(i).toString(), Firma.class);
-                this.add(Firma);
+                firma = gson.fromJson(array.getJSONObject(i).toString(), Firma.class);
+                this.add(firma);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-
     public void add(JSONObject json){
         try {
-            this.add(json.getJSONArray("orders"));
+            this.add(json.getJSONArray("addresses"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-
     public ArrayList<Firma> getList() {
 
         return mListe;
     }
-
 
     private void OnFirmaAdded(String s) {
         if (mListeGeaendertListener!=null) {
@@ -70,11 +64,9 @@ public class Firmenliste {
             }
     }
 
-
     public void setFirmenlisteGeaendertListener(FirmenlisteGeaendertListener lsn) {
         mListeGeaendertListener = lsn;
     }
-
 
     public void Clear() {
         mListe.clear();
