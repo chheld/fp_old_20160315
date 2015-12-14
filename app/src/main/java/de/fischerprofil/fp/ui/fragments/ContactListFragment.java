@@ -125,6 +125,8 @@ public class ContactListFragment extends Fragment {
             callAPIContactsByPersonNr(URL + "/contacts?relperson__personnr=" + RestUtils.cleanURL(search) + "%25"); // '%' = %25
             callAPIContactsByFirmaNr(URL + "/contacts?relfirma__firmanr=" + RestUtils.cleanURL(search) + "%25"); // '%' = %25
             callAPIContactsByFirmaKTxt(URL + "/contacts?relfirma__ktxt=" + RestUtils.cleanURL(search) + "%25"); // '%' = %25
+            callAPIContactsByName(URL + "/contacts?relperson__name=" + RestUtils.cleanURL(search) + "%25"); // '%' = %25
+            callAPIContactsByName(URL + "/contacts?relperson__vorname=" + RestUtils.cleanURL(search) + "%25"); // '%' = %25
         }
     }
 
@@ -234,6 +236,46 @@ public class ContactListFragment extends Fragment {
                     if (mSearchRequestCounter < 1) {
                         mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                         Toast.makeText(mContext, contacts.length() + " Einträge über FIRMA_KTXT gefunden", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("Error: ", error.getMessage());
+                Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
+                mSearchRequestCounter--;
+                if (mSearchRequestCounter < 1) mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+            }
+        });
+        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
+        AppController.getInstance().addToRequestQueue(req,VOLLEY_TAG);
+    }
+
+    private void callAPIContactsByName(String search) {
+
+        // Increase counter for pending search requests
+        mSearchRequestCounter++;
+
+        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+
+        HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    VolleyLog.v("Response:%n %s", response.toString(4));
+                    JSONArray contacts = response.getJSONArray("contacts");
+                    mListe.add(contacts);
+                    mAdapter.notifyDataSetChanged();
+                    mSearchRequestCounter--;
+                    if (mSearchRequestCounter < 1) {
+                        mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+                        Toast.makeText(mContext, contacts.length() + " Einträge über NAME gefunden", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

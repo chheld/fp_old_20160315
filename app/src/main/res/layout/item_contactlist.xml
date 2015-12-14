@@ -45,7 +45,8 @@
         android:layout_below="@+id/tvPersonNr"
         android:layout_alignParentEnd="false"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/ivKontakt" />
+        android:layout_toRightOf="@+id/ivKontakt"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
