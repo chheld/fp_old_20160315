@@ -23,12 +23,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import de.fischerprofil.fp.AppController;
+import de.fischerprofil.fp.R;
 import de.fischerprofil.fp.model.contact.Kontakt;
 import de.fischerprofil.fp.model.contact.Kontaktliste;
 import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
 import de.fischerprofil.fp.rest.HttpsTrustManager;
 import de.fischerprofil.fp.rest.RestUtils;
 import de.fischerprofil.fp.ui.ContactListActivity;
+import de.fischerprofil.fp.ui.UIUtils;
 import de.fischerprofil.fp.ui.adapter.ContactListAdapter;
 
 
@@ -72,11 +74,11 @@ public class ContactListFragment extends Fragment {
         mContext = getActivity();
         mAppController = AppController.getInstance();
 
-        View view = inflater.inflate(de.fischerprofil.fp.R.layout.fragment_contactlist, container, false);
-        mListView = (ListView) view.findViewById(de.fischerprofil.fp.R.id.listview);
-        mProgressBar = (ProgressBar) view.findViewById(de.fischerprofil.fp.R.id.progressBar);
+        View view = inflater.inflate(R.layout.fragment_contactlist, container, false);
+        mListView = (ListView) view.findViewById(R.id.listview);
+        mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
-        mSearchString = getArguments().getString("search", null); // evtl. uebergebene SUCH-Parameter ermitteln
+        mSearchString = getArguments().getString("search", null); // evtl. übergebene SUCH-Parameter ermitteln
         if (mSearchString != null) doSearch(mSearchString);
 
         return view;
@@ -94,7 +96,7 @@ public class ContactListFragment extends Fragment {
         if (search.length() < 1) {
             Toast.makeText(mContext, "Mindestens 2 Zeichen eingeben", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(mContext, "Suche '" + search + "'", Toast.LENGTH_SHORT).show();
+            UIUtils.makeToast(mContext, "Suche '" + search + "'");
 
             //Adapter erzeugen und Listview zuweisen
             mAdapter = new ContactListAdapter(mContext, mListe.getList());
@@ -111,7 +113,7 @@ public class ContactListFragment extends Fragment {
                     mProgressBar.setVisibility(View.GONE);  // Fortschrittsanzeige ausblenden
 
                     Kontakt kontakt = (Kontakt) parent.getItemAtPosition(position);
-                    Toast.makeText(mContext, kontakt.getPERSONNR(), Toast.LENGTH_SHORT).show();
+                    UIUtils.makeToast(mContext,kontakt.getPERSONNR());
 
                     //TODO: speichern des Auftrags in letzte Vorgänge
 
@@ -138,7 +140,6 @@ public class ContactListFragment extends Fragment {
         HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
 
         HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
-//            JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -163,8 +164,6 @@ public class ContactListFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.e("Error: ", error.getMessage());
                 Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
-                //DialogBox dialogBox = new DialogBox(mContext, "Fehler", error.getMessage());
-                //dialogBox.show();
                 mSearchRequestCounter--;
                 if (mSearchRequestCounter < 1) mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
             }
@@ -181,7 +180,6 @@ public class ContactListFragment extends Fragment {
         HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
 
         HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
-//            JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -206,8 +204,6 @@ public class ContactListFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.e("Error: ", error.getMessage());
                 Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
-                //DialogBox dialogBox = new DialogBox(mContext, "Fehler", error.getMessage());
-                //dialogBox.show();
                 mSearchRequestCounter--;
                 if (mSearchRequestCounter < 1) mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
             }
@@ -275,7 +271,7 @@ public class ContactListFragment extends Fragment {
                     mSearchRequestCounter--;
                     if (mSearchRequestCounter < 1) {
                         mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
-                        Toast.makeText(mContext, contacts.length() + " Einträge über NAME gefunden", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, contacts.length() + " Einträge zu NAME gefunden", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

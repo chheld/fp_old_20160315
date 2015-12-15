@@ -51,6 +51,7 @@ public  class OrderDetailsFragment extends Fragment {
     private ProgressBar pbVertreter;
     private TextView tvLieferadresse;
     private ProgressBar pbLieferadresse;
+    private ProgressBar pbarKunde;
     private final String VOLLEY_TAG = "VOLLEY_TAG_OrderDetailsFragment";
     private final String URL = RestUtils.getURL();
 
@@ -63,9 +64,8 @@ public  class OrderDetailsFragment extends Fragment {
         progressBarAuftrag = (ProgressBar) mView.findViewById(R.id.progressBarAuftrag);
 
         mANr = getArguments().getString("anr");
-        //if (mANr.equals("")) mANr = "400006"; // TEST
 
-        // Auftragsinhalte: manuell laden ermöglichen
+        // Auftrag nachladen
         RelativeLayout layout = (RelativeLayout)  mView.findViewById(R.id.container_auftrag);
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +74,7 @@ public  class OrderDetailsFragment extends Fragment {
             }
         });
 
-        // Auftragsinhalte automatisch laden
+        // Auftrag
         callAPIOrderByANR(URL+"/orders?qry=byANr&anr=" + mANr);
 
         return mView;
@@ -106,8 +106,6 @@ public  class OrderDetailsFragment extends Fragment {
         HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
 
         HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
-//            JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
-        //VolleyJsonObjectRequestHigh req = new VolleyJsonObjectRequestHigh(search, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -127,7 +125,6 @@ public  class OrderDetailsFragment extends Fragment {
                     VolleyLog.e("Error: ", e.getMessage());
                     Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
                     pbVertreter.setVisibility(View.GONE);
-
                 }
             }
         }, new Response.ErrorListener() {
@@ -150,8 +147,6 @@ public  class OrderDetailsFragment extends Fragment {
         HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
 
         HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
-//            JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
-        //VolleyJsonObjectRequestHigh req = new VolleyJsonObjectRequestHigh(search, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -179,7 +174,6 @@ public  class OrderDetailsFragment extends Fragment {
                     VolleyLog.e("Error: ", e.getMessage());
                     Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
                     pbLieferadresse.setVisibility(View.GONE);
-
                 }
             }
         }, new Response.ErrorListener() {
@@ -195,6 +189,80 @@ public  class OrderDetailsFragment extends Fragment {
         mAppController.addToRequestQueue(req, VOLLEY_TAG);
     }
 
+    private void callAPILookup(String search) {
+
+        progressBarAuftrag.setVisibility(View.VISIBLE);
+
+        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+
+        HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.v("Volley Response:%n %s", response.toString(4));
+                    JSONArray orders = response.getJSONArray("lookup");
+                    Gson gson = new Gson();
+                    mAuftrag = gson.fromJson(orders.getJSONObject(0).toString(), Auftrag.class);
+                    setupLayout(mView);
+                    progressBarAuftrag.setVisibility(View.GONE);  // Fortschritt ausblenden
+                }
+                catch (JSONException e) {
+                    Log.e("Volley Error: ", e.toString());
+                    Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
+                    progressBarAuftrag.setVisibility(View.GONE);  // Fortschritt ausblenden
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Volley Error: ", error.toString());
+                Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
+                progressBarAuftrag.setVisibility(View.GONE);  // Fortschritt ausblenden
+            }
+        }) ;
+        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
+        mAppController.addToRequestQueue(req,VOLLEY_TAG);
+    }
+
+    private void callAPIFirmaByFirmaNr(String search) {
+
+        pbarKunde.setVisibility(View.VISIBLE);
+
+        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+
+        HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.v("Volley Response:%n %s", response.toString(4));
+                    JSONArray orders = response.getJSONArray("companies");
+                    Gson gson = new Gson();
+                    mAuftrag = gson.fromJson(orders.getJSONObject(0).toString(), Auftrag.class);
+                    setupLayout(mView);
+                    pbarKunde.setVisibility(View.GONE);  // Fortschritt ausblenden
+                }
+                catch (JSONException e) {
+                    Log.e("Volley Error: ", e.toString());
+                    Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
+                    pbarKunde.setVisibility(View.GONE);  // Fortschritt ausblenden
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Volley Error: ", error.toString());
+                Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
+                pbarKunde.setVisibility(View.GONE);  // Fortschritt ausblenden
+            }
+        }) ;
+        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
+        mAppController.addToRequestQueue(req,VOLLEY_TAG);
+    }
+
     private void callAPIOrderByANR(String search) {
 
         progressBarAuftrag.setVisibility(View.VISIBLE);
@@ -202,8 +270,6 @@ public  class OrderDetailsFragment extends Fragment {
         HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
 
         HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
-//            JsonObjectRequest req = new JsonObjectRequest(search, new Response.Listener<JSONObject>() {
-        //VolleyJsonObjectRequestHigh req = new VolleyJsonObjectRequestHigh (search, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -216,7 +282,6 @@ public  class OrderDetailsFragment extends Fragment {
                     progressBarAuftrag.setVisibility(View.GONE);  // Fortschritt ausblenden
                 }
                 catch (JSONException e) {
-                    //e.printStackTrace();
                     Log.e("Volley Error: ", e.toString());
                     Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
                     progressBarAuftrag.setVisibility(View.GONE);  // Fortschritt ausblenden
@@ -237,40 +302,43 @@ public  class OrderDetailsFragment extends Fragment {
 
     private void setupLayout(View view) {
 
-        // Auftrag zuweisen
+        // Auftrag
         TextView tvANr = (TextView) view.findViewById(R.id.tvANr);
+        TextView tvKW = (TextView) view.findViewById(R.id.tvKW);
+        TextView tvKJ = (TextView) view.findViewById(R.id.tvKJ);
         TextView tvBemerkung = (TextView) view.findViewById(R.id.tvName); //TODO: tvName in tvBemerkung ändern
         TextView tvBestellnummer = (TextView) view.findViewById(R.id.tvBestellnummer);
         TextView tvKommission = (TextView) view.findViewById(R.id.tvKommission);
 
-        // Vertreter zuweisen
-        pbVertreter = (ProgressBar) view.findViewById(R.id.progressBarVertreter);
-        TextView tvVertr1 = (TextView) view.findViewById(R.id.tvVertreter1);
-        tvVertreterName = (TextView) view.findViewById(R.id.tvVertreterName);
-
-        // Status zuweisen
+        // Status
         TextView tvStatus2 = (TextView) view.findViewById(R.id.tvStatus2);
         TextView tvzDesc = (TextView) view.findViewById(R.id.tvZDesc);
         TextView tvSpezifizierung = (TextView) view.findViewById(R.id.tvSpezifizierung);
 
-        // Termine zuweisen
+        // Verkäufer
+        pbVertreter = (ProgressBar) view.findViewById(R.id.progressBarVertreter);
+        TextView tvVertr1 = (TextView) view.findViewById(R.id.tvVertreter1);
+        tvVertreterName = (TextView) view.findViewById(R.id.tvVertreterName);
+
+        // Termine
         TextView tvKdWunschTermin = (TextView) view.findViewById(R.id.tvKdWunschTermin);
         TextView tvKdBestTermin = (TextView) view.findViewById(R.id.tvKdBestTermin);
         TextView tvProdPlanTermin = (TextView) view.findViewById(R.id.tvProdPlanTermin);
         TextView tvProdDispTermin = (TextView) view.findViewById(R.id.tvProdDispTermin);
 
-        // Kunden zuweisen
+        // Kunde
+        pbarKunde = (ProgressBar) view.findViewById(R.id.progressBarKunde);
         TextView tvKdNr = (TextView) view.findViewById(R.id.tvKdNr);
         TextView tvKTxt = (TextView) view.findViewById(R.id.tvKTxt);
-        TextView tvKW = (TextView) view.findViewById(R.id.tvKW);
-        TextView tvKJ = (TextView) view.findViewById(R.id.tvKJ);
+        TextView tvKlasse = (TextView) view.findViewById(R.id.tvKlassifizierung);
+        // TODO: Kundenklasse anzeigen
 
-        // Lieferanschrift zuweisen
+        // Lieferanschrift
         TextView tvLieferadresseNr = (TextView) view.findViewById(R.id.tvAdresseNr);
         pbLieferadresse = (ProgressBar) view.findViewById(R.id.progressBarLieferadresse);
         tvLieferadresse = (TextView) view.findViewById(R.id.tvLieferAdresse);
 
-        //Summen zuweisen
+        // Auftragswerte
         TextView tvNetto0 = (TextView) view.findViewById(R.id.tvNetto0);
         TextView tvGesamtrabatt = (TextView) view.findViewById(R.id.tvGesamtrabatt);
         TextView tvNetto1 = (TextView) view.findViewById(R.id.tvNetto1);
@@ -279,13 +347,24 @@ public  class OrderDetailsFragment extends Fragment {
         TextView tvUmsatzsteuer = (TextView) view.findViewById(R.id.tvUmsatzsteuer);
         TextView tvBrutto = (TextView) view.findViewById(R.id.tvBrutto);
 
+        // -----------------------------------------------------------------------------------------------
+
         if (mAuftrag!=null) {
+//        if (StringUtils.IsNotNullOrEmpty(mAuftrag)) {
 
             // Auftrag anzeigen
             tvANr.setText(mAuftrag.getANR());
-            tvBemerkung.setText(mAuftrag.getBEMERKUNG());
-            if(tvBemerkung.getText().toString().trim().length()==0)  tvBemerkung.setVisibility(View.GONE);
+            tvKW.setText(Integer.toString(mAuftrag.getKW())); //TODO: wohin damit ?
+            tvKJ.setText(Integer.toString(mAuftrag.getKJ()));
+
+            if(StringUtils.IsNotNullOrEmpty(mAuftrag.getBEMERKUNG())) {
+                tvBemerkung.setText(mAuftrag.getBEMERKUNG());
+            } else {
+                tvBemerkung.setVisibility(View.GONE);
+            }
+
             tvBestellnummer.setText(mAuftrag.getBELEGNRBEST());
+
             if(tvBestellnummer.getText().toString().trim().length()==0) {
                 tvBestellnummer.setVisibility(View.GONE);
             } else
@@ -300,7 +379,7 @@ public  class OrderDetailsFragment extends Fragment {
                 tvKommission.setText("Kommission " + mAuftrag.getKOMM());
             }
 
-            // Vertreter anzeigen
+            // Vertreter nachladen
             tvVertr1.setText(mAuftrag.getVERTRETER1());
             if(tvVertr1.getText().toString().trim().length()==0) {
                 tvVertr1.setVisibility(View.GONE);
@@ -313,12 +392,10 @@ public  class OrderDetailsFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         callAPIContactsByPersonNr(URL + "/contacts?relperson__personnr=" + mAuftrag.getVERTRETER1());
-//                        callAPIContactsByPersonNr(URL + "/contacts?qry=ContactlistByPersonnr&relperson__personnr=" + mAuftrag.getVERTRETER1());
                     }
                 });
 
                 callAPIContactsByPersonNr(URL + "/contacts?relperson__personnr=" + mAuftrag.getVERTRETER1()); // '%' = %25
-//                callAPIContactsByPersonNr(URL + "/contacts?qry=ContactlistByPersonnr&relperson__personnr=" + mAuftrag.getVERTRETER1()); // '%' = %25
             }
 
             // Status anzeigen
@@ -366,14 +443,17 @@ public  class OrderDetailsFragment extends Fragment {
                 lbl.setVisibility(View.GONE);
             }
 
-            // Kunden anzeigen
+            // Kunde anzeigen
             tvKdNr.setText(mAuftrag.getMNR());
             tvKTxt.setText(mAuftrag.getKTXT());
             if(tvKTxt.getText().toString().trim().length()==0)  tvKTxt.setVisibility(View.GONE);
-            tvKW.setText(Integer.toString(mAuftrag.getKW()));
-            tvKJ.setText(Integer.toString(mAuftrag.getKJ()));
+            //TODO: Kundenklasse nachladen
+            if (StringUtils.IsNotNullOrEmpty(mAuftrag.getMNR()))
+                //callAPIFirmaByFirmaNr(URL + "/companies?qry=firmabyfirmanr&firmanr=" + mAuftrag.getMNR());
 
-            // Lieferadresse anzeigen
+
+
+            // Lieferanschrift nachladen
             tvLieferadresseNr.setText(mAuftrag.getADRNR2());
             if(tvLieferadresseNr.getText().toString().trim().length()==0) {
                 tvLieferadresseNr.setVisibility(View.GONE);
@@ -395,13 +475,12 @@ public  class OrderDetailsFragment extends Fragment {
                 img.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //callAPIAdresseByAdresseNr(URL + "/adresse/adressenr?where=" + mAuftrag.getADRNR2());
                         showMaps();
                     }
                 });
             }
 
-            //Summen anzeigen
+            // Auftragswerte anzeigen
             tvNetto0.setText(StringUtils.getGermanCurrencyFormat(mAuftrag.getACPPARTNETTO0()));
             tvGesamtrabatt.setText(StringUtils.getGermanCurrencyFormat(mAuftrag.getRABSUM()));
             tvNetto1.setText(StringUtils.getGermanCurrencyFormat(mAuftrag.getNETTO1()));
@@ -409,27 +488,20 @@ public  class OrderDetailsFragment extends Fragment {
             tvNetto2.setText(StringUtils.getGermanCurrencyFormat(mAuftrag.getNETTO2()));
             tvUmsatzsteuer.setText(StringUtils.getGermanCurrencyFormat(mAuftrag.getMWSTWERT()));
             tvBrutto.setText(StringUtils.getGermanCurrencyFormat(mAuftrag.getBRUTTO()));
-
         }
     }
 
     private void showMaps() {
 
-        UIUtils.makeToast(mContext, "Starte Navi-App ..."); //TEST
+        UIUtils.makeToast(mContext, "Starte Navi-App ...");
 
         try {
-            // Aufruf für Google Maps
-//            Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4194");
-//            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-//            mapIntent.setPackage("com.google.android.apps.maps");
-
-            // Aufruf für hinterlegte Navi-App
-            String address = mMapsAddress; //"Kiefernweg 15, 57250 Netphen";
+            String address = mMapsAddress; //"Kiefernweg 15, 57250 Netphen"; // TEST
             Intent geoIntent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + address));
             startActivity(geoIntent);
         }
         catch (Exception e) {
-            UIUtils.makeToast(mContext, "Keine Navi-App installiert"); //TEST
+            UIUtils.makeToast(mContext, "Keine Navi-App installiert");
         }
     }
 }
