@@ -212,7 +212,7 @@ public  class OrderDetailsFragment extends Fragment {
                     pbarKunde.setVisibility(View.GONE);  // Fortschritt ausblenden
 
                     //TODO: Klartext für Klasse laden
-                    callAPILookupFirmaFGKNZ2(firma.getFGKNZ_2());
+                    callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=relztgk&tabname=KGRKNZ2&result=ktxt&ztkey=" + firma.getFGKNZ_2());
                 }
                 catch (JSONException e) {
                     Log.e("Volley Error: ", e.toString());
@@ -367,7 +367,7 @@ public  class OrderDetailsFragment extends Fragment {
             }
 
             // Status anzeigen
-            tvzDesc.setText(mAuftrag.getZDESC());
+            tvzDesc.setText(StringUtils.asUpperCaseFirstChar(mAuftrag.getZDESC()));
             if (tvzDesc.getText().toString().trim().length()==0)  tvzDesc.setVisibility(View.GONE);
             tvStatus2.setText(mAuftrag.getSTATUS2());
             if(tvStatus2.getText().toString().trim().length()==0)  tvStatus2.setVisibility(View.GONE);
@@ -498,15 +498,10 @@ public  class OrderDetailsFragment extends Fragment {
                 try {
                     Log.v("Volley Response:%n %s", response.toString(4));
 
-                    // TODO Klasse lookup anlegen
                     JSONArray lookup = response.getJSONArray("lookup");
-
-                    //Gson gson = new Gson();
-                    //Firma firma = gson.fromJson(companies.getJSONObject(0).toString(), Firma.class);
-
+                    String s = lookup.getJSONObject(0).getString("KTXT");
                     TextView tvKlasse = (TextView) mView.findViewById(R.id.tvKlassifizierung);
-                    tvKlasse.setText("??");
-
+                    tvKlasse.setText(s);
                     pbarKunde.setVisibility(View.GONE);  // Fortschritt ausblenden
                 }
                 catch (JSONException e) {
