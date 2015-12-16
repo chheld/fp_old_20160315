@@ -31,6 +31,7 @@ import de.fischerprofil.fp.AppController;
 import de.fischerprofil.fp.R;
 import de.fischerprofil.fp.StringUtils;
 import de.fischerprofil.fp.model.address.Adresse;
+import de.fischerprofil.fp.model.company.Firma;
 import de.fischerprofil.fp.model.contact.Kontakt;
 import de.fischerprofil.fp.model.order.Auftrag;
 import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
@@ -64,6 +65,8 @@ public  class OrderDetailsFragment extends Fragment {
         progressBarAuftrag = (ProgressBar) mView.findViewById(R.id.progressBarAuftrag);
 
         mANr = getArguments().getString("anr");
+
+        mANr = "400006"; // TEST
 
         // Auftrag nachladen
         RelativeLayout layout = (RelativeLayout)  mView.findViewById(R.id.container_auftrag);
@@ -189,43 +192,6 @@ public  class OrderDetailsFragment extends Fragment {
         mAppController.addToRequestQueue(req, VOLLEY_TAG);
     }
 
-    private void callAPILookup(String search) {
-
-        progressBarAuftrag.setVisibility(View.VISIBLE);
-
-        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
-
-        HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
-
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    Log.v("Volley Response:%n %s", response.toString(4));
-                    JSONArray orders = response.getJSONArray("lookup");
-                    Gson gson = new Gson();
-                    mAuftrag = gson.fromJson(orders.getJSONObject(0).toString(), Auftrag.class);
-                    setupLayout(mView);
-                    progressBarAuftrag.setVisibility(View.GONE);  // Fortschritt ausblenden
-                }
-                catch (JSONException e) {
-                    Log.e("Volley Error: ", e.toString());
-                    Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
-                    progressBarAuftrag.setVisibility(View.GONE);  // Fortschritt ausblenden
-                }
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Volley Error: ", error.toString());
-                Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
-                progressBarAuftrag.setVisibility(View.GONE);  // Fortschritt ausblenden
-            }
-        }) ;
-        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
-        mAppController.addToRequestQueue(req,VOLLEY_TAG);
-    }
-
     private void callAPIFirmaByFirmaNr(String search) {
 
         pbarKunde.setVisibility(View.VISIBLE);
@@ -238,11 +204,15 @@ public  class OrderDetailsFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 try {
                     Log.v("Volley Response:%n %s", response.toString(4));
-                    JSONArray orders = response.getJSONArray("companies");
+                    JSONArray companies = response.getJSONArray("companies");
                     Gson gson = new Gson();
-                    mAuftrag = gson.fromJson(orders.getJSONObject(0).toString(), Auftrag.class);
-                    setupLayout(mView);
+                    Firma firma = gson.fromJson(companies.getJSONObject(0).toString(), Firma.class);
+                    TextView tvKlasse = (TextView) mView.findViewById(R.id.tvKlassifizierung);
+                    tvKlasse.setText(firma.getFGKNZ_2());
                     pbarKunde.setVisibility(View.GONE);  // Fortschritt ausblenden
+
+                    //TODO: Klartext für Klasse laden
+                    callAPILookupFirmaFGKNZ2(firma.getFGKNZ_2());
                 }
                 catch (JSONException e) {
                     Log.e("Volley Error: ", e.toString());
@@ -331,7 +301,6 @@ public  class OrderDetailsFragment extends Fragment {
         TextView tvKdNr = (TextView) view.findViewById(R.id.tvKdNr);
         TextView tvKTxt = (TextView) view.findViewById(R.id.tvKTxt);
         TextView tvKlasse = (TextView) view.findViewById(R.id.tvKlassifizierung);
-        // TODO: Kundenklasse anzeigen
 
         // Lieferanschrift
         TextView tvLieferadresseNr = (TextView) view.findViewById(R.id.tvAdresseNr);
@@ -350,7 +319,6 @@ public  class OrderDetailsFragment extends Fragment {
         // -----------------------------------------------------------------------------------------------
 
         if (mAuftrag!=null) {
-//        if (StringUtils.IsNotNullOrEmpty(mAuftrag)) {
 
             // Auftrag anzeigen
             tvANr.setText(mAuftrag.getANR());
@@ -447,10 +415,22 @@ public  class OrderDetailsFragment extends Fragment {
             tvKdNr.setText(mAuftrag.getMNR());
             tvKTxt.setText(mAuftrag.getKTXT());
             if(tvKTxt.getText().toString().trim().length()==0)  tvKTxt.setVisibility(View.GONE);
-            //TODO: Kundenklasse nachladen
-            if (StringUtils.IsNotNullOrEmpty(mAuftrag.getMNR()))
-                //callAPIFirmaByFirmaNr(URL + "/companies?qry=firmabyfirmanr&firmanr=" + mAuftrag.getMNR());
 
+            if (StringUtils.IsNullOrEmpty(mAuftrag.getMNR())) {
+                tvKlasse.setVisibility(View.GONE);
+            }
+            else
+            {
+                RelativeLayout ly = (RelativeLayout) view.findViewById(R.id.container_kunde);
+
+                ly.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        callAPIFirmaByFirmaNr(URL + "/companies?qry=firmabyfirmanr&firmanr=" + mAuftrag.getMNR());
+                    }
+                });
+                callAPIFirmaByFirmaNr(URL + "/companies?qry=firmabyfirmanr&firmanr=" + mAuftrag.getMNR());
+            }
 
 
             // Lieferanschrift nachladen
@@ -504,4 +484,49 @@ public  class OrderDetailsFragment extends Fragment {
             UIUtils.makeToast(mContext, "Keine Navi-App installiert");
         }
     }
+
+    private void callAPILookupFirmaFGKNZ2(String search) {
+
+        pbarKunde.setVisibility(View.VISIBLE);
+
+        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+
+        HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.v("Volley Response:%n %s", response.toString(4));
+
+                    // TODO Klasse lookup anlegen
+                    JSONArray lookup = response.getJSONArray("lookup");
+
+                    //Gson gson = new Gson();
+                    //Firma firma = gson.fromJson(companies.getJSONObject(0).toString(), Firma.class);
+
+                    TextView tvKlasse = (TextView) mView.findViewById(R.id.tvKlassifizierung);
+                    tvKlasse.setText("??");
+
+                    pbarKunde.setVisibility(View.GONE);  // Fortschritt ausblenden
+                }
+                catch (JSONException e) {
+                    Log.e("Volley Error: ", e.toString());
+                    Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
+                    pbarKunde.setVisibility(View.GONE);  // Fortschritt ausblenden
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Volley Error: ", error.toString());
+                Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
+                pbarKunde.setVisibility(View.GONE);  // Fortschritt ausblenden
+            }
+        }) ;
+        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
+        mAppController.addToRequestQueue(req,VOLLEY_TAG);
+
+    }
+
 }
