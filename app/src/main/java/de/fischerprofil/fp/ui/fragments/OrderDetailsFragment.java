@@ -65,18 +65,8 @@ public  class OrderDetailsFragment extends Fragment {
 
         mANr = getArguments().getString("anr");
 
-        mANr = "400006"; // TEST
+        //mANr = "400006"; // TEST
 
-//        // Auftrag erneut laden mit Klick auf Icon
-//        ImageView img = (ImageView) mView.findViewById(R.id.ivOrder);
-//        img.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                callAPIOrderByANR(URL + "/orders?qry=byANr&anr=" + mANr);
-//            }
-//        });
-
-        // Auftrag laden
         callAPIOrderByANR(URL+"/orders?qry=byANr&anr=" + mANr);
 
         return mView;
@@ -427,14 +417,6 @@ public  class OrderDetailsFragment extends Fragment {
             }
             else
             {
-//                // Vertreter erneut laden mit Klick auf Icon
-//                ImageView img = (ImageView) mView.findViewById(R.id.ivKontakt);
-//                img.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        callAPIContactsByPersonNr(URL + "/contacts?relperson__personnr=" + mAuftrag.getVERTRETER1());
-//                    }
-//                });
                 callAPIContactsByPersonNr(URL + "/contacts?relperson__personnr=" + mAuftrag.getVERTRETER1()); // '%' = %25
             }
 
@@ -493,16 +475,6 @@ public  class OrderDetailsFragment extends Fragment {
             }
             else
             {
-/*
-                // Kunde erneut laden mit Klick auf Icon
-                ImageView img = (ImageView) mView.findViewById(R.id.ivFirma);
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        callAPIFirmaByFirmaNr(URL + "/companies?qry=firmabyfirmanr&firmanr=" + mAuftrag.getMNR());
-                    }
-                });
-*/
                 callAPIFirmaByFirmaNr(URL + "/companies?qry=firmabyfirmanr&firmanr=" + mAuftrag.getMNR());
             }
 
@@ -513,16 +485,6 @@ public  class OrderDetailsFragment extends Fragment {
             }
             else
             {
-/*
-                // Lieferanschrift erneut laden mit Klick auf Icon
-                ImageView imv = (ImageView) mView.findViewById(R.id.ivLKW);
-                imv.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        callAPIAdresseByAdresseNr(URL + "/addresses?qry=AddressByAdresseNr&reladresse__adressenr=" + mAuftrag.getADRNR2());
-                    }
-                });
-*/
                 callAPIAdresseByAdresseNr(URL + "/addresses?qry=AddressByAdresseNr&reladresse__adressenr=" + mAuftrag.getADRNR2());
 
                 ImageButton img = (ImageButton) view.findViewById(R.id.btnMaps);
