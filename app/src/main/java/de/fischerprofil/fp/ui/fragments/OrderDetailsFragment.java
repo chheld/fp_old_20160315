@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,16 +67,16 @@ public  class OrderDetailsFragment extends Fragment {
 
         mANr = "400006"; // TEST
 
-        // Auftrag nachladen
-        RelativeLayout layout = (RelativeLayout)  mView.findViewById(R.id.container_auftrag);
-        layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callAPIOrderByANR(URL + "/orders?qry=byANr&anr=" + mANr);
-            }
-        });
+//        // Auftrag erneut laden mit Klick auf Icon
+//        ImageView img = (ImageView) mView.findViewById(R.id.ivOrder);
+//        img.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                callAPIOrderByANR(URL + "/orders?qry=byANr&anr=" + mANr);
+//            }
+//        });
 
-        // Auftrag
+        // Auftrag laden
         callAPIOrderByANR(URL+"/orders?qry=byANr&anr=" + mANr);
 
         return mView;
@@ -102,7 +101,16 @@ public  class OrderDetailsFragment extends Fragment {
         cdAB.setLevel(cdAB.getLevel() + level); // min 0 - max 10000
     }
 
-    private void callAPIContactsByPersonNr(String search) {
+    private void callAPIContactsByPersonNr(final String search) {
+
+        // erneut laden mit Klick auf Icon
+        ImageView img = (ImageView) mView.findViewById(R.id.ivKontakt);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callAPIContactsByPersonNr(search);
+            }
+        });
 
         pbVertreter.setVisibility(View.VISIBLE);
 
@@ -143,7 +151,16 @@ public  class OrderDetailsFragment extends Fragment {
         mAppController.addToRequestQueue(req, VOLLEY_TAG);
     }
 
-    private void callAPIAdresseByAdresseNr(String search) {
+    private void callAPIAdresseByAdresseNr(final String search) {
+
+        // erneut laden mit Klick auf Icon
+        ImageView imv = (ImageView) mView.findViewById(R.id.ivLKW);
+        imv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callAPIAdresseByAdresseNr(search);
+            }
+        });
 
         pbLieferadresse.setVisibility(View.VISIBLE);
 
@@ -192,7 +209,16 @@ public  class OrderDetailsFragment extends Fragment {
         mAppController.addToRequestQueue(req, VOLLEY_TAG);
     }
 
-    private void callAPIFirmaByFirmaNr(String search) {
+    private void callAPIFirmaByFirmaNr(final String search) {
+
+        // erneut laden mit Klick auf Icon
+        ImageView img = (ImageView) mView.findViewById(R.id.ivFirma);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callAPIFirmaByFirmaNr(search);
+            }
+        });
 
         pbarKunde.setVisibility(View.VISIBLE);
 
@@ -207,11 +233,11 @@ public  class OrderDetailsFragment extends Fragment {
                     JSONArray companies = response.getJSONArray("companies");
                     Gson gson = new Gson();
                     Firma firma = gson.fromJson(companies.getJSONObject(0).toString(), Firma.class);
-                    TextView tvKlasse = (TextView) mView.findViewById(R.id.tvKlassifizierung);
-                    tvKlasse.setText(firma.getFGKNZ_2());
+                    TextView tvKlassifizierung = (TextView) mView.findViewById(R.id.tvKlassifizierung);
+                    //tvKlassifizierung.setText(firma.getFGKNZ_2());
                     pbarKunde.setVisibility(View.GONE);  // Fortschritt ausblenden
 
-                    //TODO: Klartext für Klasse laden
+                    // Klartext der Klassifizierung nachladen
                     callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=relztgk&tabname=KGRKNZ2&result=ktxt&ztkey=" + firma.getFGKNZ_2());
                 }
                 catch (JSONException e) {
@@ -233,7 +259,16 @@ public  class OrderDetailsFragment extends Fragment {
         mAppController.addToRequestQueue(req,VOLLEY_TAG);
     }
 
-    private void callAPIOrderByANR(String search) {
+    private void callAPIOrderByANR(final String search) {
+
+        // erneut laden mit Klick auf Icon
+        ImageView img = (ImageView) mView.findViewById(R.id.ivOrder);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callAPIOrderByANR(search);
+            }
+        });
 
         progressBarAuftrag.setVisibility(View.VISIBLE);
 
@@ -264,6 +299,44 @@ public  class OrderDetailsFragment extends Fragment {
                 Log.e("Volley Error: ", error.toString());
                 Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
                 progressBarAuftrag.setVisibility(View.GONE);  // Fortschritt ausblenden
+            }
+        }) ;
+        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
+        mAppController.addToRequestQueue(req,VOLLEY_TAG);
+    }
+
+    private void callAPILookupFirmaFGKNZ2(String search) {
+
+        pbarKunde.setVisibility(View.VISIBLE);
+
+        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+
+        HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.v("Volley Response:%n %s", response.toString(4));
+
+                    JSONArray lookup = response.getJSONArray("lookup");
+                    String s = lookup.getJSONObject(0).getString("KTXT");
+                    TextView tvKlasse = (TextView) mView.findViewById(R.id.tvKlassifizierung);
+                    tvKlasse.setText(s);
+                    pbarKunde.setVisibility(View.GONE);  // Fortschritt ausblenden
+                }
+                catch (JSONException e) {
+                    Log.e("Volley Error: ", e.toString());
+                    Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
+                    pbarKunde.setVisibility(View.GONE);  // Fortschritt ausblenden
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Volley Error: ", error.toString());
+                Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
+                pbarKunde.setVisibility(View.GONE);  // Fortschritt ausblenden
             }
         }) ;
         req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
@@ -354,15 +427,14 @@ public  class OrderDetailsFragment extends Fragment {
             }
             else
             {
-                RelativeLayout layout = (RelativeLayout)  view.findViewById(R.id.container_vertreter);
-
-                layout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        callAPIContactsByPersonNr(URL + "/contacts?relperson__personnr=" + mAuftrag.getVERTRETER1());
-                    }
-                });
-
+//                // Vertreter erneut laden mit Klick auf Icon
+//                ImageView img = (ImageView) mView.findViewById(R.id.ivKontakt);
+//                img.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        callAPIContactsByPersonNr(URL + "/contacts?relperson__personnr=" + mAuftrag.getVERTRETER1());
+//                    }
+//                });
                 callAPIContactsByPersonNr(URL + "/contacts?relperson__personnr=" + mAuftrag.getVERTRETER1()); // '%' = %25
             }
 
@@ -421,17 +493,18 @@ public  class OrderDetailsFragment extends Fragment {
             }
             else
             {
-                RelativeLayout ly = (RelativeLayout) view.findViewById(R.id.container_kunde);
-
-                ly.setOnClickListener(new View.OnClickListener() {
+/*
+                // Kunde erneut laden mit Klick auf Icon
+                ImageView img = (ImageView) mView.findViewById(R.id.ivFirma);
+                img.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         callAPIFirmaByFirmaNr(URL + "/companies?qry=firmabyfirmanr&firmanr=" + mAuftrag.getMNR());
                     }
                 });
+*/
                 callAPIFirmaByFirmaNr(URL + "/companies?qry=firmabyfirmanr&firmanr=" + mAuftrag.getMNR());
             }
-
 
             // Lieferanschrift nachladen
             tvLieferadresseNr.setText(mAuftrag.getADRNR2());
@@ -440,18 +513,19 @@ public  class OrderDetailsFragment extends Fragment {
             }
             else
             {
-                RelativeLayout ly = (RelativeLayout) view.findViewById(R.id.container_lieferadresse);
-
-                ly.setOnClickListener(new View.OnClickListener() {
+/*
+                // Lieferanschrift erneut laden mit Klick auf Icon
+                ImageView imv = (ImageView) mView.findViewById(R.id.ivLKW);
+                imv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         callAPIAdresseByAdresseNr(URL + "/addresses?qry=AddressByAdresseNr&reladresse__adressenr=" + mAuftrag.getADRNR2());
                     }
                 });
+*/
                 callAPIAdresseByAdresseNr(URL + "/addresses?qry=AddressByAdresseNr&reladresse__adressenr=" + mAuftrag.getADRNR2());
 
                 ImageButton img = (ImageButton) view.findViewById(R.id.btnMaps);
-
                 img.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -459,7 +533,6 @@ public  class OrderDetailsFragment extends Fragment {
                     }
                 });
             }
-
             // Auftragswerte anzeigen
             tvNetto0.setText(StringUtils.getGermanCurrencyFormat(mAuftrag.getACPPARTNETTO0()));
             tvGesamtrabatt.setText(StringUtils.getGermanCurrencyFormat(mAuftrag.getRABSUM()));
@@ -484,44 +557,4 @@ public  class OrderDetailsFragment extends Fragment {
             UIUtils.makeToast(mContext, "Keine Navi-App installiert");
         }
     }
-
-    private void callAPILookupFirmaFGKNZ2(String search) {
-
-        pbarKunde.setVisibility(View.VISIBLE);
-
-        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
-
-        HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
-
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    Log.v("Volley Response:%n %s", response.toString(4));
-
-                    JSONArray lookup = response.getJSONArray("lookup");
-                    String s = lookup.getJSONObject(0).getString("KTXT");
-                    TextView tvKlasse = (TextView) mView.findViewById(R.id.tvKlassifizierung);
-                    tvKlasse.setText(s);
-                    pbarKunde.setVisibility(View.GONE);  // Fortschritt ausblenden
-                }
-                catch (JSONException e) {
-                    Log.e("Volley Error: ", e.toString());
-                    Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
-                    pbarKunde.setVisibility(View.GONE);  // Fortschritt ausblenden
-                }
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Volley Error: ", error.toString());
-                Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
-                pbarKunde.setVisibility(View.GONE);  // Fortschritt ausblenden
-            }
-        }) ;
-        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
-        mAppController.addToRequestQueue(req,VOLLEY_TAG);
-
-    }
-
 }
