@@ -47,7 +47,6 @@ public class ContactListAdapter extends ArrayAdapter<Kontakt> {
         mAppController = AppController.getInstance();
         mContext = getContext();
         mView = convertView;
-        // mView = inflater.inflate(R.layout.fragment_orderdetails, container, false);
 
         // Check if an existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder; // view lookup cache stored in tag
@@ -66,9 +65,8 @@ public class ContactListAdapter extends ArrayAdapter<Kontakt> {
             viewHolder.tvKTxt = (TextView) convertView.findViewById(R.id.tvKTxt);
             viewHolder.tvFunktion = (TextView) convertView.findViewById(R.id.tvFunktion);
             // Hier weitere Anbindungen hinzufuegen
+
             convertView.setTag(viewHolder);
-            //callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=1");
-            // TODO: Klartext der Funktion nachladen
         }
         else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -80,8 +78,15 @@ public class ContactListAdapter extends ArrayAdapter<Kontakt> {
         viewHolder.tvKonkaktname.setText(kontakt.getVORNAME() + " " +kontakt.getNAME());
         viewHolder.tvKTxt.setText(kontakt.getRELFIRMA_KTXT());
         viewHolder.tvKdNr.setText(kontakt.getFIRMANR());
-        viewHolder.tvFunktion.setText("Funktion: <" + kontakt.getVERWENDUNG1() + ">");
+        if (viewHolder.tvFunktion.getText()=="<Funktion>") {
+            viewHolder.tvFunktion.setText("<Funktion: " + kontakt.getVERWENDUNG1() + ">");}
+        else
+        {
+            // TODO: Klartext der Funktion nachladen, wenn noch nicht geschehen
+            callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + kontakt.getVERWENDUNG1(), viewHolder);
+        }
         // Hier weitere Zuweisungen hinzufuegen
+
         return convertView;
     }
 
@@ -96,7 +101,7 @@ public class ContactListAdapter extends ArrayAdapter<Kontakt> {
         // Hier weitere Holder-Eigenschaften hinzufuegen
     }
 
-    private void callAPILookupFirmaFGKNZ2(String search) {
+    private void callAPILookupFirmaFGKNZ2(final String search, final ViewHolder viewHolder) {
 
         HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
 
@@ -105,31 +110,23 @@ public class ContactListAdapter extends ArrayAdapter<Kontakt> {
             @Override
             public void onResponse(JSONObject response) {
 
-                TextView tvFunktion = (TextView) mView.findViewById(R.id.tvFunktion);
-
                 try {
                     Log.v("Volley Response:%n %s", response.toString(4));
-
                     JSONArray lookup = response.getJSONArray("lookup");
                     String s = lookup.getJSONObject(0).getString("KTXT");
-                    tvFunktion.setText("Funktion: " + s);
+                    viewHolder.tvFunktion.setText(s);
                 }
                 catch (JSONException e) {
                     Log.e("Volley Error: ", e.toString());
                     Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
-                    tvFunktion.setVisibility(View.GONE);
                 }
             }
         }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-
-                TextView tvFunktion = (TextView) mView.findViewById(R.id.tvFunktion);
-
                 Log.e("Volley Error: ", error.toString());
                 Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
-                tvFunktion.setVisibility(View.GONE);
             }
         }) ;
         req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));

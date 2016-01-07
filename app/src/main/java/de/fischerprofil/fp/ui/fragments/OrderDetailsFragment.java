@@ -67,7 +67,7 @@ public  class OrderDetailsFragment extends Fragment {
 
         //mANr = "400006"; // TEST
 
-        callAPIOrderByANR(URL+"/orders?qry=byANr&anr=" + mANr);
+        callAPIOrderByANR(URL + "/orders?qry=byANr&anr=" + mANr);
 
         return mView;
     }
@@ -93,7 +93,7 @@ public  class OrderDetailsFragment extends Fragment {
 
     private void callAPIContactsByPersonNr(final String search) {
 
-        // erneut laden mit Klick auf Icon
+        // OnClickListener: erneut laden mit Klick auf Icon
         ImageView img = (ImageView) mView.findViewById(R.id.ivKontakt);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,7 +143,7 @@ public  class OrderDetailsFragment extends Fragment {
 
     private void callAPIAdresseByAdresseNr(final String search) {
 
-        // erneut laden mit Klick auf Icon
+        // OnClickListener: erneut laden mit Klick auf Icon
         ImageView imv = (ImageView) mView.findViewById(R.id.ivLKW);
         imv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,7 +201,7 @@ public  class OrderDetailsFragment extends Fragment {
 
     private void callAPIFirmaByFirmaNr(final String search) {
 
-        // erneut laden mit Klick auf Icon
+        // OnClickListener: erneut laden mit Klick auf Icon
         ImageView img = (ImageView) mView.findViewById(R.id.ivFirma);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -251,7 +251,7 @@ public  class OrderDetailsFragment extends Fragment {
 
     private void callAPIOrderByANR(final String search) {
 
-        // erneut laden mit Klick auf Icon
+        // OnClickListener: erneut laden mit Klick auf Icon
         ImageView img = (ImageView) mView.findViewById(R.id.ivOrder);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
