@@ -8,7 +8,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
-        versionName "0.51 build-${buildLongDateTime()}"
+        versionName "0.51c build-${buildLongDateTime()}"
     }
     buildTypes {
         release {
@@ -34,9 +34,10 @@ dependencies {
     compile 'com.android.support:support-annotations:22.0.1'
     compile 'org.apache.directory.studio:org.apache.commons.lang:2.6'
     compile 'com.mcxiaoke.volley:library:1.0.19'
-
+    compile 'com.android.support:recyclerview-v7:22.2.0'
+    compile 'com.android.support:cardview-v7:22.2.0'
 }
 
 def buildLongDateTime() {
-    return new Date().format("yyyy-MM-dd'-'HH:mm:ss")
+    return new Date().format("yyyy-MM-dd' - 'HH:mm:ss")
 }
