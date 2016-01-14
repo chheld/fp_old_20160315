@@ -2,13 +2,15 @@ package de.fischerprofil.fp.ui.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -22,24 +24,27 @@ import org.json.JSONObject;
 
 import de.fischerprofil.fp.AppController;
 import de.fischerprofil.fp.R;
+import de.fischerprofil.fp.model.contact.Kontakt;
 import de.fischerprofil.fp.model.contact.Kontaktliste;
 import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
 import de.fischerprofil.fp.rest.HttpsTrustManager;
 import de.fischerprofil.fp.rest.RestUtils;
+import de.fischerprofil.fp.ui.ContactListActivity;
 import de.fischerprofil.fp.ui.UIUtils;
-import de.fischerprofil.fp.ui.adapter.rvContactListAdapter;
+import de.fischerprofil.fp.ui.adapter.ContactListAdapter;
 
 
 @SuppressLint("ValidFragment")
-public class ContactListFragment extends Fragment {
+public class ContactListFragment_ok extends Fragment {
 
     private AppController mAppController;
     private Context mContext;
-    private Kontaktliste mKontaktliste = new Kontaktliste();
-    private rvContactListAdapter mAdapter;
+    private Kontaktliste mListe = new Kontaktliste();
+    private ContactListAdapter mAdapter = null;
     private int mSearchRequestCounter = 0;      // Zaehler fuer die http-Anfragen
     private String mSearchString;
-    private RecyclerView mRecyclerView;
+    private ListView mListView;
+    private ProgressBar mProgressBar;
     private final String VOLLEY_TAG = "VOLLEY_TAG_ContactListFragment";
     private final String URL = RestUtils.getURL();
 
@@ -61,6 +66,8 @@ public class ContactListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+
+        //TODO: initDataset() // hierher verschieben
     }
 
     @Override
@@ -69,12 +76,26 @@ public class ContactListFragment extends Fragment {
         mContext = getActivity();
         mAppController = AppController.getInstance();
 
-        View view = inflater.inflate(R.layout.fragment_recycleview_contactlist, container, false);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        View view = inflater.inflate(R.layout.fragment_contactlist, container, false);
+        mListView = (ListView) view.findViewById(R.id.listview);
+        mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
         mSearchString = getArguments().getString("search", null); // evtl. übergebene SUCH-Parameter ermitteln
         if (mSearchString != null) doSearch(mSearchString);
+
+// ++++++++++++++++++++++++
+
+        // Lookup the recyclerview in activity layout
+        //RecyclerView rvContacts = (RecyclerView) view.findViewById(R.id.rvKontaktliste);
+
+        // Create adapter passing in the sample user data
+        //MyAdapter adapter = new MyAdapter(Kontakt.createContactList(20));
+        // Attach the adapter to the recyclerview to populate items
+        //rvContacts.setAdapter(adapter);
+        // Set layout manager to position the items
+        //rvContacts.setLayoutManager(new LinearLayoutManager(mContext));
+
+// +++++++++++++++++++
 
         return view;
     }
@@ -93,13 +114,30 @@ public class ContactListFragment extends Fragment {
         } else {
             UIUtils.makeToast(mContext, "Suche '" + search + "'");
 
-            //Adapter erzeugen und zuweisen
-            mAdapter = new rvContactListAdapter(mContext, mKontaktliste.getDataset());
-            mRecyclerView.setAdapter(mAdapter);
+            //Adapter erzeugen und Listview zuweisen
+            mAdapter = new ContactListAdapter(mContext, mListe.getDataset());
+            mListView.setAdapter(mAdapter);
 
-            //TODO: progress anzeigen
-            //TODO: CardviewOnklickListener definieren
+            mProgressBar.setVisibility(View.VISIBLE);  // Fortschritts-Anzeige sichtbar
 
+            // Bei Auswahl eines Listeneintrags neue Activity starten
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    mProgressBar.setVisibility(View.GONE);  // Fortschrittsanzeige ausblenden
+
+                    Kontakt kontakt = (Kontakt) parent.getItemAtPosition(position);
+                    UIUtils.makeToast(mContext,kontakt.getPERSONNR());
+
+                    //TODO: speichern des Auftrags in letzte Vorgänge
+
+                    Intent intent = new Intent(mContext, ContactListActivity.class);
+                    intent.putExtra("kontakt", kontakt);
+                    startActivity(intent);
+                }
+            });
             // start http requests
             mSearchRequestCounter = 0;
             callAPIContactsByPersonNr(URL + "/contacts?relperson__personnr=" + RestUtils.cleanURL(search) + "%25"); // '%' = %25
@@ -124,14 +162,16 @@ public class ContactListFragment extends Fragment {
                 try {
                     VolleyLog.v("Response:%n %s", response.toString(4));
                     JSONArray contacts = response.getJSONArray("contacts");
-                    mKontaktliste.add(contacts);
+                    mListe.add(contacts);
                     mAdapter.notifyDataSetChanged();
                     mSearchRequestCounter--;
                     if (mSearchRequestCounter < 1) {
+                        mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                         Toast.makeText(mContext, contacts.length() + " Einträge über PERSONNR gefunden", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                 }
             }
         }, new Response.ErrorListener() {
@@ -141,6 +181,7 @@ public class ContactListFragment extends Fragment {
                 VolleyLog.e("Error: ", error.getMessage());
                 Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
                 mSearchRequestCounter--;
+                if (mSearchRequestCounter < 1) mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
             }
         });
         req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
@@ -161,14 +202,16 @@ public class ContactListFragment extends Fragment {
                 try {
                     VolleyLog.v("Response:%n %s", response.toString(4));
                     JSONArray contacts = response.getJSONArray("contacts");
-                    mKontaktliste.add(contacts);
+                    mListe.add(contacts);
                     mAdapter.notifyDataSetChanged();
                     mSearchRequestCounter--;
                     if (mSearchRequestCounter < 1) {
+                        mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                         Toast.makeText(mContext, contacts.length() + " Einträge über FIRMANR gefunden", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                 }
             }
         }, new Response.ErrorListener() {
@@ -178,6 +221,7 @@ public class ContactListFragment extends Fragment {
                 VolleyLog.e("Error: ", error.getMessage());
                 Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
                 mSearchRequestCounter--;
+                if (mSearchRequestCounter < 1) mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
             }
         });
         req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
@@ -198,14 +242,16 @@ public class ContactListFragment extends Fragment {
                 try {
                     VolleyLog.v("Response:%n %s", response.toString(4));
                     JSONArray contacts = response.getJSONArray("contacts");
-                    mKontaktliste.add(contacts);
+                    mListe.add(contacts);
                     mAdapter.notifyDataSetChanged();
                     mSearchRequestCounter--;
                     if (mSearchRequestCounter < 1) {
+                        mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                         Toast.makeText(mContext, contacts.length() + " Einträge über FIRMA_KTXT gefunden", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                 }
             }
         }, new Response.ErrorListener() {
@@ -215,6 +261,7 @@ public class ContactListFragment extends Fragment {
                 VolleyLog.e("Error: ", error.getMessage());
                 Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
                 mSearchRequestCounter--;
+                if (mSearchRequestCounter < 1) mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
             }
         });
         req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
@@ -235,14 +282,16 @@ public class ContactListFragment extends Fragment {
                 try {
                     VolleyLog.v("Response:%n %s", response.toString(4));
                     JSONArray contacts = response.getJSONArray("contacts");
-                    mKontaktliste.add(contacts);
+                    mListe.add(contacts);
                     mAdapter.notifyDataSetChanged();
                     mSearchRequestCounter--;
                     if (mSearchRequestCounter < 1) {
+                        mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                         Toast.makeText(mContext, contacts.length() + " Einträge zu NAME gefunden", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                 }
             }
         }, new Response.ErrorListener() {
@@ -252,6 +301,7 @@ public class ContactListFragment extends Fragment {
                 VolleyLog.e("Error: ", error.getMessage());
                 Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
                 mSearchRequestCounter--;
+                if (mSearchRequestCounter < 1) mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
             }
         });
         req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));

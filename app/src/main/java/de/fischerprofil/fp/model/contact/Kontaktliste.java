@@ -10,23 +10,23 @@ import java.util.ArrayList;
 
 public class Kontaktliste {
 
-    private ArrayList<Kontakt> mListe;
+    private ArrayList<Kontakt> mDataset;
     private KontaktlisteGeaendertListener mListeGeaendertListener = null;
 
     public Kontaktliste(ArrayList<Kontakt> lst) {
         super();
-        mListe = lst;
+        mDataset = lst;
     }
 
 
     public Kontaktliste() {
         super();
-        mListe = new ArrayList<Kontakt>();
+        mDataset = new ArrayList<Kontakt>();
     }
 
 
     public void add(Kontakt a) {
-        mListe.add(a);
+        mDataset.add(a);
         OnKontaktAdded(a.getPERSONNR());
     }
 
@@ -58,9 +58,9 @@ public class Kontaktliste {
     }
 
 
-    public ArrayList<Kontakt> getList() {
+    public ArrayList<Kontakt> getDataset() {
 
-        return mListe;
+        return mDataset;
     }
 
 
@@ -77,7 +77,7 @@ public class Kontaktliste {
 
 
     public void Clear() {
-        mListe.clear();
+        mDataset.clear();
         OnKontaktAdded("");
     }
 }

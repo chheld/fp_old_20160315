@@ -5,9 +5,13 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.google.gson.annotations.SerializedName;
-import de.fischerprofil.fp.R;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import de.fischerprofil.fp.R;
 
 public class Kontakt  implements Parcelable {
 
@@ -1194,5 +1198,17 @@ public class Kontakt  implements Parcelable {
         dest.writeString(TITEL_);
         dest.writeString(RELFIRMA_NAME);
         dest.writeString(RELFIRMA_KTXT);
+    }
+
+    private static int lastContactId = 0;
+
+    public static List<Kontakt> createContactList(int numContacts) {
+        List<Kontakt> contacts = new ArrayList<Kontakt>();
+
+        for (int i = 1; i <= numContacts; i++) {
+            contacts.add(new Kontakt("TEST_" + Integer.toString(i)));
+        }
+
+        return contacts;
     }
 }

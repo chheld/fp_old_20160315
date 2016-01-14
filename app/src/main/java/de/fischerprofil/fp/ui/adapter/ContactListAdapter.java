@@ -78,13 +78,9 @@ public class ContactListAdapter extends ArrayAdapter<Kontakt> {
         viewHolder.tvKonkaktname.setText(kontakt.getVORNAME() + " " +kontakt.getNAME());
         viewHolder.tvKTxt.setText(kontakt.getRELFIRMA_KTXT());
         viewHolder.tvKdNr.setText(kontakt.getFIRMANR());
-        if (viewHolder.tvFunktion.getText()=="<Funktion>") {
-            viewHolder.tvFunktion.setText("<Funktion: " + kontakt.getVERWENDUNG1() + ">");}
-        else
-        {
-            // TODO: Klartext der Funktion nachladen, wenn noch nicht geschehen
-            callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + kontakt.getVERWENDUNG1(), viewHolder);
-        }
+        viewHolder.tvFunktion.setText("<Funktion: " + kontakt.getVERWENDUNG1() + ">");
+
+        //callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + kontakt.getVERWENDUNG1(), viewHolder);
         // Hier weitere Zuweisungen hinzufuegen
 
         return convertView;
@@ -113,7 +109,7 @@ public class ContactListAdapter extends ArrayAdapter<Kontakt> {
                 try {
                     Log.v("Volley Response:%n %s", response.toString(4));
                     JSONArray lookup = response.getJSONArray("lookup");
-                    String s = lookup.getJSONObject(0).getString("KTXT");
+                    String s = viewHolder.tvFunktion.getText() + lookup.getJSONObject(0).getString("KTXT");
                     viewHolder.tvFunktion.setText(s);
                 }
                 catch (JSONException e) {
