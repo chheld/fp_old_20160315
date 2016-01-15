@@ -32,7 +32,7 @@ import de.fischerprofil.fp.ui.adapter.rvContactListAdapter;
 
 
 @SuppressLint("ValidFragment")
-public class ContactListFragment extends Fragment {
+public class ContactListFragment_ok3 extends Fragment {
 
     private AppController mAppController;
     private Context mContext;

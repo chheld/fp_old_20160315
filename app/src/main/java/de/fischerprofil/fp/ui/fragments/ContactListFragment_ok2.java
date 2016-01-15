@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -32,7 +33,7 @@ import de.fischerprofil.fp.ui.adapter.rvContactListAdapter;
 
 
 @SuppressLint("ValidFragment")
-public class ContactListFragment extends Fragment {
+public class ContactListFragment_ok2 extends Fragment {
 
     private AppController mAppController;
     private Context mContext;
@@ -41,7 +42,7 @@ public class ContactListFragment extends Fragment {
     private int mSearchRequestCounter = 0;      // Zaehler fuer die http-Anfragen
     private String mSearchString;
     private RecyclerView mRecyclerView;
-    //private ProgressBar mProgressBar;
+    private ProgressBar mProgressBar;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private final String VOLLEY_TAG = "VOLLEY_TAG_ContactListFragment";
     private final String URL = RestUtils.getURL();
@@ -77,7 +78,7 @@ public class ContactListFragment extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 
-        //mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_conctactlist_container);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -111,7 +112,7 @@ public class ContactListFragment extends Fragment {
             mAdapter = new rvContactListAdapter(mContext, mKontaktliste.getDataset());
             mRecyclerView.setAdapter(mAdapter);
 
-            //mProgressBar.setVisibility(View.VISIBLE);  // Fortschritts-Anzeige sichtbar
+            mProgressBar.setVisibility(View.VISIBLE);  // Fortschritts-Anzeige sichtbar
             showProgressCircle(mSwipeRefreshLayout, true);
 
             //TODO: CardviewOnklickListener definieren
@@ -144,13 +145,13 @@ public class ContactListFragment extends Fragment {
                     mAdapter.notifyDataSetChanged();
                     mSearchRequestCounter--;
                     if (mSearchRequestCounter < 1) {
-                        //mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+                        mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                         showProgressCircle(mSwipeRefreshLayout, false);
                         Toast.makeText(mContext, contacts.length() + " Einträge über PERSONNR gefunden", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    //mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+                    mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                     showProgressCircle(mSwipeRefreshLayout, false);
                 }
             }
@@ -161,7 +162,7 @@ public class ContactListFragment extends Fragment {
                 VolleyLog.e("Error: ", error.getMessage());
                 Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
                 mSearchRequestCounter--;
-                //if (mSearchRequestCounter < 1) mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+                if (mSearchRequestCounter < 1) mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                 if (mSearchRequestCounter < 1) showProgressCircle(mSwipeRefreshLayout, false); // Fortschritt ausblenden
             }
         });
@@ -187,13 +188,13 @@ public class ContactListFragment extends Fragment {
                     mAdapter.notifyDataSetChanged();
                     mSearchRequestCounter--;
                     if (mSearchRequestCounter < 1) {
-                        //mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+                        mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                         showProgressCircle(mSwipeRefreshLayout, false);
                         Toast.makeText(mContext, contacts.length() + " Einträge über FIRMANR gefunden", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    //mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+                    mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                     showProgressCircle(mSwipeRefreshLayout, false);
                 }
             }
@@ -204,7 +205,7 @@ public class ContactListFragment extends Fragment {
                 VolleyLog.e("Error: ", error.getMessage());
                 Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
                 mSearchRequestCounter--;
-                //if (mSearchRequestCounter < 1) mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+                if (mSearchRequestCounter < 1) mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                 if (mSearchRequestCounter < 1) showProgressCircle(mSwipeRefreshLayout, false); // Fortschritt ausblenden
             }
         });
@@ -230,13 +231,13 @@ public class ContactListFragment extends Fragment {
                     mAdapter.notifyDataSetChanged();
                     mSearchRequestCounter--;
                     if (mSearchRequestCounter < 1) {
-                        //mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+                        mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                         showProgressCircle(mSwipeRefreshLayout, false);
                         Toast.makeText(mContext, contacts.length() + " Einträge über FIRMA_KTXT gefunden", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    //mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+                    mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                     showProgressCircle(mSwipeRefreshLayout, false);
                 }
             }
@@ -247,7 +248,7 @@ public class ContactListFragment extends Fragment {
                 VolleyLog.e("Error: ", error.getMessage());
                 Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
                 mSearchRequestCounter--;
-                //if (mSearchRequestCounter < 1) mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+                if (mSearchRequestCounter < 1) mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                 if (mSearchRequestCounter < 1) showProgressCircle(mSwipeRefreshLayout, false); // Fortschritt ausblenden
             }
         });
@@ -273,13 +274,13 @@ public class ContactListFragment extends Fragment {
                     mAdapter.notifyDataSetChanged();
                     mSearchRequestCounter--;
                     if (mSearchRequestCounter < 1) {
-                        //mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+                        mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                         showProgressCircle(mSwipeRefreshLayout, false);
                         Toast.makeText(mContext, contacts.length() + " Einträge zu NAME gefunden", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    //mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+                    mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                     showProgressCircle(mSwipeRefreshLayout, false);
                 }
             }
@@ -290,7 +291,7 @@ public class ContactListFragment extends Fragment {
                 VolleyLog.e("Error: ", error.getMessage());
                 Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
                 mSearchRequestCounter--;
-                //if (mSearchRequestCounter < 1) mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
+                if (mSearchRequestCounter < 1) mProgressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                 if (mSearchRequestCounter < 1) showProgressCircle(mSwipeRefreshLayout, false); // Fortschritt ausblenden
             }
         });
