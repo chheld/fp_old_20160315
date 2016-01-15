@@ -5,13 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -33,7 +33,7 @@ import de.fischerprofil.fp.ui.OrderDetailsActivity;
 import de.fischerprofil.fp.ui.adapter.OrderListAdapter;
 
 @SuppressLint("ValidFragment")
-public class OrderListFragment extends Fragment {
+public class OrderListFragment_ok extends Fragment {
 
     private Context mContext;
     private Auftragsliste mAuftragsliste = new Auftragsliste();
@@ -41,11 +41,10 @@ public class OrderListFragment extends Fragment {
     private int mSearchRequestCounter = 0;      // Zähler für die http-Anfragen initialisieren
     private String mSearchString;
     private ListView listView;
-    //private ProgressBar progressBar;
+    private ProgressBar progressBar;
     private AppController mAppController;
     private final String VOLLEY_TAG = "VOLLEY_TAG_OrderListFragment";
     private final String URL = RestUtils.getURL();
-    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -59,7 +58,7 @@ public class OrderListFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         //TODO: Save the fragment's state here
-        outState.putString("search", mSearchString);
+        outState.putString("search",mSearchString);
     }
 
     @Override
@@ -76,15 +75,7 @@ public class OrderListFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_orderlist, container, false);
         listView = (ListView) view.findViewById(R.id.listview);
-        //progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_conctactlist_container);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                doSearch(mSearchString);
-            }
-        });
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
         mSearchString = getArguments().getString("search", null); // evtl. übergebene Such-Parameter ermitteln
         if (mSearchString != null) doSearch(mSearchString);
@@ -109,8 +100,7 @@ public class OrderListFragment extends Fragment {
             mAdapter = new OrderListAdapter(mContext, mAuftragsliste.getList());
             listView.setAdapter(mAdapter);
 
-            //progressBar.setVisibility(View.VISIBLE);  // Fortschrittsanzeige anzeigen
-            showProgressCircle(mSwipeRefreshLayout, true);
+            progressBar.setVisibility(View.VISIBLE);  // Fortschrittsanzeige anzeigen
 
             // Bei Auswahl eines Listeneintrags neue Activity starten
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -120,8 +110,7 @@ public class OrderListFragment extends Fragment {
 
                     // This will tell to Volley to cancel all the pending requests
                     //mAppController.cancelPendingRequests(VOLLEY_TAG);
-                    //progressBar.setVisibility(View.GONE);  // Fortschrittsanzeige ausblenden
-                    showProgressCircle(mSwipeRefreshLayout, false);
+                    progressBar.setVisibility(View.GONE);  // Fortschrittsanzeige ausblenden
 
                     Auftrag auftrag = (Auftrag) parent.getItemAtPosition(position);
 
@@ -162,15 +151,13 @@ public class OrderListFragment extends Fragment {
                     mAdapter.notifyDataSetChanged();
                     mSearchRequestCounter--;
                     if (mSearchRequestCounter < 1) {
-                        //progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
-                        showProgressCircle(mSwipeRefreshLayout, false);
+                        progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                         Toast.makeText(mContext, orders.length() + " Einträge über ANR gefunden", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     Log.e("Volley Error: ", e.toString());
                     Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
-                    //progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
-                    showProgressCircle(mSwipeRefreshLayout, false);
+                    progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                 }
             }
         }, new Response.ErrorListener() {
@@ -180,8 +167,7 @@ public class OrderListFragment extends Fragment {
                 Log.e("Volley Error: ", error.toString());
                 Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
                 mSearchRequestCounter--;
-                //if (mSearchRequestCounter < 1) progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
-                if (mSearchRequestCounter < 1) showProgressCircle(mSwipeRefreshLayout, false);
+                if (mSearchRequestCounter < 1) progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
             }
         });
         req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
@@ -205,15 +191,13 @@ public class OrderListFragment extends Fragment {
                     mAdapter.notifyDataSetChanged();
                     mSearchRequestCounter--;
                     if (mSearchRequestCounter < 1) {
-                        //progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
-                        showProgressCircle(mSwipeRefreshLayout, false);
+                        progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                         Toast.makeText(mContext, orders.length() + " Einträge über MNR gefunden", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     Log.e("Volley Error: ", e.toString());
                     Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
-                    //progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
-                    showProgressCircle(mSwipeRefreshLayout, false);
+                    progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                 }
             }
         }, new Response.ErrorListener() {
@@ -223,8 +207,7 @@ public class OrderListFragment extends Fragment {
                 Log.e("Volley Error: ", error.toString());
                 Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
                 mSearchRequestCounter--;
-                //if (mSearchRequestCounter < 1) progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
-                if (mSearchRequestCounter < 1) showProgressCircle(mSwipeRefreshLayout, false);
+                if (mSearchRequestCounter < 1) progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
             }
         });
         req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
@@ -248,15 +231,13 @@ public class OrderListFragment extends Fragment {
                     mAdapter.notifyDataSetChanged();
                     mSearchRequestCounter--;
                     if (mSearchRequestCounter < 1) {
-                        //progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
-                        showProgressCircle(mSwipeRefreshLayout, false);
+                        progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                         Toast.makeText(mContext, orders.length() + " Einträge über KTXT gefunden", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     Log.e("Volley Error: ", e.toString());
                     Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
-                    //progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
-                    showProgressCircle(mSwipeRefreshLayout, false);
+                    progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
                 }
             }
         }, new Response.ErrorListener() {
@@ -266,24 +247,11 @@ public class OrderListFragment extends Fragment {
                 Log.e("Volley Error: ", error.toString());
                 Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
                 mSearchRequestCounter--;
-                //if (mSearchRequestCounter < 1) progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
-                if (mSearchRequestCounter < 1) showProgressCircle(mSwipeRefreshLayout, false);
-                ;  // Fortschritt ausblenden
+                if (mSearchRequestCounter < 1) progressBar.setVisibility(View.GONE);  // Fortschritt ausblenden
             }
         });
         req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
         mAppController.addToRequestQueue(req, VOLLEY_TAG);
-    }
-
-    private void showProgressCircle(final SwipeRefreshLayout s, final Boolean v) {
-        s.setColorSchemeResources(
-                R.color.settings_color);
-        s.post(new Runnable() {
-            @Override
-            public void run() {
-                s.setRefreshing(v);
-            }
-        });
     }
 }
 
