@@ -19,17 +19,13 @@ public class HttpsTrustManager implements X509TrustManager {
     private static final X509Certificate[] _AcceptedIssuers = new X509Certificate[]{};
 
     @Override
-    public void checkClientTrusted(
-            java.security.cert.X509Certificate[] x509Certificates, String s)
-            throws java.security.cert.CertificateException {
-
+    public void checkClientTrusted(java.security.cert.X509Certificate[] x509Certificates, String s)
+                       throws java.security.cert.CertificateException {
     }
 
     @Override
-    public void checkServerTrusted(
-            java.security.cert.X509Certificate[] x509Certificates, String s)
+    public void checkServerTrusted(java.security.cert.X509Certificate[] x509Certificates, String s)
             throws java.security.cert.CertificateException {
-
     }
 
     public boolean isClientTrusted(X509Certificate[] chain) {

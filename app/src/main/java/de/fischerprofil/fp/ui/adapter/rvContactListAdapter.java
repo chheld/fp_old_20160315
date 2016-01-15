@@ -50,7 +50,7 @@ public class rvContactListAdapter extends RecyclerView.Adapter<rvContactListAdap
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        View contactView = inflater.inflate(R.layout.cardview_item_contactlist, parent, false);
+        View contactView = inflater.inflate(R.layout.cardview_contactlist, parent, false);
 
         // Return a new holder instance
         ViewHolder viewHolder = new ViewHolder(contactView);
@@ -83,7 +83,7 @@ public class rvContactListAdapter extends RecyclerView.Adapter<rvContactListAdap
         holder.tvFunktion.setText("<Funktion: " + kontakt.getVERWENDUNG1() + ">");
 
         // TODO: hier nachladen ?
-        callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + kontakt.getVERWENDUNG1(), holder);
+        //callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + kontakt.getVERWENDUNG1(), holder);
 
     }
     @Override
