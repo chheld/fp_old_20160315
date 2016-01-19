@@ -88,12 +88,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tvFunktion"
-            android:text="&lt;Funktion>"
             android:layout_toRightOf="@+id/ivKontakt"
             android:layout_below="@+id/tvKTxt"
             android:layout_marginTop="5dp"
             android:ellipsize="end"
-            android:maxLines="2" />
+            android:maxLines="2"
+            android:text="&lt;Funktion>" />
 
     </RelativeLayout>
 

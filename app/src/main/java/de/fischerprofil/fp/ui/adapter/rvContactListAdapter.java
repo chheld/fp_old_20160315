@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,22 +39,26 @@ public class rvContactListAdapter extends RecyclerView.Adapter<rvContactListAdap
     private ArrayList<Kontakt> mDataset;
 
     public rvContactListAdapter(Context c, ArrayList<Kontakt> d) {
+
+        mAppController = AppController.getInstance();
+
         mDataset = d;
         mContext = c;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public rvContactListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public rvContactListAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
+//        Context context = parent.getContext();
+        //mContext = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(mContext);
 
         // Inflate the custom layout
-        View contactView = inflater.inflate(R.layout.cardview_contactlist, parent, false);
+        View mView = inflater.inflate(R.layout.cardview_contactlist, viewGroup, false);
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(contactView);
+        ViewHolder viewHolder = new ViewHolder(mView);
         return viewHolder;
     }
 
@@ -61,29 +66,35 @@ public class rvContactListAdapter extends RecyclerView.Adapter<rvContactListAdap
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        Kontakt kontakt = mDataset.get(position);
+        Kontakt current = mDataset.get(position);
 
         // beispiel
-        //        holder.txtHeader.setText(mDataset.get(position));
         //        holder.txtHeader.setOnClickListener(new View.OnClickListener() {
         //            @Override
         //            public void onClick(View v) {
         //                remove(name);
         //            }
         //        });
-        //        holder.txtFooter.setText("Footer: " + mDataset.get(position));
 
 
         // Populate the data into the template view using the data object
-        holder.ivIcon.setImageResource(kontakt.getIcon());
-        holder.tvKonkaktname.setText(kontakt.getVORNAME() + " " + kontakt.getNAME());
-        holder.tvPersonnr.setText(kontakt.getPERSONNR());
-        holder.tvKdNr.setText(kontakt.getFIRMANR());
-        holder.tvKTxt.setText(kontakt.getRELFIRMA_KTXT());
-        holder.tvFunktion.setText("<Funktion: " + kontakt.getVERWENDUNG1() + ">");
+        holder.position = position;
+
+        holder.ivIcon.setImageResource(current.getIcon());
+        holder.tvKonkaktname.setText(current.getVORNAME() + " " + current.getNAME());
+        holder.tvPersonnr.setText(current.getPERSONNR());
+        holder.tvKdNr.setText(current.getFIRMANR());
+        holder.tvKTxt.setText(current.getRELFIRMA_KTXT());
+        holder.tvFunktion.setText("<Funktion: " + current.getVERWENDUNG1() + ">");
 
         // TODO: hier nachladen ?
-        //callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + kontakt.getVERWENDUNG1(), holder);
+        //if (holder.tvFunktion.getText().toString().substring(0,1) == "<")
+            callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + current.getVERWENDUNG1(), holder, position);
+
+        //ImageView imageView = (ImageView)convertView.findViewById(R.id.gallery_item_imageView);
+//        Picasso.with(mContext).load("http://i.imgur.com/DvpvklR.png").into((ImageView) mView.findViewById(R.id.ivKontakt));
+//        Picasso.with(mContext).load(R.drawable.ic_contacts).into(holder.ivIcon);
+            Picasso.with(mContext).load(R.drawable.ic_default).into(holder.ivIcon); //TEST
 
     }
     @Override
@@ -93,6 +104,8 @@ public class rvContactListAdapter extends RecyclerView.Adapter<rvContactListAdap
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
+        public Integer position;
 
         public ImageView ivIcon;
         public TextView tvPersonnr;
@@ -113,7 +126,7 @@ public class rvContactListAdapter extends RecyclerView.Adapter<rvContactListAdap
         }
     }
 
-    private void callAPILookupFirmaFGKNZ2(final String search, final ViewHolder viewHolder) {
+    private void callAPILookupFirmaFGKNZ2(final String search, final ViewHolder viewHolder, final Integer pos) {
 
         HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
 
@@ -126,7 +139,7 @@ public class rvContactListAdapter extends RecyclerView.Adapter<rvContactListAdap
                     Log.v("Volley Response:%n %s", response.toString(4));
                     JSONArray lookup = response.getJSONArray("lookup");
                     String s = lookup.getJSONObject(0).getString("KTXT");
-                    //TODO: viewHolder.tvFunktion.setText(s);
+                    if (viewHolder.position == pos) viewHolder.tvFunktion.setText(s);
                 }
                 catch (JSONException e) {
                     Log.e("Volley Error: ", e.toString());
