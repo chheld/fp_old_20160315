@@ -19,6 +19,9 @@ android {
     }
     productFlavors {
     }
+    dexOptions {
+        incremental true
+    }
 }
 
 repositories {
