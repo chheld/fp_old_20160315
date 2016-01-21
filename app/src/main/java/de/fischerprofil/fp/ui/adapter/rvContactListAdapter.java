@@ -13,7 +13,6 @@ import android.widget.Toast;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -89,12 +88,12 @@ public class rvContactListAdapter extends RecyclerView.Adapter<rvContactListAdap
 
         // TODO: hier nachladen ?
         //if (holder.tvFunktion.getText().toString().substring(0,1) == "<")
-            callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + current.getVERWENDUNG1(), holder, position);
+        //    callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + current.getVERWENDUNG1(), holder, position);
 
         //ImageView imageView = (ImageView)convertView.findViewById(R.id.gallery_item_imageView);
 //        Picasso.with(mContext).load("http://i.imgur.com/DvpvklR.png").into((ImageView) mView.findViewById(R.id.ivKontakt));
 //        Picasso.with(mContext).load(R.drawable.ic_contacts).into(holder.ivIcon);
-            Picasso.with(mContext).load(R.drawable.ic_default).into(holder.ivIcon); //TEST
+         //   Picasso.with(mContext).load(R.drawable.ic_default).into(holder.ivIcon); //TEST
 
     }
     @Override
