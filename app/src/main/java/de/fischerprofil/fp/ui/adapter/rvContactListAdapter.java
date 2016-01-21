@@ -63,39 +63,28 @@ public class rvContactListAdapter extends RecyclerView.Adapter<rvContactListAdap
 
     // Involves populating data into the item through holder
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder viewHolder, int position) {
 
         Kontakt current = mDataset.get(position);
 
-        // beispiel
-        //        holder.txtHeader.setOnClickListener(new View.OnClickListener() {
-        //            @Override
-        //            public void onClick(View v) {
-        //                remove(name);
-        //            }
-        //        });
-
-
         // Populate the data into the template view using the data object
-        holder.position = position;
+        viewHolder.position = position;
 
-        holder.ivIcon.setImageResource(current.getIcon());
-        holder.tvKonkaktname.setText(current.getVORNAME() + " " + current.getNAME().trim());
-        holder.tvPersonnr.setText(current.getPERSONNR());
-        holder.tvKdNr.setText(current.getFIRMANR());
-        holder.tvKTxt.setText(current.getRELFIRMA_KTXT());
-        holder.tvFunktion.setText("Funktion: " + current.getVERWENDUNG1());
+        viewHolder.ivIcon.setImageResource(current.getIcon());
+        viewHolder.tvKonkaktname.setText((current.getVORNAME() + " " + current.getNAME()).trim());
+        viewHolder.tvPersonnr.setText(current.getPERSONNR());
+        viewHolder.tvKdNr.setText(current.getFIRMANR());
+        viewHolder.tvKTxt.setText(current.getRELFIRMA_KTXT());
+        viewHolder.tvFunktion.setText("Funktion: " + current.getVERWENDUNG1());
 
-        // TODO: hier nachladen
-        //if (holder.tvFunktion.getText().toString().substring(0,1).equals("<"))
-            callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + current.getVERWENDUNG1(), holder, position);
+        callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + current.getVERWENDUNG1(), viewHolder, position);
 
-        //ImageView imageView = (ImageView)convertView.findViewById(R.id.gallery_item_imageView);
-//        Picasso.with(mContext).load("http://i.imgur.com/DvpvklR.png").into((ImageView) mView.findViewById(R.id.ivKontakt));
-//        Picasso.with(mContext).load(R.drawable.ic_contacts).into(holder.ivIcon);
-         //   Picasso.with(mContext).load(R.drawable.ic_default).into(holder.ivIcon); //TEST
+        //Picasso.with(mContext).load(R.drawable.ic_default).resize(100, 100).into(holder.ivIcon); //TEST
 
+        //viewHolder.itemView.(new View.OnClickListener()
     }
+
+
     @Override
     public int getItemCount() {
 
@@ -116,9 +105,9 @@ public class rvContactListAdapter extends RecyclerView.Adapter<rvContactListAdap
                     JSONArray lookup = response.getJSONArray("lookup");
                     String s = lookup.getJSONObject(0).getString("KTXT");
                     String sp = pos + "=" + viewHolder.position;
-                    viewHolder.tvFunktion.setText(pos + "=" + viewHolder.position);
+                    //viewHolder.tvFunktion.setText(pos + "=" + viewHolder.position);
                     if (viewHolder.position == pos) {
-                        viewHolder.tvFunktion.setText(sp + " | Funktion: " + s);
+                        viewHolder.tvFunktion.setText("Funktion: " + s);
                     }
 
                 }
@@ -160,6 +149,14 @@ public class rvContactListAdapter extends RecyclerView.Adapter<rvContactListAdap
             tvKdNr = (TextView) view.findViewById(R.id.tvKdNr);
             tvKTxt = (TextView) view.findViewById(R.id.tvKTxt);
             tvFunktion = (TextView) view.findViewById(R.id.tvFunktion);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //TODO: intent contact details
+                    Toast.makeText(v.getContext(), "test", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 }
