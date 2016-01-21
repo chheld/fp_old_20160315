@@ -8,9 +8,11 @@
     android:id="@+id/cardview_item_contactlist"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     card_view:cardCornerRadius="5dp"
     card_view:cardElevation="3dp"
     android:layout_margin="6dp">
+    <!--android:animateLayoutChanges="true"-->
 
     <RelativeLayout
 

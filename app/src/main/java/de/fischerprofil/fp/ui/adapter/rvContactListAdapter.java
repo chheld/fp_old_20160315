@@ -80,15 +80,15 @@ public class rvContactListAdapter extends RecyclerView.Adapter<rvContactListAdap
         holder.position = position;
 
         holder.ivIcon.setImageResource(current.getIcon());
-        holder.tvKonkaktname.setText(current.getVORNAME() + " " + current.getNAME());
+        holder.tvKonkaktname.setText(current.getVORNAME() + " " + current.getNAME().trim());
         holder.tvPersonnr.setText(current.getPERSONNR());
         holder.tvKdNr.setText(current.getFIRMANR());
         holder.tvKTxt.setText(current.getRELFIRMA_KTXT());
-        holder.tvFunktion.setText("<Funktion: " + current.getVERWENDUNG1() + ">");
+        holder.tvFunktion.setText("Funktion: " + current.getVERWENDUNG1());
 
-        // TODO: hier nachladen ?
-        //if (holder.tvFunktion.getText().toString().substring(0,1) == "<")
-        //    callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + current.getVERWENDUNG1(), holder, position);
+        // TODO: hier nachladen
+        //if (holder.tvFunktion.getText().toString().substring(0,1).equals("<"))
+            callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + current.getVERWENDUNG1(), holder, position);
 
         //ImageView imageView = (ImageView)convertView.findViewById(R.id.gallery_item_imageView);
 //        Picasso.with(mContext).load("http://i.imgur.com/DvpvklR.png").into((ImageView) mView.findViewById(R.id.ivKontakt));
@@ -102,7 +102,45 @@ public class rvContactListAdapter extends RecyclerView.Adapter<rvContactListAdap
         return mDataset.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    private void callAPILookupFirmaFGKNZ2(final String search, final ViewHolder viewHolder, final Integer pos) {
+
+        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+
+        HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                try {
+                    Log.v("Volley Response:%n %s", response.toString(4));
+                    JSONArray lookup = response.getJSONArray("lookup");
+                    String s = lookup.getJSONObject(0).getString("KTXT");
+                    String sp = pos + "=" + viewHolder.position;
+                    viewHolder.tvFunktion.setText(pos + "=" + viewHolder.position);
+                    if (viewHolder.position == pos) {
+                        viewHolder.tvFunktion.setText(sp + " | Funktion: " + s);
+                    }
+
+                }
+                catch (JSONException e) {
+                    Log.e("JSON Error: ", e.toString());
+                    Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Volley Error: ", error.toString());
+                Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }) ;
+        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
+        mAppController.addToRequestQueue(req,VOLLEY_TAG);
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        //static statt public wg speicher-probs
 
         public Integer position;
 
@@ -124,37 +162,4 @@ public class rvContactListAdapter extends RecyclerView.Adapter<rvContactListAdap
             tvFunktion = (TextView) view.findViewById(R.id.tvFunktion);
         }
     }
-
-    private void callAPILookupFirmaFGKNZ2(final String search, final ViewHolder viewHolder, final Integer pos) {
-
-        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
-
-        HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
-
-            @Override
-            public void onResponse(JSONObject response) {
-
-                try {
-                    Log.v("Volley Response:%n %s", response.toString(4));
-                    JSONArray lookup = response.getJSONArray("lookup");
-                    String s = lookup.getJSONObject(0).getString("KTXT");
-                    if (viewHolder.position == pos) viewHolder.tvFunktion.setText(s);
-                }
-                catch (JSONException e) {
-                    Log.e("Volley Error: ", e.toString());
-                    Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Volley Error: ", error.toString());
-                Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        }) ;
-        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
-        mAppController.addToRequestQueue(req,VOLLEY_TAG);
-    }
-
 }
