@@ -27,7 +27,8 @@ public class AppController extends Application {
 
         sInstance = this;
         preferences = getSharedPreferences( getPackageName() + "_preferences", MODE_PRIVATE);
-        inEmulatorMode = "generic".equals(Build.BRAND.toLowerCase());
+//        inEmulatorMode = "generic".equals(Build.BRAND.toLowerCase());
+        inEmulatorMode = "unknown".equals(Build.BOARD.toLowerCase());
     }
 
     public static synchronized AppController getInstance() {
