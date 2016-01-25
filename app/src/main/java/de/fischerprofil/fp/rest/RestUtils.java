@@ -14,6 +14,8 @@ public class RestUtils {
     private String mUsername;
     private String mPassword;
 
+    private static String mRootURL = "";
+
     public static void makeToast(Context context, String text){
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
     }
@@ -68,15 +70,43 @@ public class RestUtils {
         return false;
     }
 
-    public static String getURL(){
+    public static String getApiURL(){
 
         if (AppController.inEmulatorMode) {
-            return "https://222.222.222.60/api"; // internal URL
+//            return "https://222.222.222.60/api";        // internal URL
+            return getRootURL() + "/api";        // internal URL
         }
         else {
-            return "https://fpvk.fischerprofil.de/api"; // external URL
+//            return "https://fpvk.fischerprofil.de/api"; // external URL
+            return getRootURL() + "/api"; // external URL
         }
     }
+
+    public static String getPicURL(){
+
+        if (AppController.inEmulatorMode) {
+//            return "https://222.222.222.60/api";        // internal URL
+            return getRootURL() + "/pics";        // internal URL
+        }
+        else {
+//            return "https://fpvk.fischerprofil.de/api"; // external URL
+            return getRootURL() + "/pics"; // external URL
+        }
+    }
+
+    public static String getRootURL() {
+
+        if (AppController.inEmulatorMode) {
+            mRootURL = "https://222.222.222.60";        // internal URL
+            return mRootURL;
+        }
+
+        else {
+            mRootURL = "https://fpvk.fischerprofil.de"; // external URL
+            return mRootURL;
+        }
+    }
+
 
     public String getUsername() {return mUsername;}
 

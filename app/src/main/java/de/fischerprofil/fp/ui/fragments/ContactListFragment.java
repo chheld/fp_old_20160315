@@ -28,7 +28,7 @@ import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
 import de.fischerprofil.fp.rest.HttpsTrustManager;
 import de.fischerprofil.fp.rest.RestUtils;
 import de.fischerprofil.fp.ui.UIUtils;
-import de.fischerprofil.fp.ui.adapter.rvContactListAdapter;
+import de.fischerprofil.fp.ui.adapter.ContactListAdapter;
 
 
 @SuppressLint("ValidFragment")
@@ -37,14 +37,14 @@ public class ContactListFragment extends Fragment {
     private AppController mAppController;
     private Context mContext;
     private Kontaktliste mKontaktliste = new Kontaktliste();
-    private rvContactListAdapter mAdapter;
+    private ContactListAdapter mAdapter;
     private int mSearchRequestCounter = 0;      // Zaehler fuer die http-Anfragen
     private String mSearchString;
     private RecyclerView mRecyclerView;
     //private ProgressBar mProgressBar;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private final String VOLLEY_TAG = "VOLLEY_TAG_ContactListFragment";
-    private final String URL = RestUtils.getURL();
+    private final String URL = RestUtils.getApiURL();
 
 
     @Override
@@ -108,13 +108,11 @@ public class ContactListFragment extends Fragment {
             UIUtils.makeToast(mContext, "Suche '" + search + "'");
 
             //Adapter erzeugen und zuweisen
-            mAdapter = new rvContactListAdapter(mContext, mKontaktliste.getDataset());
+            mAdapter = new ContactListAdapter(mContext, mKontaktliste.getDataset());
             mRecyclerView.setAdapter(mAdapter);
 
             //mProgressBar.setVisibility(View.VISIBLE);  // Fortschritts-Anzeige sichtbar
             showProgressCircle(mSwipeRefreshLayout, true);
-
-            //TODO: CardviewOnklickListener definieren
 
             // start http requests
             mSearchRequestCounter = 0;

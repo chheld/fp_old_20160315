@@ -20,7 +20,7 @@ import de.fischerprofil.fp.rest.RestUtils;
 
 public class WWWFragment extends Fragment {
 
-    private String mURL = RestUtils.getURL();
+    private String mURL = RestUtils.getApiURL();
     private Activity mContext;
 
     public WWWFragment() {

@@ -1,11 +1,11 @@
 package de.fischerprofil.fp.ui.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,77 +28,70 @@ import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
 import de.fischerprofil.fp.rest.HttpsTrustManager;
 import de.fischerprofil.fp.rest.RestUtils;
 
-public class ContactListAdapter extends ArrayAdapter<Kontakt> {
+public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.ViewHolder> {
 
     private Context mContext;
     private View mView;
     private AppController mAppController;
-    private final String VOLLEY_TAG = "VOLLEY_TAG_ContactListAdapter";
-    private final String URL = RestUtils.getURL();
+    private final String VOLLEY_TAG = "VOLLEY_TAG_rvContactListAdapter";
+    private final String URL = RestUtils.getApiURL();
+    private final String picURL = RestUtils.getPicURL();
 
-    public ContactListAdapter(Context c, ArrayList<Kontakt> o) {
-         super(c, R.layout.item_contactlist, o);
-    }
+    private ArrayList<Kontakt> mDataset;
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        Kontakt kontakt = getItem(position);
+    public ContactListAdapter(Context c, ArrayList<Kontakt> d) {
 
         mAppController = AppController.getInstance();
-        mContext = getContext();
-        mView = convertView;
 
-        // Check if an existing view is being reused, otherwise inflate the view
-        ViewHolder viewHolder; // view lookup cache stored in tag
+        mDataset = d;
+        mContext = c;
+    }
 
-        if (convertView == null) {
+    // Create new views (invoked by the layout manager)
+    @Override
+    public ContactListAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.item_contactlist, parent, false);
+//        Context context = parent.getContext();
+        //mContext = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(mContext);
 
-            // Viewholder an View anbinden
-            viewHolder = new ViewHolder();
-            viewHolder.ivIcon = (ImageView) convertView.findViewById(R.id.ivKontakt);
-            viewHolder.tvPersonnr = (TextView) convertView.findViewById(R.id.tvPersonNr);
-            viewHolder.tvKonkaktname = (TextView) convertView.findViewById(R.id.tvName);
-            viewHolder.tvKdNr = (TextView) convertView.findViewById(R.id.tvKdNr);
-            viewHolder.tvKTxt = (TextView) convertView.findViewById(R.id.tvKTxt);
-            viewHolder.tvFunktion = (TextView) convertView.findViewById(R.id.tvFunktion);
-            // Hier weitere Anbindungen hinzufuegen
+        // Inflate the custom layout
+        View mView = inflater.inflate(R.layout.cardview_contactlist, viewGroup, false);
 
-            convertView.setTag(viewHolder);
-        }
-        else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
+        // Return a new holder instance
+        ViewHolder viewHolder = new ViewHolder(mView);
+        return viewHolder;
+    }
+
+    // Involves populating data into the item through holder
+    @Override
+    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+
+        Kontakt current = mDataset.get(position);
 
         // Populate the data into the template view using the data object
-        viewHolder.ivIcon.setImageResource(kontakt.getIcon());
-        viewHolder.tvPersonnr.setText(kontakt.getPERSONNR());
-        viewHolder.tvKonkaktname.setText(kontakt.getVORNAME() + " " +kontakt.getNAME());
-        viewHolder.tvKTxt.setText(kontakt.getRELFIRMA_KTXT());
-        viewHolder.tvKdNr.setText(kontakt.getFIRMANR());
-        viewHolder.tvFunktion.setText("<Funktion: " + kontakt.getVERWENDUNG1() + ">");
+        viewHolder.position = position;
 
-        //callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + kontakt.getVERWENDUNG1(), viewHolder);
-        // Hier weitere Zuweisungen hinzufuegen
+        viewHolder.ivIcon.setImageResource(current.getIcon());
+        viewHolder.tvKonkaktname.setText((current.getVORNAME() + " " + current.getNAME()).trim());
+        viewHolder.tvPersonnr.setText(current.getPERSONNR());
+        viewHolder.tvKdNr.setText(current.getFIRMANR());
+        viewHolder.tvKTxt.setText(current.getRELFIRMA_KTXT());
+        viewHolder.tvFunktion.setText("Funktion: " + current.getVERWENDUNG1());
 
-        return convertView;
+        callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + current.getVERWENDUNG1(), viewHolder, position);
+
+        Picasso.with(mContext).load(picURL + "/picture.png").resize(50, 50).into(viewHolder.ivIcon); //TEST
     }
 
-    // View lookup cache
-    private static class ViewHolder {
-        ImageView ivIcon;
-        TextView tvPersonnr;
-        TextView tvKonkaktname;
-        TextView tvKdNr;
-        TextView tvKTxt;
-        TextView tvFunktion;
-        // Hier weitere Holder-Eigenschaften hinzufuegen
+
+    @Override
+    public int getItemCount() {
+
+        return mDataset.size();
     }
 
-    private void callAPILookupFirmaFGKNZ2(final String search, final ViewHolder viewHolder) {
+    private void callAPILookupFirmaFGKNZ2(final String search, final ViewHolder viewHolder, final Integer pos) {
 
         HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
 
@@ -109,11 +103,16 @@ public class ContactListAdapter extends ArrayAdapter<Kontakt> {
                 try {
                     Log.v("Volley Response:%n %s", response.toString(4));
                     JSONArray lookup = response.getJSONArray("lookup");
-                    String s = viewHolder.tvFunktion.getText() + lookup.getJSONObject(0).getString("KTXT");
-                    viewHolder.tvFunktion.setText(s);
+                    String s = lookup.getJSONObject(0).getString("KTXT");
+                    String sp = pos + "=" + viewHolder.position;
+                    //viewHolder.tvFunktion.setText(pos + "=" + viewHolder.position);
+                    if (viewHolder.position == pos) {
+                        viewHolder.tvFunktion.setText("Funktion: " + s);
+                    }
+
                 }
                 catch (JSONException e) {
-                    Log.e("Volley Error: ", e.toString());
+                    Log.e("JSON Error: ", e.toString());
                     Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -127,5 +126,37 @@ public class ContactListAdapter extends ArrayAdapter<Kontakt> {
         }) ;
         req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
         mAppController.addToRequestQueue(req,VOLLEY_TAG);
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        //static statt public wg speicher-probs
+
+        public Integer position;
+
+        public ImageView ivIcon;
+        public TextView tvPersonnr;
+        public TextView tvKonkaktname;
+        public TextView tvKdNr;
+        public TextView tvKTxt;
+        public TextView tvFunktion;
+
+        public ViewHolder(View view) {
+            super(view);
+
+            ivIcon = (ImageView) view.findViewById(R.id.ivKontakt);
+            tvPersonnr = (TextView) view.findViewById(R.id.tvPersonNr);
+            tvKonkaktname = (TextView) view.findViewById(R.id.tvName);
+            tvKdNr = (TextView) view.findViewById(R.id.tvKdNr);
+            tvKTxt = (TextView) view.findViewById(R.id.tvKTxt);
+            tvFunktion = (TextView) view.findViewById(R.id.tvFunktion);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //TODO: intent contact details
+                    Toast.makeText(v.getContext(), "test", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }

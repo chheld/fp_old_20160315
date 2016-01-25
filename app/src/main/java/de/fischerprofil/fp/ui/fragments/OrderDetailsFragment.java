@@ -53,7 +53,7 @@ public  class OrderDetailsFragment extends Fragment {
     private ProgressBar pbLieferadresse;
     private ProgressBar pbarKunde;
     private final String VOLLEY_TAG = "VOLLEY_TAG_OrderDetailsFragment";
-    private final String URL = RestUtils.getURL();
+    private final String URL = RestUtils.getApiURL();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

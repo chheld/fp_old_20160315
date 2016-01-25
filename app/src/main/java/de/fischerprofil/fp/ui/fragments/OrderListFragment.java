@@ -44,7 +44,7 @@ public class OrderListFragment extends Fragment {
     //private ProgressBar progressBar;
     private AppController mAppController;
     private final String VOLLEY_TAG = "VOLLEY_TAG_OrderListFragment";
-    private final String URL = RestUtils.getURL();
+    private final String URL = RestUtils.getApiURL();
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public void onActivityCreated(Bundle savedInstanceState) {
