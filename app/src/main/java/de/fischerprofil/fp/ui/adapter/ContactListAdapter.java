@@ -82,7 +82,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         viewHolder.tvKTxt.setText(current.getRELFIRMA_KTXT());
         viewHolder.tvFunktion.setText("Funktion: " + current.getVERWENDUNG1());
         //viewHolder.tvFuntionstext.setText("<Funktionsbeshreibung>");
-        viewHolder.tvTelefonnummer.setText("<Tel:>");
+        viewHolder.tvTelefonnummer.setText("Tel: <???>");
 
         callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + current.getVERWENDUNG1(), viewHolder, position);
 
