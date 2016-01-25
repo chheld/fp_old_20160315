@@ -29,10 +29,11 @@
     <item
         android:id="@+id/nav_freight"
         android:title="Frachten"
+        android:icon="@drawable/ic_lorry"
         android:enabled="false"/>
     <item
         android:id="@+id/nav_references"
-        android:title="Referenzen"
+        android:title="Referenzobjekte"
         android:enabled="false"/>
     <item
         android:id="@+id/nav_www"

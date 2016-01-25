@@ -1,11 +1,14 @@
 package de.fischerprofil.fp.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,7 +16,6 @@ import android.widget.Toast;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,6 +29,7 @@ import de.fischerprofil.fp.model.contact.Kontakt;
 import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
 import de.fischerprofil.fp.rest.HttpsTrustManager;
 import de.fischerprofil.fp.rest.RestUtils;
+import de.fischerprofil.fp.ui.UIUtils;
 
 public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.ViewHolder> {
 
@@ -78,10 +81,13 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         viewHolder.tvKdNr.setText(current.getFIRMANR());
         viewHolder.tvKTxt.setText(current.getRELFIRMA_KTXT());
         viewHolder.tvFunktion.setText("Funktion: " + current.getVERWENDUNG1());
+        //viewHolder.tvFuntionstext.setText("<Funktionsbeshreibung>");
+        viewHolder.tvTelefonnummer.setText("<Tel:>");
 
         callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + current.getVERWENDUNG1(), viewHolder, position);
 
-        Picasso.with(mContext).load(picURL + "/picture.png").resize(50, 50).into(viewHolder.ivIcon); //TEST
+        //Picasso.with(mContext).load(picURL + "/contact.png").resize(50, 50).into(viewHolder.ivIcon); //TEST
+        //TODO: Zugriff durch FireWall ermöglichen
     }
 
 
@@ -128,7 +134,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         mAppController.addToRequestQueue(req,VOLLEY_TAG);
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         //static statt public wg speicher-probs
 
         public Integer position;
@@ -140,6 +146,10 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         public TextView tvKTxt;
         public TextView tvFunktion;
 
+        public TextView tvFuntionstext;
+        public TextView tvTelefonnummer;
+
+
         public ViewHolder(View view) {
             super(view);
 
@@ -150,13 +160,50 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
             tvKTxt = (TextView) view.findViewById(R.id.tvKTxt);
             tvFunktion = (TextView) view.findViewById(R.id.tvFunktion);
 
+            //tvFuntionstext = (TextView) view.findViewById(R.id.tvFuntionstext);
+            tvTelefonnummer = (TextView) view.findViewById(R.id.tvTelefonnummer);
+
+            //TODO: intent contact details beim klicken anzeigen
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO: intent contact details
-                    Toast.makeText(v.getContext(), "test", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), tvPersonnr.getText(), Toast.LENGTH_SHORT).show();
                 }
             });
+
+            // wenn keine Nummer hinterlegt, ausblenden
+            ImageButton img = (ImageButton) view.findViewById(R.id.btnCall);
+            if (tvTelefonnummer.getText().toString()!="") {
+                img.setVisibility(View.VISIBLE);
+                img.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showCaller(v, tvTelefonnummer.getText().toString());
+                    }
+                });
+            }
+            else {
+                img.setVisibility(View.GONE);
+            }
+        }
+        private void showCaller(View v, String nr) {
+
+           // UIUtils.makeToast(v.getContext(), "Starte Telefon-App ...");
+
+            String uri = "tel:" + nr.replaceAll("[^0-9|\\+]", "");
+            ImageButton img = (ImageButton) v.findViewById(R.id.btnCall);
+
+            try {
+                if (nr != null && nr != "") {
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "02737508174"));
+                    v.getContext().startActivity(intent);
+                } else {
+                    img.setVisibility(View.GONE);
+                }
+            }
+            catch (Exception e) {
+                UIUtils.makeToast(v.getContext(), "Telefonat kann nicht geführt werden");
+            }
         }
     }
 }
