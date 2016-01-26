@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +17,17 @@ import android.widget.Toast;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.squareup.okhttp.Interceptor;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.picasso.LruCache;
+import com.squareup.picasso.OkHttpDownloader;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import de.fischerprofil.fp.AppController;
@@ -29,6 +36,7 @@ import de.fischerprofil.fp.model.contact.Kontakt;
 import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
 import de.fischerprofil.fp.rest.HttpsTrustManager;
 import de.fischerprofil.fp.rest.RestUtils;
+import de.fischerprofil.fp.rest.TrustModifier;
 import de.fischerprofil.fp.ui.UIUtils;
 
 public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.ViewHolder> {
@@ -86,10 +94,10 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
         callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + current.getVERWENDUNG1(), viewHolder, position);
 
-        //Picasso.with(mContext).load(picURL + "/contact.png").resize(50, 50).into(viewHolder.ivIcon); //TEST
-        //TODO: Zugriff durch FireWall ermöglichen
+        // TEST für picasso
+        Picasso picasso = buildPicasso(mContext);
+        picasso.load(picURL + "/contact.png").into(viewHolder.ivIcon);
     }
-
 
     @Override
     public int getItemCount() {
@@ -206,4 +214,33 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
             }
         }
     }
+
+    public Picasso buildPicasso(Context context){
+
+        OkHttpClient httpClient = TrustModifier.createAcceptAllClient();
+
+        String username = AppController.preferences.getString( "username", "oh no" );
+        String pw = AppController.preferences.getString("password", "oh no");
+        String credentials = username + ":" + pw;
+        final String encodedCredentials = Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+
+        httpClient.interceptors().add(new Interceptor() {
+
+            @Override
+            public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
+                com.squareup.okhttp.Request.Builder newRequest = chain.request().newBuilder();
+                newRequest.header("Authorization","Basic " + encodedCredentials );
+                return chain.proceed(newRequest.build());
+            }
+        });
+
+        Picasso picasso = new Picasso.Builder(context)
+                .downloader(new OkHttpDownloader(httpClient))
+                .memoryCache(new LruCache(context))
+                .build();
+
+        return picasso;
+    }
+
+
 }

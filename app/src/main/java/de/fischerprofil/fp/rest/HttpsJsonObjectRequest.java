@@ -40,7 +40,6 @@ public class HttpsJsonObjectRequest extends JsonObjectRequest {
     @Override
     public Map<String, String> getHeaders() throws AuthFailureError {
 
-        //TODO: read credentials from preferences
         String username = AppController.preferences.getString( "username", "oh no" );
         String pw = AppController.preferences.getString("password", "oh no");
         return createBasicAuthHeader(username, pw);

@@ -42,6 +42,7 @@ public class HttpsTrustManager implements X509TrustManager {
     }
 
     public static void allowAllSSL() {
+
         HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
 
             @Override
@@ -50,12 +51,10 @@ public class HttpsTrustManager implements X509TrustManager {
             }
 
         });
-
         SSLContext context = null;
         if (trustManagers == null) {
             trustManagers = new TrustManager[]{new HttpsTrustManager()};
         }
-
         try {
             context = SSLContext.getInstance("TLS");
             context.init(null, trustManagers, new SecureRandom());
@@ -64,9 +63,6 @@ public class HttpsTrustManager implements X509TrustManager {
         } catch (KeyManagementException e) {
             e.printStackTrace();
         }
-
-        HttpsURLConnection.setDefaultSSLSocketFactory(context
-                .getSocketFactory());
+        HttpsURLConnection.setDefaultSSLSocketFactory(context.getSocketFactory());
     }
-
 }
