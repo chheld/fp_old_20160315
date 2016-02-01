@@ -28,7 +28,7 @@ import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
 import de.fischerprofil.fp.rest.HttpsTrustManager;
 import de.fischerprofil.fp.rest.RestUtils;
 import de.fischerprofil.fp.ui.UIUtils;
-import de.fischerprofil.fp.ui.adapter.ContactListAdapter;
+import de.fischerprofil.fp.adapter.ContactListAdapter;
 
 
 @SuppressLint("ValidFragment")

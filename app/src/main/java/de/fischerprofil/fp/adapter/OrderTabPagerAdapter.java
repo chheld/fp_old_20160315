@@ -1,4 +1,4 @@
-package de.fischerprofil.fp.ui.adapter;
+package de.fischerprofil.fp.adapter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

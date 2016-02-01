@@ -1,4 +1,4 @@
-package de.fischerprofil.fp.ui.adapter;
+package de.fischerprofil.fp.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,19 +8,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import de.fischerprofil.fp.model.order.Auftrag;
-
 import java.util.ArrayList;
 
-/**
- * Created by held on 13.01.2015.
- * https://github.com/codepath/android_guides/wiki/Using-an-ArrayAdapter-with-ListView
- */
-public class OrderDetailsAdapter extends ArrayAdapter<Auftrag> {
+import de.fischerprofil.fp.model.order.Auftrag;
 
-    public OrderDetailsAdapter(Context c, ArrayList<Auftrag> o) {
+public class OrderListAdapter extends ArrayAdapter<Auftrag> {
 
-        super(c, de.fischerprofil.fp.R.layout.fragment_orderdetails, o);
+    public OrderListAdapter(Context c, ArrayList<Auftrag> o) {
+         super(c, de.fischerprofil.fp.R.layout.item_orderlist, o);
     }
 
     @Override
@@ -34,25 +29,27 @@ public class OrderDetailsAdapter extends ArrayAdapter<Auftrag> {
         if (convertView == null) {
 
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(de.fischerprofil.fp.R.layout.fragment_orderdetails, parent, false);
+            convertView = inflater.inflate(de.fischerprofil.fp.R.layout.item_orderlist, parent, false);
 
             // Viewholder an View anbinden
             viewHolder = new ViewHolder();
-            viewHolder.ivIcon = (ImageView) convertView.findViewById(de.fischerprofil.fp.R.id.ivKontakt);
+            viewHolder.ivIcon = (ImageView) convertView.findViewById(de.fischerprofil.fp.R.id.ivOrder);
+            viewHolder.tvANr = (TextView) convertView.findViewById(de.fischerprofil.fp.R.id.tvANr);
             viewHolder.tvKdNr = (TextView) convertView.findViewById(de.fischerprofil.fp.R.id.tvKdNr);
             viewHolder.tvKTxt = (TextView) convertView.findViewById(de.fischerprofil.fp.R.id.tvKTxt);
+            viewHolder.tvBemerkung = (TextView) convertView.findViewById(de.fischerprofil.fp.R.id.tvBemerkung);
             // Hier weitere Anbindungen hinzufuegen
             convertView.setTag(viewHolder);
-        }
-        else {
-
+        } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
         // Populate the data into the template view using the data object
-        viewHolder.tvKTxt.setText(ord.getKTXT());
-        viewHolder.tvKdNr.setText(ord.getMNR());
         viewHolder.ivIcon.setImageResource(ord.getIcon());
+        viewHolder.tvANr.setText(ord.getANR());
+        viewHolder.tvKdNr.setText("Kunde " + ord.getMNR());
+        viewHolder.tvKTxt.setText(ord.getKTXT());
+        viewHolder.tvBemerkung.setText(ord.getBEMERKUNG());
         // Hier weitere Zuweisungen hinzufuegen
 
         return convertView;
@@ -60,10 +57,11 @@ public class OrderDetailsAdapter extends ArrayAdapter<Auftrag> {
 
     // View lookup cache
     private static class ViewHolder {
-
         ImageView ivIcon;
+        TextView tvANr;
         TextView tvKdNr;
         TextView tvKTxt;
+        TextView tvBemerkung;
         // Hier weitere Holder-Eigenschaften hinzufuegen
     }
 

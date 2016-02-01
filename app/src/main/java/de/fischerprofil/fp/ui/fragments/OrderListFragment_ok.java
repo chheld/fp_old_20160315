@@ -30,7 +30,7 @@ import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
 import de.fischerprofil.fp.rest.HttpsTrustManager;
 import de.fischerprofil.fp.rest.RestUtils;
 import de.fischerprofil.fp.ui.OrderDetailsActivity;
-import de.fischerprofil.fp.ui.adapter.OrderListAdapter;
+import de.fischerprofil.fp.adapter.OrderListAdapter;
 
 @SuppressLint("ValidFragment")
 public class OrderListFragment_ok extends Fragment {

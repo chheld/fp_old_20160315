@@ -1,4 +1,4 @@
-package de.fischerprofil.fp.ui.adapter;
+package de.fischerprofil.fp.adapter;
 
 import android.content.Context;
 import android.content.Intent;

@@ -14,7 +14,7 @@ import android.view.MenuItem;
 
 import de.fischerprofil.fp.AppController;
 import de.fischerprofil.fp.R;
-import de.fischerprofil.fp.ui.adapter.OrderTabPagerAdapter;
+import de.fischerprofil.fp.adapter.OrderTabPagerAdapter;
 import de.fischerprofil.fp.ui.fragments.AboutFragment;
 import de.fischerprofil.fp.ui.fragments.HintFragment;
 import de.fischerprofil.fp.ui.fragments.OrderDetailsFragment;
