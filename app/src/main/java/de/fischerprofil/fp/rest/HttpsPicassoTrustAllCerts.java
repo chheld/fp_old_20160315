@@ -20,15 +20,16 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-public class TrustModifier {
+public class HttpsPicassoTrustAllCerts {
 
     private static final String TAG = "TrustModifier";
 
-    private static final TrustingHostnameVerifier
-            TRUSTING_HOSTNAME_VERIFIER = new TrustingHostnameVerifier();
+    private static final TrustingHostnameVerifier TRUSTING_HOSTNAME_VERIFIER = new TrustingHostnameVerifier();
     private static SSLSocketFactory factory;
 
-    /** Call this with any HttpURLConnection, and it will     modify the trust settings if it is an HTTPS connection. */
+    // Call this with any HttpURLConnection, and it will     modify the trust settings if it is an HTTPS connection. */
+    // HttpURLConnection h = new HttpURLConnection.TrustModifier(); //Bsp.
+
     public static void relaxHostChecking(HttpURLConnection conn)
             throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException {
 
@@ -98,8 +99,8 @@ public class TrustModifier {
         OkHttpClient client = new OkHttpClient();
         Log.d(TAG, "onBitmapLoaded getClient ");
         try {
-            client.setHostnameVerifier(new TrustModifier.NullHostNameVerifier());
-            client.setSslSocketFactory(TrustModifier.createFactory());
+            client.setHostnameVerifier(new HttpsPicassoTrustAllCerts.NullHostNameVerifier());
+            client.setSslSocketFactory(HttpsPicassoTrustAllCerts.createFactory());
         } catch (NoSuchAlgorithmException | KeyStoreException | KeyManagementException e) {
             e.printStackTrace();
         }

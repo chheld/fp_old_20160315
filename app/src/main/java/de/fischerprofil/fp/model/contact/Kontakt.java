@@ -13,7 +13,7 @@ import java.util.List;
 
 import de.fischerprofil.fp.R;
 
-public class Kontakt  implements Parcelable {
+public class Kontakt implements Parcelable {
 
     private int mIcon;      // Icon des Auftrags
 

@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,29 +25,24 @@ import java.util.ArrayList;
 
 import de.fischerprofil.fp.AppController;
 import de.fischerprofil.fp.R;
-import de.fischerprofil.fp.model.communication.Kommunikationsliste;
-import de.fischerprofil.fp.model.contact.Kontakt;
+import de.fischerprofil.fp.model.communication.Kommunikation;
 import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
 import de.fischerprofil.fp.rest.HttpsTrustManager;
-import de.fischerprofil.fp.rest.PicassoUtils;
 import de.fischerprofil.fp.rest.RestUtils;
 import de.fischerprofil.fp.ui.UIUtils;
 
-public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.ViewHolder> {
+public class ComListAdapter_dev extends RecyclerView.Adapter<ComListAdapter_dev.ViewHolder> {
 
     private Context mContext;
     private View mView;
     private AppController mAppController;
-    private final String VOLLEY_TAG = "VOLLEY_TAG_rvContactListAdapter";
+    private final String VOLLEY_TAG = "VOLLEY_TAG_rvComListAdapter";
     private final String URL = RestUtils.getApiURL();
     private final String picURL = RestUtils.getPicURL();
 
-    private Kommunikationsliste mKommunikationsliste = new Kommunikationsliste();
-    //private KommunikationslisteAdapter mAdapter;
+    private ArrayList<Kommunikation> mDataset;
 
-    private ArrayList<Kontakt> mDataset;
-
-    public ContactListAdapter(Context c, ArrayList<Kontakt> d) {
+    public ComListAdapter_dev(Context c, ArrayList<Kommunikation> d) {
 
         mAppController = AppController.getInstance();
 
@@ -58,7 +52,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
     // Create new views (invoked by the layout manager)
     @Override
-    public ContactListAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public ComListAdapter_dev.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
 //        Context context = parent.getContext();
         //mContext = parent.getContext();
@@ -76,7 +70,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
 
-        Kontakt current = mDataset.get(position);
+        Kommunikation current = mDataset.get(position);
 
         // Populate the data into the template view using the data object
         viewHolder.position = position;
@@ -84,18 +78,10 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         viewHolder.ivIcon.setImageResource(current.getIcon());
         viewHolder.tvKonkaktname.setText((current.getVORNAME() + " " + current.getNAME()).trim());
         viewHolder.tvPersonnr.setText(current.getPERSONNR());
-        viewHolder.tvKdNr.setText(current.getFIRMANR());
-        viewHolder.tvKTxt.setText(current.getRELFIRMA_KTXT());
-        viewHolder.tvFunktion.setText("Funktion: " + current.getVERWENDUNG1());
-        //viewHolder.tvTelefonnummer.setText("Tel: <???>");
+        viewHolder.tvTelefonnummer.setText("Tel: <???>");
 
-        callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + current.getVERWENDUNG1(), viewHolder, position);
-        //callAPIKommunikationByPersonNr(URL + "com?relperson__personnr=" + viewHolder.tvPersonnr.getText(),viewHolder,position);
+        //callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + current.getVERWENDUNG1(), viewHolder, position);
 
-
-        // TEST für picasso
-        Picasso picasso = PicassoUtils.buildPicasso(mContext);
-        picasso.load(picURL + "/contact.png").into(viewHolder.ivIcon);
     }
 
     @Override
@@ -141,44 +127,6 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         mAppController.addToRequestQueue(req,VOLLEY_TAG);
     }
 
-    private void callAPIKommunikationByPersonNr(final String search, final ViewHolder viewHolder, final Integer pos) {
-
-        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
-
-        HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
-
-            @Override
-            public void onResponse(JSONObject response) {
-
-                try {
-                    Log.v("Volley Response:%n %s", response.toString(4));
-                    JSONArray coms = response.getJSONArray("communication");
-                    String s = coms.getJSONObject(0).getString("KTXT");
-                    String sp = pos + "=" + viewHolder.position;
-                    //viewHolder.tvFunktion.setText(pos + "=" + viewHolder.position);
-                    if (viewHolder.position == pos) {
-                        viewHolder.tvFunktion.setText("Funktion: " + s);
-
-                    }
-
-                }
-                catch (JSONException e) {
-                    Log.e("JSON Error: ", e.toString());
-                    Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Volley Error: ", error.toString());
-                Toast.makeText(mContext, error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        }) ;
-        req.setRetryPolicy(new DefaultRetryPolicy(3000, 3, 2));
-        mAppController.addToRequestQueue(req,VOLLEY_TAG);
-    }
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         //static statt public wg speicher-probs
 
@@ -198,7 +146,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         public ViewHolder(View view) {
             super(view);
 
-            ivIcon = (ImageView) view.findViewById(R.id.ivKontakt);
+            //ivIcon = (ImageView) view.findViewById(R.id.ivKommunikation);
             tvPersonnr = (TextView) view.findViewById(R.id.tvPersonNr);
             tvKonkaktname = (TextView) view.findViewById(R.id.tvName);
             tvKdNr = (TextView) view.findViewById(R.id.tvKdNr);
@@ -251,4 +199,5 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
             }
         }
     }
+
 }
