@@ -90,12 +90,12 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + current.getVERWENDUNG1(), viewHolder, position);
         callAPIKommunikationByPersonNr(URL + "/com?relperson__personnr=" + viewHolder.tvPersonnr.getText(),viewHolder,position);
 
-
         // TEST für picasso
         //Picasso picasso = PicassoUtils.buildPicasso(mContext);
         //picasso.load(picURL + "/contact.png").into(viewHolder.ivIcon);
 
-        viewHolder.layTelefonnummer.setVisibility(View.GONE);
+        viewHolder.layTelefon.setVisibility(View.GONE);
+        viewHolder.layMail.setVisibility(View.GONE);
     }
 
     @Override
@@ -155,10 +155,18 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                     JSONArray communications = response.getJSONArray("communications");
 
                     if (communications.length() > 1 && viewHolder.position == pos) {
-                        String tag = communications.getJSONObject(0).getString("KTXT"); //TODO: alle Objekte anzeigen
-                        String val = communications.getJSONObject(0).getString("NUMMER"); //TODO: alle Objekte anzeigen
+
+                        String tag;
+                        String val;
+                        tag = communications.getJSONObject(0).getString("KTXT");
+                        val = communications.getJSONObject(0).getString("NUMMER");
                         viewHolder.tvTelefonnummer.setText(tag + " : " + val);
-                        viewHolder.layTelefonnummer.setVisibility(View.VISIBLE);
+                        viewHolder.layTelefon.setVisibility(View.VISIBLE);
+
+                        tag = communications.getJSONObject(1).getString("KTXT");
+                        val = communications.getJSONObject(1).getString("NUMMER");
+                        viewHolder.tvMailadresse.setText(tag + " : " + val);
+                        viewHolder.layMail.setVisibility(View.VISIBLE);
                     }
                 }
                 catch (JSONException e) {
@@ -190,10 +198,11 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         public TextView tvKTxt;
         public TextView tvFunktion;
 
-        public TextView tvFuntionstext;
         public TextView tvTelefonnummer;
+        public TextView tvMailadresse;
 
-        public RelativeLayout layTelefonnummer;
+        public RelativeLayout layTelefon;
+        public RelativeLayout layMail;
 
         public ViewHolder(View view) {
             super(view);
@@ -205,10 +214,11 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
             tvKTxt = (TextView) view.findViewById(R.id.tvKTxt);
             tvFunktion = (TextView) view.findViewById(R.id.tvFunktion);
 
-            //tvFuntionstext = (TextView) view.findViewById(R.id.tvFuntionstext);
             tvTelefonnummer = (TextView) view.findViewById(R.id.tvTelefonnummer);
+            tvMailadresse = (TextView) view.findViewById(R.id.tvMailadresse);
 
-            layTelefonnummer = (RelativeLayout) view.findViewById(R.id.layKomm);
+            layTelefon = (RelativeLayout) view.findViewById(R.id.layTelefon);
+            layMail = (RelativeLayout) view.findViewById(R.id.layMail);
 
             //TODO: intent contact details beim klicken anzeigen
             view.setOnClickListener(new View.OnClickListener() {
@@ -218,38 +228,63 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                 }
             });
 
-            // wenn keine Nummer hinterlegt, ausblenden
             ImageButton img = (ImageButton) view.findViewById(R.id.btnCall);
             if (tvTelefonnummer.getText().toString()!="") {
-                img.setVisibility(View.VISIBLE);
                 img.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        showCaller(v, tvTelefonnummer.getText().toString());
+                        showCallDialog(v, tvTelefonnummer.getText().toString());
                     }
                 });
             }
-            else {
-                img.setVisibility(View.GONE);
+
+            ImageButton img2 = (ImageButton) view.findViewById(R.id.btnMail);
+            if (tvMailadresse.getText().toString()!="") {
+                img2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showMailDialog(v, tvMailadresse.getText().toString());
+                    }
+                });
             }
         }
-        private void showCaller(View v, String nr) {
+        private void showCallDialog(View v, String nr) {
 
-           // UIUtils.makeToast(v.getContext(), "Starte Telefon-App ...");
+            //UIUtils.makeToast(v.getContext(), "Starte Telefon-App ..."); //TEST
 
             String uri = "tel:" + nr.replaceAll("[^0-9|\\+]", "");
             ImageButton img = (ImageButton) v.findViewById(R.id.btnCall);
 
             try {
                 if (nr != null && nr != "") {
-                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "02737508174"));
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "02737508174")); //TODO: Nummer übernehmen
                     v.getContext().startActivity(intent);
                 } else {
                     img.setVisibility(View.GONE);
                 }
             }
             catch (Exception e) {
-                UIUtils.makeToast(v.getContext(), "Telefonat kann nicht geführt werden");
+                UIUtils.makeToast(v.getContext(), "Telefon-Dialog kann nicht geführt werden");
+            }
+        }
+
+        private void showMailDialog(View v, String nr) {
+
+            UIUtils.makeToast(v.getContext(), "Starte Mail-App ...");
+
+            String uri = "mail:" + nr.replaceAll("[^0-9|\\+]", "");
+            ImageButton img = (ImageButton) v.findViewById(R.id.btnMail);
+
+            try {
+                if (nr != null && nr != "") {
+                    //Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "02737508174"));
+                    //v.getContext().startActivity(intent);
+                } else {
+                    img.setVisibility(View.GONE);
+                }
+            }
+            catch (Exception e) {
+                UIUtils.makeToast(v.getContext(), "Mail-Dialog kann nicht geführt werden");
             }
         }
     }

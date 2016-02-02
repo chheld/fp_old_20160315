@@ -97,7 +97,8 @@
             android:layout_marginTop="5dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="&lt;Funktion>" />
+            android:text="&lt;Funktion>"
+            android:layout_marginBottom="5dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -105,28 +106,72 @@
             android:layout_below="@+id/tvFunktion"
             android:layout_toRightOf="@+id/ivKontakt"
             android:layout_alignParentEnd="true"
-            android:id="@+id/layKomm">
+            android:id="@+id/layTelefon">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvTelefonnummer"
-                android:layout_marginTop="5dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="&lt;Telefonnummer>" />
+                android:text="&lt;Telefonnummer>"
+                android:layout_toLeftOf="@+id/btnCall"
+                android:layout_toStartOf="@+id/btnCall"
+                android:layout_marginTop="5dp" />
 
             <ImageButton
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:id="@+id/btnCall"
-                android:src="@drawable/ic_call"
+                android:src="@drawable/ic_phone_forwarded"
                 android:background="@android:color/transparent"
                 android:contentDescription="Call"
-                android:layout_alignParentBottom="true"
+                android:layout_alignParentBottom="false"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:clickable="true" />
+                android:clickable="true"
+                android:layout_alignParentStart="false"
+                android:layout_alignParentTop="false"
+                android:baselineAlignBottom="false"
+                android:layout_alignTop="@+id/tvTelefonnummer"
+                android:tint="#3B79D9"
+                android:scaleType="fitCenter"
+                android:tintMode="src_in" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layTelefon"
+            android:layout_toRightOf="@+id/ivKontakt"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/layMail">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvMailadresse"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="&lt;Mail>"
+                android:layout_marginTop="5dp" />
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/btnMail"
+                android:src="@drawable/ic_mail"
+                android:background="@android:color/transparent"
+                android:contentDescription="Mail"
+                android:layout_alignParentBottom="false"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:clickable="true"
+                android:layout_alignParentTop="false"
+                android:layout_alignTop="@+id/tvMailadresse"
+                android:tint="#3B79D9"
+                android:scaleType="centerInside"
+                android:tintMode="src_in" />
         </RelativeLayout>
 
     </RelativeLayout>
