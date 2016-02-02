@@ -10,13 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,7 +30,6 @@ import de.fischerprofil.fp.model.communication.Kommunikationsliste;
 import de.fischerprofil.fp.model.contact.Kontakt;
 import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
 import de.fischerprofil.fp.rest.HttpsTrustManager;
-import de.fischerprofil.fp.rest.PicassoUtils;
 import de.fischerprofil.fp.rest.RestUtils;
 import de.fischerprofil.fp.ui.UIUtils;
 
@@ -65,7 +64,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         LayoutInflater inflater = LayoutInflater.from(mContext);
 
         // Inflate the custom layout
-        View mView = inflater.inflate(R.layout.cardview_contactlist, viewGroup, false);
+        mView = inflater.inflate(R.layout.cardview_contactlist, viewGroup, false);
 
         // Return a new holder instance
         ViewHolder viewHolder = new ViewHolder(mView);
@@ -87,15 +86,16 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         viewHolder.tvKdNr.setText(current.getFIRMANR());
         viewHolder.tvKTxt.setText(current.getRELFIRMA_KTXT());
         viewHolder.tvFunktion.setText("Funktion: " + current.getVERWENDUNG1());
-        //viewHolder.tvTelefonnummer.setText("Tel: <???>");
 
         callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + current.getVERWENDUNG1(), viewHolder, position);
-        //callAPIKommunikationByPersonNr(URL + "com?relperson__personnr=" + viewHolder.tvPersonnr.getText(),viewHolder,position);
+        callAPIKommunikationByPersonNr(URL + "/com?relperson__personnr=" + viewHolder.tvPersonnr.getText(),viewHolder,position);
 
 
         // TEST für picasso
-        Picasso picasso = PicassoUtils.buildPicasso(mContext);
-        picasso.load(picURL + "/contact.png").into(viewHolder.ivIcon);
+        //Picasso picasso = PicassoUtils.buildPicasso(mContext);
+        //picasso.load(picURL + "/contact.png").into(viewHolder.ivIcon);
+
+        viewHolder.layTelefonnummer.setVisibility(View.GONE);
     }
 
     @Override
@@ -152,15 +152,14 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
                 try {
                     Log.v("Volley Response:%n %s", response.toString(4));
-                    JSONArray coms = response.getJSONArray("communication");
-                    String s = coms.getJSONObject(0).getString("KTXT");
-                    String sp = pos + "=" + viewHolder.position;
-                    //viewHolder.tvFunktion.setText(pos + "=" + viewHolder.position);
-                    if (viewHolder.position == pos) {
-                        viewHolder.tvFunktion.setText("Funktion: " + s);
+                    JSONArray communications = response.getJSONArray("communications");
 
+                    if (communications.length() > 1 && viewHolder.position == pos) {
+                        String tag = communications.getJSONObject(0).getString("KTXT"); //TODO: alle Objekte anzeigen
+                        String val = communications.getJSONObject(0).getString("NUMMER"); //TODO: alle Objekte anzeigen
+                        viewHolder.tvTelefonnummer.setText(tag + " : " + val);
+                        viewHolder.layTelefonnummer.setVisibility(View.VISIBLE);
                     }
-
                 }
                 catch (JSONException e) {
                     Log.e("JSON Error: ", e.toString());
@@ -194,6 +193,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         public TextView tvFuntionstext;
         public TextView tvTelefonnummer;
 
+        public RelativeLayout layTelefonnummer;
 
         public ViewHolder(View view) {
             super(view);
@@ -207,6 +207,8 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
             //tvFuntionstext = (TextView) view.findViewById(R.id.tvFuntionstext);
             tvTelefonnummer = (TextView) view.findViewById(R.id.tvTelefonnummer);
+
+            layTelefonnummer = (RelativeLayout) view.findViewById(R.id.layKomm);
 
             //TODO: intent contact details beim klicken anzeigen
             view.setOnClickListener(new View.OnClickListener() {

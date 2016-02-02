@@ -21,6 +21,8 @@ public class Kommunikation implements Parcelable {
     private Integer KOMART;
     @SerializedName("BEMERKUNG")
     private Object BEMERKUNG;
+    @SerializedName("NUMMER")
+    private Object NUMMER;
     @SerializedName("KTXT")
     private String KTXT;
 
@@ -156,6 +158,24 @@ public class Kommunikation implements Parcelable {
      */
     public void setBEMERKUNG(Object BEMERKUNG) {
         this.BEMERKUNG = BEMERKUNG;
+    }
+
+    /**
+     *
+     * @return
+     * The NUMMER
+     */
+    public Object getNUMMER() {
+        return NUMMER;
+    }
+
+    /**
+     *
+     * @param NUMMER
+     * The NUMMER
+     */
+    public void setNUMMER(Object NUMMER) {
+        this.NUMMER = NUMMER;
     }
 
     /**

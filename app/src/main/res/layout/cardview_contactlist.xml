@@ -99,28 +99,35 @@
             android:maxLines="2"
             android:text="&lt;Funktion>" />
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tvTelefonnummer"
-            android:layout_toRightOf="@+id/ivKontakt"
             android:layout_below="@+id/tvFunktion"
-            android:layout_marginTop="5dp"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:text="&lt;Telefonnummer>" />
-
-        <ImageButton
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/btnCall"
-            android:src="@drawable/ic_call"
-            android:background="@android:color/transparent"
-            android:contentDescription="Call"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/ivKontakt"
             android:layout_alignParentEnd="true"
-            android:clickable="true" />
+            android:id="@+id/layKomm">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvTelefonnummer"
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="&lt;Telefonnummer>" />
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/btnCall"
+                android:src="@drawable/ic_call"
+                android:background="@android:color/transparent"
+                android:contentDescription="Call"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:clickable="true" />
+        </RelativeLayout>
 
     </RelativeLayout>
 
