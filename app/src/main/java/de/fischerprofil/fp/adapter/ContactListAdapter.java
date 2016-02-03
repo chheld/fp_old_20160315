@@ -228,17 +228,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                 }
             });
 
-//            ImageButton img = (ImageButton) view.findViewById(R.id.btnCall);
-//            if (tvTelefonnummer.getText().toString()!="") {
-//                img.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        showCallDialog(v, tvTelefonnummer.getText().toString());
-//                    }
-//                });
-//            }
 
-            //RelativeLayout lay1 = (RelativeLayout) view.findViewById(R.id.layTelefon);
             if (tvTelefonnummer.getText().toString()!="") {
                 layTelefon.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -248,16 +238,6 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                 });
             }
 
-            ImageButton img2 = (ImageButton) view.findViewById(R.id.btnMail);
-            if (tvMailadresse.getText().toString()!="") {
-                img2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showMailDialog(v, tvMailadresse.getText().toString());
-                    }
-                });
-            }
-            //ImageButton img2 = (ImageButton) view.findViewById(R.id.btnMail);
             if (tvMailadresse.getText().toString()!="") {
                 layMail.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -266,21 +246,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                     }
                 });
             }
-
-
-
         }
-
-//        //RelativeLayout lay2 = (RelativeLayout) view.findViewById(R.id.layMail);
-//        if (tvMailadresse.getText().toString()!="") {
-//            layMail.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    showMailDialog(v, tvMailadresse.getText().toString());
-//                }
-//            });
-//        }
-//    }
 
         private void showCallDialog(View v, String nr) {
 
