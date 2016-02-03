@@ -85,7 +85,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         viewHolder.tvPersonnr.setText(current.getPERSONNR());
         viewHolder.tvKdNr.setText(current.getFIRMANR());
         viewHolder.tvKTxt.setText(current.getRELFIRMA_KTXT());
-        viewHolder.tvFunktion.setText("Funktion: " + current.getVERWENDUNG1());
+        viewHolder.tvFunktion.setText("Funktion : " + current.getVERWENDUNG1());
 
         callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + current.getVERWENDUNG1(), viewHolder, position);
         callAPIKommunikationByPersonNr(URL + "/com?relperson__personnr=" + viewHolder.tvPersonnr.getText(),viewHolder,position);
@@ -120,7 +120,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                     String sp = pos + "=" + viewHolder.position;
                     //viewHolder.tvFunktion.setText(pos + "=" + viewHolder.position);
                     if (viewHolder.position == pos) {
-                        viewHolder.tvFunktion.setText("Funktion: " + s);
+                        viewHolder.tvFunktion.setText("Funktion : " + s);
                     }
 
                 }
@@ -228,9 +228,19 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                 }
             });
 
-            ImageButton img = (ImageButton) view.findViewById(R.id.btnCall);
+//            ImageButton img = (ImageButton) view.findViewById(R.id.btnCall);
+//            if (tvTelefonnummer.getText().toString()!="") {
+//                img.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        showCallDialog(v, tvTelefonnummer.getText().toString());
+//                    }
+//                });
+//            }
+
+            //RelativeLayout lay1 = (RelativeLayout) view.findViewById(R.id.layTelefon);
             if (tvTelefonnummer.getText().toString()!="") {
-                img.setOnClickListener(new View.OnClickListener() {
+                layTelefon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         showCallDialog(v, tvTelefonnummer.getText().toString());
@@ -247,7 +257,31 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                     }
                 });
             }
+            //ImageButton img2 = (ImageButton) view.findViewById(R.id.btnMail);
+            if (tvMailadresse.getText().toString()!="") {
+                layMail.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showMailDialog(v, tvMailadresse.getText().toString());
+                    }
+                });
+            }
+
+
+
         }
+
+//        //RelativeLayout lay2 = (RelativeLayout) view.findViewById(R.id.layMail);
+//        if (tvMailadresse.getText().toString()!="") {
+//            layMail.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    showMailDialog(v, tvMailadresse.getText().toString());
+//                }
+//            });
+//        }
+//    }
+
         private void showCallDialog(View v, String nr) {
 
             //UIUtils.makeToast(v.getContext(), "Starte Telefon-App ..."); //TEST
