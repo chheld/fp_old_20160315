@@ -25,6 +25,7 @@ import de.fischerprofil.fp.R;
 import de.fischerprofil.fp.provider.OrderSuggestionProvider;
 import de.fischerprofil.fp.ui.fragments.AboutFragment;
 import de.fischerprofil.fp.ui.fragments.HintFragment;
+import de.fischerprofil.fp.ui.fragments.ReferenceListFragment;
 
 public class ReferenceListActivity extends AppCompatActivity {
 
@@ -190,8 +191,8 @@ public class ReferenceListActivity extends AppCompatActivity {
                 break;
 
             case "list": // ok
-                //fragment = new ContactListFragment();
-                //fragment.setArguments(args);
+                fragment = new ReferenceListFragment();
+                fragment.setArguments(args);
                 break;
 
             default:
