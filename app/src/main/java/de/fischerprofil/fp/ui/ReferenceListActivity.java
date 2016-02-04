@@ -24,10 +24,9 @@ import de.fischerprofil.fp.AppController;
 import de.fischerprofil.fp.R;
 import de.fischerprofil.fp.provider.OrderSuggestionProvider;
 import de.fischerprofil.fp.ui.fragments.AboutFragment;
-import de.fischerprofil.fp.ui.fragments.ContactListFragment;
 import de.fischerprofil.fp.ui.fragments.HintFragment;
 
-public class ContactListActivity extends AppCompatActivity {
+public class ReferenceListActivity extends AppCompatActivity {
 
     private MenuItem searchItem;
     private SearchRecentSuggestions mSuggestions;
@@ -35,19 +34,19 @@ public class ContactListActivity extends AppCompatActivity {
     private TextView mHinweis;
     private AppController mAppController;
 
-    private final String VOLLEY_TAG = "VOLLEY_TAG_ContactListActivity";
+    private final String VOLLEY_TAG = "VOLLEY_TAG_ReferenceListActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contactlist);
+        setContentView(R.layout.activity_referencelist);
 
         mAppController = AppController.getInstance();
 
         mHinweis = (TextView) findViewById(R.id.tvHinweis);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_contacts_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_references_toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -82,19 +81,13 @@ public class ContactListActivity extends AppCompatActivity {
 
         } catch (Exception e) {
         }
-
-        // TEST
-//        Bundle args = new Bundle();
-//        args.putString("search", "0020898");
-//        showFragment("list", args); // Fragment OrdersList anzeigen
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_activity_contacts, menu);
+        getMenuInflater().inflate(R.menu.menu_activity_references, menu);
 
         // Search Icon referenzieren
         searchItem = menu.findItem(R.id.itm_action_search);
@@ -140,7 +133,7 @@ public class ContactListActivity extends AppCompatActivity {
             Bundle extras = intent.getExtras();
             String userQuery = String.valueOf(extras.get(SearchManager.USER_QUERY));
             String query = String.valueOf(extras.get(SearchManager.QUERY));
-            mSuggestions.saveRecentQuery(query, "in Kontakten");
+            mSuggestions.saveRecentQuery(query, "in Referenzen");
 
             Bundle args = new Bundle(); // Uebergabe-Parameter für Fragment erstellen
             args.putString("search", query);
@@ -197,8 +190,8 @@ public class ContactListActivity extends AppCompatActivity {
                 break;
 
             case "list": // ok
-                fragment = new ContactListFragment();
-                fragment.setArguments(args);
+                //fragment = new ContactListFragment();
+                //fragment.setArguments(args);
                 break;
 
             default:

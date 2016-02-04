@@ -169,15 +169,15 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                                 case "1": // Telefon
                                     viewHolder.tvTelefonnummer.setText(val);
                                     viewHolder.layTelefon.setVisibility(View.VISIBLE);
-                                    return;
+                                    break;
 
                                 case "4": // email
                                     viewHolder.tvMailadresse.setText(val);
                                     viewHolder.layMail.setVisibility(View.VISIBLE);
-                                    return;
+                                    break;
 
                                 case "2": // fax
-                                    return;
+                                    break;
                             }
                         }
                     }

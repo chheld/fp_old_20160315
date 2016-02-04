@@ -166,6 +166,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
 
+            case R.id.nav_references:
+                intent = new Intent(this, ReferenceListActivity.class);
+                startActivity(intent);
+                break;
+
             case R.id.nav_vpn:
                 showVPN();
                 break;

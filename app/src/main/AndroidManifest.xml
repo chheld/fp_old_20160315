@@ -68,6 +68,20 @@
                 android:resource="@xml/searchable" />
         </activity>
 
+        <activity android:name=".ui.ReferenceListActivity"
+            android:label="Referenzen"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ui.MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:value="de.fischerprofil.fp.MainActivity"
+                android:resource="@xml/searchable" />
+        </activity>
+
         <provider
             android:name="de.fischerprofil.fp.provider.OrderSuggestionProvider"
             android:authorities="de.fischerprofil.fp.provider.OrderSuggestionProvider"

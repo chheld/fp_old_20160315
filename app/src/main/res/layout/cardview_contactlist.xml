@@ -121,14 +121,14 @@
             android:layout_toRightOf="@+id/ivKontakt"
             android:layout_alignParentEnd="true"
             android:id="@+id/layTelefon"
-            android:background="@drawable/border_top_gray"
+            android:background="@drawable/ripple_border_top_gray"
             android:clickable="true">
 
             <ImageButton
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:id="@+id/btnCall"
-                android:src="@drawable/ic_phone_forwarded"
+                android:src="@drawable/ic_call"
                 android:background="@android:color/transparent"
                 android:contentDescription="Call"
                 android:clickable="true"
@@ -160,7 +160,7 @@
             android:layout_toRightOf="@+id/ivKontakt"
             android:layout_alignParentEnd="true"
             android:id="@+id/layMail"
-            android:background="@drawable/border_top_gray"
+            android:background="@drawable/ripple_border_top_gray"
             android:clickable="true">
 
             <ImageButton

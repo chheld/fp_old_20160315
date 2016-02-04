@@ -34,7 +34,7 @@
     <item
         android:id="@+id/nav_references"
         android:title="Referenzobjekte"
-        android:enabled="false"/>
+        android:enabled="true"/>
     <item
         android:id="@+id/nav_www"
         android:icon="@drawable/ic_browser"
