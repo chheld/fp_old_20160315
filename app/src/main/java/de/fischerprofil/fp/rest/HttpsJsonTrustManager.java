@@ -13,7 +13,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 
-public class HttpsTrustManager implements X509TrustManager {
+public class HttpsJsonTrustManager implements X509TrustManager {
 
     private static TrustManager[] trustManagers;
     private static final X509Certificate[] _AcceptedIssuers = new X509Certificate[]{};
@@ -53,7 +53,7 @@ public class HttpsTrustManager implements X509TrustManager {
         });
         SSLContext context = null;
         if (trustManagers == null) {
-            trustManagers = new TrustManager[]{new HttpsTrustManager()};
+            trustManagers = new TrustManager[]{new HttpsJsonTrustManager()};
         }
         try {
             context = SSLContext.getInstance("TLS");

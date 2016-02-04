@@ -25,7 +25,7 @@ import de.fischerprofil.fp.AppController;
 import de.fischerprofil.fp.R;
 import de.fischerprofil.fp.model.contact.Kontaktliste;
 import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
-import de.fischerprofil.fp.rest.HttpsTrustManager;
+import de.fischerprofil.fp.rest.HttpsJsonTrustManager;
 import de.fischerprofil.fp.rest.RestUtils;
 import de.fischerprofil.fp.ui.UIUtils;
 import de.fischerprofil.fp.adapter.ContactListAdapter;
@@ -129,7 +129,7 @@ public class ContactListFragment extends Fragment {
         // Increase counter for pending search requests
         mSearchRequestCounter++;
 
-        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+        HttpsJsonTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
 
         HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
 
@@ -172,7 +172,7 @@ public class ContactListFragment extends Fragment {
         // Increase counter for pending search requests
         mSearchRequestCounter++;
 
-        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+        HttpsJsonTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
 
         HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
 
@@ -215,7 +215,7 @@ public class ContactListFragment extends Fragment {
         // Increase counter for pending search requests
         mSearchRequestCounter++;
 
-        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+        HttpsJsonTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
 
         HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
 
@@ -258,7 +258,7 @@ public class ContactListFragment extends Fragment {
         // Increase counter for pending search requests
         mSearchRequestCounter++;
 
-        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+        HttpsJsonTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
 
         HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
 

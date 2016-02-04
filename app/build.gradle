@@ -8,8 +8,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
-        versionName "0.54e ${buildLongDateTime()}"
-//        TODO: archivesBaseName = "FP-App-$versionName"
+        versionName "0.54f ${buildLongDateTime()}"
     }
     buildTypes {
         release {

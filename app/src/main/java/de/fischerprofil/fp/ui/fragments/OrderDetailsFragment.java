@@ -34,7 +34,7 @@ import de.fischerprofil.fp.model.company.Firma;
 import de.fischerprofil.fp.model.contact.Kontakt;
 import de.fischerprofil.fp.model.order.Auftrag;
 import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
-import de.fischerprofil.fp.rest.HttpsTrustManager;
+import de.fischerprofil.fp.rest.HttpsJsonTrustManager;
 import de.fischerprofil.fp.rest.RestUtils;
 import de.fischerprofil.fp.ui.UIUtils;
 
@@ -104,7 +104,7 @@ public  class OrderDetailsFragment extends Fragment {
 
         pbVertreter.setVisibility(View.VISIBLE);
 
-        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+        HttpsJsonTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
 
         HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
 
@@ -154,7 +154,7 @@ public  class OrderDetailsFragment extends Fragment {
 
         pbLieferadresse.setVisibility(View.VISIBLE);
 
-        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+        HttpsJsonTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
 
         HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
 
@@ -212,7 +212,7 @@ public  class OrderDetailsFragment extends Fragment {
 
         pbarKunde.setVisibility(View.VISIBLE);
 
-        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+        HttpsJsonTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
 
         HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
 
@@ -262,7 +262,7 @@ public  class OrderDetailsFragment extends Fragment {
 
         progressBarAuftrag.setVisibility(View.VISIBLE);
 
-        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+        HttpsJsonTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
 
         HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
 
@@ -299,7 +299,7 @@ public  class OrderDetailsFragment extends Fragment {
 
         pbarKunde.setVisibility(View.VISIBLE);
 
-        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+        HttpsJsonTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
 
         HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
 

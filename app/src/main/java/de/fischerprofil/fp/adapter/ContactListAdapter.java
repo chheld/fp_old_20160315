@@ -29,7 +29,7 @@ import de.fischerprofil.fp.R;
 import de.fischerprofil.fp.model.communication.Kommunikationsliste;
 import de.fischerprofil.fp.model.contact.Kontakt;
 import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
-import de.fischerprofil.fp.rest.HttpsTrustManager;
+import de.fischerprofil.fp.rest.HttpsJsonTrustManager;
 import de.fischerprofil.fp.rest.RestUtils;
 import de.fischerprofil.fp.ui.UIUtils;
 
@@ -85,7 +85,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         viewHolder.tvPersonnr.setText(current.getPERSONNR());
         viewHolder.tvKdNr.setText(current.getFIRMANR());
         viewHolder.tvKTxt.setText(current.getRELFIRMA_KTXT());
-        viewHolder.tvFunktion.setText("Funktion : " + current.getVERWENDUNG1());
+        //viewHolder.tvFunktion.setText("Funktion : " + current.getVERWENDUNG1());
 
         callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + current.getVERWENDUNG1(), viewHolder, position);
         callAPIKommunikationByPersonNr(URL + "/com?relperson__personnr=" + viewHolder.tvPersonnr.getText(),viewHolder,position);
@@ -96,6 +96,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
         viewHolder.layTelefon.setVisibility(View.GONE);
         viewHolder.layMail.setVisibility(View.GONE);
+        viewHolder.layFunktion.setVisibility(View.GONE);
     }
 
     @Override
@@ -106,7 +107,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
     private void callAPILookupFirmaFGKNZ2(final String search, final ViewHolder viewHolder, final Integer pos) {
 
-        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+        HttpsJsonTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
 
         HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
 
@@ -117,12 +118,10 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                     Log.v("Volley Response:%n %s", response.toString(4));
                     JSONArray lookup = response.getJSONArray("lookup");
                     String s = lookup.getJSONObject(0).getString("KTXT");
-                    String sp = pos + "=" + viewHolder.position;
-                    //viewHolder.tvFunktion.setText(pos + "=" + viewHolder.position);
                     if (viewHolder.position == pos) {
                         viewHolder.tvFunktion.setText("Funktion : " + s);
+                        viewHolder.layFunktion.setVisibility(View.VISIBLE);
                     }
-
                 }
                 catch (JSONException e) {
                     Log.e("JSON Error: ", e.toString());
@@ -143,7 +142,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
     private void callAPIKommunikationByPersonNr(final String search, final ViewHolder viewHolder, final Integer pos) {
 
-        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+        HttpsJsonTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
 
         HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
 
@@ -156,17 +155,31 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
                     if (communications.length() > 1 && viewHolder.position == pos) {
 
-                        String tag;
-                        String val;
-                        tag = communications.getJSONObject(0).getString("KTXT");
-                        val = communications.getJSONObject(0).getString("NUMMER");
-                        viewHolder.tvTelefonnummer.setText(tag + " : " + val);
-                        viewHolder.layTelefon.setVisibility(View.VISIBLE);
+                        for (int i = 0; i<communications.length(); i++) {
 
-                        tag = communications.getJSONObject(1).getString("KTXT");
-                        val = communications.getJSONObject(1).getString("NUMMER");
-                        viewHolder.tvMailadresse.setText(tag + " : " + val);
-                        viewHolder.layMail.setVisibility(View.VISIBLE);
+                            String tag;
+                            String val;
+                            String komart;
+                            komart = communications.getJSONObject(i).getString("KOMART");
+                            tag = communications.getJSONObject(i).getString("KTXT");
+                            val = communications.getJSONObject(i).getString("NUMMER");
+
+                            switch (komart) {
+
+                                case "1": // Telefon
+                                    viewHolder.tvTelefonnummer.setText(val);
+                                    viewHolder.layTelefon.setVisibility(View.VISIBLE);
+                                    return;
+
+                                case "4": // email
+                                    viewHolder.tvMailadresse.setText(val);
+                                    viewHolder.layMail.setVisibility(View.VISIBLE);
+                                    return;
+
+                                case "2": // fax
+                                    return;
+                            }
+                        }
                     }
                 }
                 catch (JSONException e) {
@@ -186,7 +199,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         mAppController.addToRequestQueue(req,VOLLEY_TAG);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         //static statt public wg speicher-probs
 
         public Integer position;
@@ -201,6 +214,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         public TextView tvTelefonnummer;
         public TextView tvMailadresse;
 
+        public RelativeLayout layFunktion;
         public RelativeLayout layTelefon;
         public RelativeLayout layMail;
 
@@ -217,17 +231,16 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
             tvTelefonnummer = (TextView) view.findViewById(R.id.tvTelefonnummer);
             tvMailadresse = (TextView) view.findViewById(R.id.tvMailadresse);
 
+            layFunktion = (RelativeLayout) view.findViewById(R.id.layFunktion);
             layTelefon = (RelativeLayout) view.findViewById(R.id.layTelefon);
             layMail = (RelativeLayout) view.findViewById(R.id.layMail);
 
-            //TODO: intent contact details beim klicken anzeigen
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(), tvPersonnr.getText(), Toast.LENGTH_SHORT).show();
                 }
             });
-
 
             if (tvTelefonnummer.getText().toString()!="") {
                 layTelefon.setOnClickListener(new View.OnClickListener() {
@@ -250,7 +263,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
         private void showCallDialog(View v, String nr) {
 
-            //UIUtils.makeToast(v.getContext(), "Starte Telefon-App ..."); //TEST
+            UIUtils.makeToast(v.getContext(), "Starte Telefon-App ..."); //TEST
 
             String uri = "tel:" + nr.replaceAll("[^0-9|\\+]", "");
             ImageButton img = (ImageButton) v.findViewById(R.id.btnCall);

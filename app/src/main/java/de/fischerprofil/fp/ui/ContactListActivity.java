@@ -82,6 +82,12 @@ public class ContactListActivity extends AppCompatActivity {
 
         } catch (Exception e) {
         }
+
+        // TEST
+//        Bundle args = new Bundle();
+//        args.putString("search", "0020898");
+//        showFragment("list", args); // Fragment OrdersList anzeigen
+
     }
 
     @Override

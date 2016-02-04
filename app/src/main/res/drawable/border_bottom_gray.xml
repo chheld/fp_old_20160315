@@ -14,4 +14,6 @@
         </shape>
     </item>
 
+    <item android:drawable="?android:selectableItemBackground" />
+
 </layer-list>

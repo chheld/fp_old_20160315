@@ -161,8 +161,7 @@
             android:layout_alignParentEnd="true"
             android:id="@+id/layMail"
             android:background="@drawable/border_top_gray"
-            android:clickable="true"
-            android:layout_marginBottom="-16dp">
+            android:clickable="true">
 
             <ImageButton
                 android:layout_width="48dp"

@@ -27,7 +27,7 @@ import de.fischerprofil.fp.AppController;
 import de.fischerprofil.fp.R;
 import de.fischerprofil.fp.model.communication.Kommunikation;
 import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
-import de.fischerprofil.fp.rest.HttpsTrustManager;
+import de.fischerprofil.fp.rest.HttpsJsonTrustManager;
 import de.fischerprofil.fp.rest.RestUtils;
 import de.fischerprofil.fp.ui.UIUtils;
 
@@ -92,7 +92,7 @@ public class ComListAdapter_dev extends RecyclerView.Adapter<ComListAdapter_dev.
 
     private void callAPILookupFirmaFGKNZ2(final String search, final ViewHolder viewHolder, final Integer pos) {
 
-        HttpsTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
+        HttpsJsonTrustManager.allowAllSSL();  // SSL-Fehlermeldungen ignorieren
 
         HttpsJsonObjectRequest req = new HttpsJsonObjectRequest(search, new Response.Listener<JSONObject>() {
 
