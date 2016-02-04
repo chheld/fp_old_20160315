@@ -6,12 +6,14 @@
         <EditTextPreference
             android:title="Login-Name"
             android:hint="Login-Namen eingeben"
+            android:selectAllOnFocus="true"
             android:key="username" />
 
         <de.fischerprofil.fp.ui.edittextpreference.EditTextPreferenceForPassword
             android:title="Passwort"
             android:inputType="textPassword"
             android:key="password"
+            android:selectAllOnFocus="true"
             android:password="true"
             android:hint="Passwort eingeben" />
 
