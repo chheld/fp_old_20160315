@@ -47,7 +47,7 @@ public class OrderListAdapter extends ArrayAdapter<Auftrag> {
         // Populate the data into the template view using the data object
         viewHolder.ivIcon.setImageResource(ord.getIcon());
         viewHolder.tvANr.setText(ord.getANR());
-        viewHolder.tvKdNr.setText("Kunde " + ord.getMNR());
+        viewHolder.tvKdNr.setText(ord.getMNR());
         viewHolder.tvKTxt.setText(ord.getKTXT());
         viewHolder.tvBemerkung.setText(ord.getBEMERKUNG());
         // Hier weitere Zuweisungen hinzufuegen

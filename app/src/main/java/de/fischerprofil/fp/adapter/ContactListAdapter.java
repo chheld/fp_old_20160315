@@ -85,7 +85,6 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         viewHolder.tvPersonnr.setText(current.getPERSONNR());
         viewHolder.tvKdNr.setText(current.getFIRMANR());
         viewHolder.tvKTxt.setText(current.getRELFIRMA_KTXT());
-        //viewHolder.tvFunktion.setText("Funktion : " + current.getVERWENDUNG1());
 
         callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + current.getVERWENDUNG1(), viewHolder, position);
         callAPIKommunikationByPersonNr(URL + "/com?relperson__personnr=" + viewHolder.tvPersonnr.getText(),viewHolder,position);
@@ -119,7 +118,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                     JSONArray lookup = response.getJSONArray("lookup");
                     String s = lookup.getJSONObject(0).getString("KTXT");
                     if (viewHolder.position == pos) {
-                        viewHolder.tvFunktion.setText("Funktion : " + s);
+                        viewHolder.tvFunktion.setText(s);
                         viewHolder.layFunktion.setVisibility(View.VISIBLE);
                     }
                 }
@@ -157,22 +156,24 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
                         for (int i = 0; i<communications.length(); i++) {
 
-                            String tag;
                             String val;
                             String komart;
+                            String bemerkung;
                             komart = communications.getJSONObject(i).getString("KOMART");
-                            tag = communications.getJSONObject(i).getString("KTXT");
                             val = communications.getJSONObject(i).getString("NUMMER");
+                            // TODO bemerkung = communications.getJSONObject(i).getString("BEMEKRUNG");
 
                             switch (komart) {
 
                                 case "1": // Telefon
                                     viewHolder.tvTelefonnummer.setText(val);
+                                    // TODO viewHolder.tvBemerkung.setText(bemerkung);
                                     viewHolder.layTelefon.setVisibility(View.VISIBLE);
                                     break;
 
                                 case "4": // email
                                     viewHolder.tvMailadresse.setText(val);
+                                    // TODO viewHolder.tvBemerkung.setText(bemerkung);
                                     viewHolder.layMail.setVisibility(View.VISIBLE);
                                     break;
 
@@ -213,7 +214,9 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
         public TextView tvTelefonnummer;
         public TextView tvMailadresse;
+        // TODO public TextView tvBemerkung;
 
+        public RelativeLayout layKontakt;
         public RelativeLayout layFunktion;
         public RelativeLayout layTelefon;
         public RelativeLayout layMail;
@@ -230,12 +233,14 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
             tvTelefonnummer = (TextView) view.findViewById(R.id.tvTelefonnummer);
             tvMailadresse = (TextView) view.findViewById(R.id.tvMailadresse);
+            // TODO bemerkung anzeigen
 
+            layKontakt = (RelativeLayout) view.findViewById(R.id.layKontakt);
             layFunktion = (RelativeLayout) view.findViewById(R.id.layFunktion);
             layTelefon = (RelativeLayout) view.findViewById(R.id.layTelefon);
             layMail = (RelativeLayout) view.findViewById(R.id.layMail);
 
-            view.setOnClickListener(new View.OnClickListener() {
+            layKontakt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(), tvPersonnr.getText(), Toast.LENGTH_SHORT).show();
@@ -277,27 +282,34 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                 }
             }
             catch (Exception e) {
-                UIUtils.makeToast(v.getContext(), "Telefon-Dialog kann nicht geführt werden");
+                UIUtils.makeToast(v.getContext(), "Telefon-App kann nicht angezeigt werden");
             }
         }
 
         private void showMailDialog(View v, String nr) {
 
-            UIUtils.makeToast(v.getContext(), "Starte Mail-App ...");
+            UIUtils.makeToast(v.getContext(), "Starte Mail-App ..."); //TEST
 
             String uri = "mail:" + nr.replaceAll("[^0-9|\\+]", "");
             ImageButton img = (ImageButton) v.findViewById(R.id.btnMail);
 
             try {
                 if (nr != null && nr != "") {
-                    //Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "02737508174"));
-                    //v.getContext().startActivity(intent);
+                    Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                    emailIntent.setData(Uri.parse("mailto:"));
+                    emailIntent.setType("text/plain");
+//                    emailIntent.putExtra(Intent.EXTRA_EMAIL  , new String[]{"Recipient@mailadress.com"});
+                    emailIntent.putExtra(Intent.EXTRA_EMAIL  , new String[]{nr});
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, "test betreff");
+                    emailIntent.putExtra(Intent.EXTRA_TEXT   , "test Body");
+                    v.getContext().startActivity(Intent.createChooser(emailIntent, "Mail versenden mit ..."));
+
                 } else {
                     img.setVisibility(View.GONE);
                 }
             }
             catch (Exception e) {
-                UIUtils.makeToast(v.getContext(), "Mail-Dialog kann nicht geführt werden");
+                UIUtils.makeToast(v.getContext(), "Mail-App kann nicht angezeigt werden");
             }
         }
     }

@@ -13,7 +13,7 @@
     card_view:cardElevation="3dp"
     android:layout_margin="6dp"
     android:foreground="?android:attr/selectableItemBackground"
-    android:clickable="true">
+    android:clickable="false">
     <!--android:animateLayoutChanges="true"-->
 
     <RelativeLayout
@@ -21,7 +21,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:padding="8dp">
 
         <ImageView
             android:layout_height="48dp"
@@ -31,13 +31,19 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginRight="16dp" />
+            android:scaleType="fitCenter"
+            android:padding="8dp" />
 
         <RelativeLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/layKontakt"
-            android:layout_toRightOf="@+id/ivKontakt">
+            android:layout_toRightOf="@+id/ivKontakt"
+            android:gravity="center_vertical"
+            android:padding="8dp"
+            android:clickable="true"
+            android:background="?android:selectableItemBackground">
 
             <TextView
                 android:layout_width="match_parent"
@@ -46,38 +52,37 @@
                 android:id="@+id/tvName"
                 android:ellipsize="end"
                 android:textAppearance="@android:style/TextAppearance.Theme"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentStart="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/lblKontakt"
-                android:text="Kontakt"
-                android:textStyle="bold"
-                android:layout_below="@+id/tvName"
-                android:layout_alignParentStart="true"
-                android:layout_marginRight="8dp" />
+                android:layout_toLeftOf="@+id/btnMehr"
+                android:layout_toStartOf="@+id/btnMehr" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvPersonNr"
                 android:text="&lt;Person-Nr>"
-                android:textStyle="bold"
-                android:layout_alignParentStart="false"
-                android:layout_alignBaseline="@+id/lblKontakt"
-                android:layout_toRightOf="@+id/lblKontakt" />
+                android:layout_below="@+id/tvName" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="&lt;Kd-Nr>"
-                android:id="@+id/tvKdNr"
-                android:ellipsize="end"
-                android:layout_below="@+id/lblKontakt"
-                android:layout_marginTop="8dp"
-                android:layout_alignParentStart="true" />
+            <ImageButton
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:id="@+id/btnMehr"
+                android:background="@android:color/transparent"
+                android:contentDescription="Mehr"
+                android:scaleType="fitCenter"
+                android:padding="8dp"
+                android:layout_alignParentEnd="true"
+                android:tint="#3B79D9"
+                android:tintMode="src_in" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/layKunde"
+            android:layout_toRightOf="@+id/ivKontakt"
+            android:layout_below="@+id/layKontakt"
+            android:gravity="center_vertical"
+            android:padding="8dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -85,44 +90,72 @@
                 android:text="&lt;Kundensuchbezeichnung>"
                 android:id="@+id/tvKTxt"
                 android:ellipsize="end"
-                android:layout_alignParentRight="true"
                 android:maxLines="2"
-                android:layout_below="@+id/tvKdNr"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentStart="true" />
+                android:textAppearance="@android:style/TextAppearance.Theme"
+                android:layout_toLeftOf="@+id/btnOrganisation"
+                android:layout_toStartOf="@+id/btnOrganisation" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/layFunktion"
-                android:layout_below="@+id/tvKTxt"
-                android:layout_alignParentEnd="false"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp">
+                android:text="&lt;Kd-Nr>"
+                android:id="@+id/tvKdNr"
+                android:ellipsize="end"
+                android:layout_below="@+id/tvKTxt" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvFunktion"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:text="&lt;Funktion>"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true" />
+            <ImageButton
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:id="@+id/btnOrganisation"
+                android:background="@android:color/transparent"
+                android:contentDescription="Kunde"
+                android:scaleType="fitCenter"
+                android:padding="8dp"
+                android:layout_alignParentEnd="true"
+                android:alpha="0.1" />
 
-            </RelativeLayout>
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/layKontakt"
+            android:id="@+id/layFunktion"
+            android:layout_below="@+id/layKunde"
+            android:layout_alignParentEnd="false"
             android:layout_toRightOf="@+id/ivKontakt"
+            android:padding="8dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvFunktion"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="&lt;Funktion>"
+                android:textAppearance="@android:style/TextAppearance.Theme" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Funktion"
+                android:id="@+id/lblFunktion"
+                android:ellipsize="end"
+                android:layout_below="@+id/tvFunktion" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layFunktion"
             android:layout_alignParentEnd="true"
             android:id="@+id/layTelefon"
             android:background="@drawable/ripple_border_top_gray"
-            android:clickable="true">
+            android:clickable="true"
+            android:layout_toRightOf="@+id/ivKontakt"
+            android:gravity="center_vertical"
+            android:padding="8dp">
 
             <ImageButton
                 android:layout_width="48dp"
@@ -136,7 +169,6 @@
                 android:scaleType="fitCenter"
                 android:tintMode="src_in"
                 android:padding="8dp"
-                android:layout_marginLeft="16dp"
                 android:layout_alignParentEnd="true" />
 
             <TextView
@@ -146,10 +178,17 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="&lt;Telefonnummer>"
-                android:layout_centerVertical="true"
-                android:layout_alignParentStart="true"
+                android:textAppearance="@android:style/TextAppearance.Theme"
                 android:layout_toLeftOf="@+id/btnCall"
                 android:layout_toStartOf="@+id/btnCall" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Telefon"
+                android:id="@+id/lblTelefon"
+                android:ellipsize="end"
+                android:layout_below="@+id/tvTelefonnummer" />
 
         </RelativeLayout>
 
@@ -157,11 +196,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layTelefon"
-            android:layout_toRightOf="@+id/ivKontakt"
             android:layout_alignParentEnd="true"
             android:id="@+id/layMail"
             android:background="@drawable/ripple_border_top_gray"
-            android:clickable="true">
+            android:clickable="true"
+            android:layout_toRightOf="@+id/ivKontakt"
+            android:padding="8dp"
+            android:gravity="center_vertical">
 
             <ImageButton
                 android:layout_width="48dp"
@@ -175,8 +216,7 @@
                 android:tint="#3B79D9"
                 android:tintMode="src_in"
                 android:padding="8dp"
-                android:scaleType="fitCenter"
-                android:layout_marginLeft="16dp" />
+                android:scaleType="fitCenter" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -185,10 +225,17 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="&lt;Mailadresse>"
-                android:layout_centerVertical="true"
-                android:layout_alignParentStart="true"
+                android:textAppearance="@android:style/TextAppearance.Theme"
                 android:layout_toLeftOf="@+id/btnMail"
                 android:layout_toStartOf="@+id/btnMail" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mail"
+                android:id="@+id/lblMail"
+                android:ellipsize="end"
+                android:layout_below="@+id/tvMailadresse" />
 
         </RelativeLayout>
 
