@@ -33,7 +33,8 @@
         android:enabled="false"/>
     <item
         android:id="@+id/nav_references"
-        android:title="Referenzobjekte"
+        android:title="Referenzen"
+        android:icon="@drawable/ic_photo_black"
         android:enabled="true"/>
     <item
         android:id="@+id/nav_www"
