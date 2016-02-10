@@ -135,7 +135,7 @@ public class ReferenceListFragment extends Fragment {
                     for (int i = 0; i < images.length(); i++) {
                         ReferenceImage imageModel = new ReferenceImage();
                         imageModel.setName("Image_" + i);
-                        imageModel.setUrl(URL + "/" + images.get(i));
+                        imageModel.setUrl(URL + "/" + images.get(i)+"_");
                         data.add(imageModel);
                     }
                     //Adapter zuweisen

@@ -19,6 +19,17 @@ public class ReferenceImage implements Parcelable {
         url = in.readString();
     }
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(url);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
     public static final Creator<ReferenceImage> CREATOR = new Creator<ReferenceImage>() {
         @Override
         public ReferenceImage createFromParcel(Parcel in) {
@@ -47,14 +58,4 @@ public class ReferenceImage implements Parcelable {
         this.url = url;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(url);
-    }
 }

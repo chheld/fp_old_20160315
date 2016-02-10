@@ -42,6 +42,7 @@ public class PicassoUtils {
                 .memoryCache(new LruCache(context))
                 .build();
 
+
         return picasso;
     }
 }

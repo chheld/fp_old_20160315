@@ -24,9 +24,13 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     Context context;
     List<ReferenceImage> data = new ArrayList<>();
 
+    Picasso picasso;
+
     public GalleryAdapter(Context context, List<ReferenceImage> data) {
         this.context = context;
         this.data = data;
+        picasso = PicassoUtils.buildPicasso(context);
+
     }
 
     @Override
@@ -42,7 +46,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-/*
+/*      // Bilder laden mit Glide
         Glide.with(context).load(data.get(position).getUrl())
                 .thumbnail(0.5f)
                 .override(200,200)
@@ -51,8 +55,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 .into(((MyItemHolder) holder).mImg);
 */
 
-        Picasso picasso = PicassoUtils.buildPicasso(context);
-        picasso.load(data.get(position).getUrl()).resize(200,200).placeholder(R.drawable.ic_default).error(R.drawable.ic_done).into(((MyItemHolder) holder).mImg);
+        picasso.load(data.get(position).getUrl()).resize(200,200).placeholder(R.drawable.progress_animation_small).error(R.drawable.ic_done).into(((MyItemHolder) holder).mImg);
+//        picasso.load(data.get(position).getUrl()).resize(200,200).placeholder(R.drawable.ic_default).error(R.drawable.ic_done).into(((MyItemHolder) holder).mImg);
 //        picasso.load(data.get(position).getUrl()).resize(200,200).into(((MyItemHolder) holder).mImg);
 
     }

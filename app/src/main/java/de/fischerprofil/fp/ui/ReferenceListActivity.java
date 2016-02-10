@@ -140,7 +140,7 @@ public class ReferenceListActivity extends AppCompatActivity {
             args.putString("search", query);
             getSupportActionBar().setSubtitle("Suche  '" + query + "'");
 
-            showFragment("list", args); // Fragment OrdersList anzeigen
+            showFragment("list", args); // Fragment Liste anzeigen
         }
     }
 
