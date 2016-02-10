@@ -339,7 +339,7 @@ public  class OrderDetailsFragment extends Fragment {
         TextView tvANr = (TextView) view.findViewById(R.id.tvANr);
         TextView tvKW = (TextView) view.findViewById(R.id.tvKW);
         TextView tvKJ = (TextView) view.findViewById(R.id.tvKJ);
-        TextView tvBemerkung = (TextView) view.findViewById(R.id.tvName); //TODO: tvName in tvBemerkung ändern
+        TextView tvBemerkung = (TextView) view.findViewById(R.id.tvImageName); //TODO: tvName in tvBemerkung ändern
         TextView tvBestellnummer = (TextView) view.findViewById(R.id.tvBestellnummer);
         TextView tvKommission = (TextView) view.findViewById(R.id.tvKommission);
 

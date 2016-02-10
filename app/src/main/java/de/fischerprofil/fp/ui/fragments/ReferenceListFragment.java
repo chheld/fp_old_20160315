@@ -131,11 +131,11 @@ public class ReferenceListFragment extends Fragment {
                     Log.v("Response:%n %s", response.toString(4));
                     JSONArray images = response.getJSONArray("images");
 
-                    // Daten laden
+                    // Daten in Array laden
                     for (int i = 0; i < images.length(); i++) {
                         ReferenceImage imageModel = new ReferenceImage();
                         imageModel.setName("Image_" + i);
-                        imageModel.setUrl(URL + "/" + images.get(i)+"_");
+                        imageModel.setUrl(URL + "/" + images.get(i));
                         data.add(imageModel);
                     }
                     //Adapter zuweisen

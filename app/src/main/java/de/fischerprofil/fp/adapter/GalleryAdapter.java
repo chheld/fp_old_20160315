@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -55,10 +57,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 .into(((MyItemHolder) holder).mImg);
 */
 
-        picasso.load(data.get(position).getUrl()).resize(200,200).placeholder(R.drawable.progress_animation_small).error(R.drawable.ic_done).into(((MyItemHolder) holder).mImg);
-//        picasso.load(data.get(position).getUrl()).resize(200,200).placeholder(R.drawable.ic_default).error(R.drawable.ic_done).into(((MyItemHolder) holder).mImg);
-//        picasso.load(data.get(position).getUrl()).resize(200,200).into(((MyItemHolder) holder).mImg);
-
+        picasso.load(data.get(position).getUrl()).resize(200,200).placeholder(R.drawable.progress_animation_small).error(R.drawable.ic_default).into(((MyItemHolder) holder).mImg);
     }
 
     @Override
@@ -67,15 +66,27 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public static class MyItemHolder extends RecyclerView.ViewHolder {
-        ImageView mImg;
 
+        ImageView mImg;
+        TextView mTag;
+
+        ImageView img1;
 
         public MyItemHolder(View itemView) {
             super(itemView);
 
             mImg = (ImageView) itemView.findViewById(R.id.item_img);
-        }
+            mTag = (TextView) itemView.findViewById(R.id.tvImageName);
 
+            img1 = (ImageView) itemView.findViewById(R.id.item_img);
+
+            img1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(v.getContext(),"Image geklickt", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
 

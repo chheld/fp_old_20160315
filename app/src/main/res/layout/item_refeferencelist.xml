@@ -13,8 +13,6 @@
         android:layout_margin="2dp"
         android:adjustViewBounds="true"
         android:background="@color/cardview_light_background"
-        android:src="@drawable/progress_animation_small"
-        android:cropToPadding="false"
         android:scaleType="center" />
 
     <TextView
@@ -22,7 +20,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Mein Image Nummer"
-        android:id="@+id/tvName"
+        android:id="@+id/tvImageName"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:ellipsize="middle"

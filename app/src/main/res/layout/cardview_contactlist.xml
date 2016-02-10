@@ -49,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="&lt;Vorname Nachname>"
-                android:id="@+id/tvName"
+                android:id="@+id/tvImageName"
                 android:ellipsize="end"
                 android:textAppearance="@android:style/TextAppearance.Theme"
                 android:layout_toLeftOf="@+id/btnMehr"
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvPersonNr"
                 android:text="&lt;Person-Nr>"
-                android:layout_below="@+id/tvName" />
+                android:layout_below="@+id/tvImageName" />
 
             <ImageButton
                 android:layout_width="32dp"

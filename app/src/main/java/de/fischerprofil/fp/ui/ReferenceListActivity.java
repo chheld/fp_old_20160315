@@ -82,6 +82,15 @@ public class ReferenceListActivity extends AppCompatActivity {
 
         } catch (Exception e) {
         }
+
+        // TEST
+        Bundle args = new Bundle(); // Uebergabe-Parameter für Fragment erstellen
+        args.putString("search", "aa");
+        getSupportActionBar().setSubtitle("Suche  '" + "aa" + "'");
+        showFragment("list", args); // Fragment Liste anzeigen
+        // TEST ende
+
+
     }
 
     @Override

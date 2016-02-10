@@ -225,7 +225,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
             ivIcon = (ImageView) view.findViewById(R.id.ivKontakt);
             tvPersonnr = (TextView) view.findViewById(R.id.tvPersonNr);
-            tvKonkaktname = (TextView) view.findViewById(R.id.tvName);
+            tvKonkaktname = (TextView) view.findViewById(R.id.tvImageName);
             tvKdNr = (TextView) view.findViewById(R.id.tvKdNr);
             tvKTxt = (TextView) view.findViewById(R.id.tvKTxt);
             tvFunktion = (TextView) view.findViewById(R.id.tvFunktion);

@@ -80,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Bemerkung"
-                android:id="@+id/tvName"
+                android:id="@+id/tvImageName"
                 android:ellipsize="end"
                 android:layout_below="@+id/lblAuftrag"
                     android:layout_alignStart="@+id/lblAuftrag"
@@ -114,9 +114,9 @@
                 android:text="Bestellnummer"
                 android:id="@+id/tvBestellnummer"
                 android:ellipsize="end"
-                android:layout_below="@+id/tvName"
-                android:layout_alignLeft="@+id/tvName"
-                android:layout_alignStart="@+id/tvName"
+                android:layout_below="@+id/tvImageName"
+                android:layout_alignLeft="@+id/tvImageName"
+                android:layout_alignStart="@+id/tvImageName"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="5dp" />
 
