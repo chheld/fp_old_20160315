@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.fischerprofil.fp.R;
-import de.fischerprofil.fp.model.reference.ImageModel;
+import de.fischerprofil.fp.model.reference.ReferenceImage;
 import de.fischerprofil.fp.rest.PicassoUtils;
 
 /**
@@ -22,9 +22,9 @@ import de.fischerprofil.fp.rest.PicassoUtils;
 public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Context context;
-    List<ImageModel> data = new ArrayList<>();
+    List<ReferenceImage> data = new ArrayList<>();
 
-    public GalleryAdapter(Context context, List<ImageModel> data) {
+    public GalleryAdapter(Context context, List<ReferenceImage> data) {
         this.context = context;
         this.data = data;
     }
@@ -52,8 +52,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 */
 
         Picasso picasso = PicassoUtils.buildPicasso(context);
-        picasso.load(data.get(position).getUrl()).resize(200,200).into(((MyItemHolder) holder).mImg);
-
+        picasso.load(data.get(position).getUrl()).resize(200,200).placeholder(R.drawable.ic_default).error(R.drawable.ic_done).into(((MyItemHolder) holder).mImg);
+//        picasso.load(data.get(position).getUrl()).resize(200,200).into(((MyItemHolder) holder).mImg);
 
     }
 

@@ -6,28 +6,28 @@ import android.os.Parcelable;
 /**
  * Created by Suleiman19 on 10/22/15.
  */
-public class ImageModel implements Parcelable {
+public class ImageModel_ok implements Parcelable {
 
     String name, url;
 
-    public ImageModel() {
+    public ImageModel_ok() {
 
     }
 
-    protected ImageModel(Parcel in) {
+    protected ImageModel_ok(Parcel in) {
         name = in.readString();
         url = in.readString();
     }
 
-    public static final Creator<ImageModel> CREATOR = new Creator<ImageModel>() {
+    public static final Creator<ImageModel_ok> CREATOR = new Creator<ImageModel_ok>() {
         @Override
-        public ImageModel createFromParcel(Parcel in) {
-            return new ImageModel(in);
+        public ImageModel_ok createFromParcel(Parcel in) {
+            return new ImageModel_ok(in);
         }
 
         @Override
-        public ImageModel[] newArray(int size) {
-            return new ImageModel[size];
+        public ImageModel_ok[] newArray(int size) {
+            return new ImageModel_ok[size];
         }
     };
 

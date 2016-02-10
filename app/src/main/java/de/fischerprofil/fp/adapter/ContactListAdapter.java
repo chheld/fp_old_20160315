@@ -40,7 +40,6 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     private AppController mAppController;
     private final String VOLLEY_TAG = "VOLLEY_TAG_rvContactListAdapter";
     private final String URL = RestUtils.getApiURL();
-    private final String picURL = RestUtils.getPicURL();
 
     private Kommunikationsliste mKommunikationsliste = new Kommunikationsliste();
     //private KommunikationslisteAdapter mAdapter;
