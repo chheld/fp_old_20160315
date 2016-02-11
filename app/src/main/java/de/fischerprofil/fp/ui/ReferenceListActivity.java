@@ -32,8 +32,11 @@ public class ReferenceListActivity extends AppCompatActivity {
     private MenuItem searchItem;
     private SearchRecentSuggestions mSuggestions;
     private SearchView mSearchView;
+    private MenuItem mChangeViewItem;
     private TextView mHinweis;
     private AppController mAppController;
+
+    private Integer mGalleryState = 3;
 
     private final String VOLLEY_TAG = "VOLLEY_TAG_ReferenceListActivity";
 
@@ -83,7 +86,7 @@ public class ReferenceListActivity extends AppCompatActivity {
         } catch (Exception e) {
         }
 
-        // TEST
+        // TEST automatisch frag anzeigen
         Bundle args = new Bundle(); // Uebergabe-Parameter für Fragment erstellen
         args.putString("search", "aa");
         getSupportActionBar().setSubtitle("Suche  '" + "aa" + "'");
@@ -101,11 +104,23 @@ public class ReferenceListActivity extends AppCompatActivity {
 
         // Search Icon referenzieren
         searchItem = menu.findItem(R.id.itm_action_search);
+        mChangeViewItem = menu.findItem(R.id.action_change_view);
 
         MenuItemCompat.setActionView(searchItem, mSearchView);
         MenuItemCompat.setShowAsAction(searchItem, MenuItemCompat.SHOW_AS_ACTION_ALWAYS | MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        if (mGalleryState ==1 ) {
+            mChangeViewItem.setIcon(R.drawable.ic_view_multi);  // Icon ändern
+        }else if (mGalleryState ==3 ) {
+            mChangeViewItem.setIcon(R.drawable.ic_view_carousel);  // Icon ändern
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -125,6 +140,10 @@ public class ReferenceListActivity extends AppCompatActivity {
 
             case R.id.action_clear_history:
                 clearSuggestions();
+                return true;
+
+            case R.id.action_change_view:
+                changeView();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -229,5 +248,18 @@ public class ReferenceListActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PreferencesActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    private void changeView() {
+
+        if (mGalleryState ==1 ) mGalleryState = 3;
+        else if (mGalleryState ==3 ) mGalleryState = 1;
+        this.invalidateOptionsMenu();
+
+        Bundle args = new Bundle(); // Uebergabe-Parameter für Fragment erstellen
+        args.putInt("rows", mGalleryState);
+        args.putString("search", "aa");
+        showFragment("list", args); // Fragment Liste anzeigen
+
     }
 }

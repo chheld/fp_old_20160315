@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -17,6 +16,8 @@ import java.util.List;
 import de.fischerprofil.fp.R;
 import de.fischerprofil.fp.model.reference.ReferenceImage;
 import de.fischerprofil.fp.rest.PicassoUtils;
+import de.fischerprofil.fp.rest.RestUtils;
+import de.fischerprofil.fp.ui.UIUtils;
 
 /**
  * Created by Suleiman19 on 10/22/15.
@@ -27,6 +28,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     List<ReferenceImage> data = new ArrayList<>();
 
     Picasso picasso;
+
+    private final String URL = RestUtils.getApiURL();
 
     public GalleryAdapter(Context context, List<ReferenceImage> data) {
         this.context = context;
@@ -57,7 +60,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 .into(((MyItemHolder) holder).mImg);
 */
 
-        picasso.load(data.get(position).getUrl()).resize(200,200).placeholder(R.drawable.progress_animation_small).error(R.drawable.ic_default).into(((MyItemHolder) holder).mImg);
+        picasso.load(data.get(position).getUrl()).resize(500,500).placeholder(R.drawable.progress_animation_small).error(R.drawable.ic_default).into(((MyItemHolder) holder).mImg);
+//        picasso.load(data.get(position).getUrl()).resize(200,200).placeholder(R.drawable.progress_animation_small).error(R.drawable.ic_default).into(((MyItemHolder) holder).mImg);
     }
 
     @Override
@@ -65,7 +69,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return data.size();
     }
 
-    public static class MyItemHolder extends RecyclerView.ViewHolder {
+    public class MyItemHolder extends RecyclerView.ViewHolder {
 
         ImageView mImg;
         TextView mTag;
@@ -83,11 +87,33 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             img1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),"Image geklickt", Toast.LENGTH_SHORT).show();
+                    showGalleryDialog(v, "https://222.222.222.60/pics/2008/BARD%20Emden/DSCF1241_1.jpg"); //TEST
                 }
             });
         }
     }
 
+    private void showGalleryDialog(View v, String nr) {
 
+        UIUtils.makeToast(v.getContext(), "Starte " + nr); //TEST
+
+        try {
+            if (nr != null && nr != "") {
+
+                //TODO neues fragment anzeigen
+//                Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI.buildUpon().appendPath(nr).build();
+//                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//                v.getContext().startActivity(intent);
+
+//                Intent intent = new Intent(context, ReferenceDetailActivity.class);
+//                intent.putParcelableArrayListExtra("data", data);
+//                intent.putExtra("pos", position);
+//                v.getContext().startActivity(intent);
+
+            }
+        }
+        catch (Exception e) {
+            UIUtils.makeToast(v.getContext(), "Image kann nicht angezeigt werden");
+        }
+    }
 }
