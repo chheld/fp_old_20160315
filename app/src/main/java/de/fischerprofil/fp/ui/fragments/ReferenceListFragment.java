@@ -80,10 +80,12 @@ public class ReferenceListFragment extends Fragment {
         mSearchString = getArguments().getString("search", null); // evtl. übergebene SUCH-Parameter ermitteln
 
         if (rows==0) rows=3; // default für Anzeige setzen
+        int numColumns = 4;
 
         View view = inflater.inflate(R.layout.fragment_recycleview_referencelist, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, rows));
+        mRecyclerView.getRecycledViewPool().setMaxRecycledViews(0, 2 * numColumns);
         mRecyclerView.setHasFixedSize(true);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_conctactlist_container);

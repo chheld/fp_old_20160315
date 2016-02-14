@@ -97,6 +97,8 @@ public class HttpsPicassoTrustAllCerts {
 
     public static synchronized OkHttpClient createAcceptAllClient() {
         OkHttpClient client = new OkHttpClient();
+        //client.setConnectTimeout(5, TimeUnit.SECONDS); //TIMEout setzen
+
         Log.d(TAG, "onBitmapLoaded getClient ");
         try {
             client.setHostnameVerifier(new HttpsPicassoTrustAllCerts.NullHostNameVerifier());

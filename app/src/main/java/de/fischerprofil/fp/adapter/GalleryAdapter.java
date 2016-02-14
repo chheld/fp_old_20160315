@@ -51,17 +51,19 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-/*      // Bilder laden mit Glide
-        Glide.with(context).load(data.get(position).getUrl())
-                .thumbnail(0.5f)
-                .override(200,200)
-                .crossFade()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(((MyItemHolder) holder).mImg);
-*/
+      // Bilder laden mit Glide
+//        Glide.with(context).load(data.get(position).getUrl())
+//                .thumbnail(0.5f)
+//                .override(200,200)
+//                .crossFade()
+//                .error(R.drawable.ic_default)
+//                //.diskCacheStrategy(DiskCacheStrategy.ALL)
+//                .into(((MyItemHolder) holder).mImg);
 
-        picasso.load(data.get(position).getUrl()).resize(500,500).placeholder(R.drawable.progress_animation_small).error(R.drawable.ic_default).into(((MyItemHolder) holder).mImg);
-//        picasso.load(data.get(position).getUrl()).resize(200,200).placeholder(R.drawable.progress_animation_small).error(R.drawable.ic_default).into(((MyItemHolder) holder).mImg);
+
+        picasso.load(data.get(position).getUrl()).resize(200,200).error(R.drawable.ic_default).into(((MyItemHolder) holder).mImg);
+//        picasso.load(data.get(position).getUrl()).resize(200,200).error(R.drawable.ic_default).into(((MyItemHolder) holder).mImg);
+//        picasso.load(data.get(position).getUrl()).resize(200,200).placeholder(R.drawable.progress_small).error(R.drawable.ic_default).into(((MyItemHolder) holder).mImg);
     }
 
     @Override
