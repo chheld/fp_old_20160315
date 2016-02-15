@@ -61,7 +61,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 //                .into(((MyItemHolder) holder).mImg);
 
 
-        picasso.load(data.get(position).getUrl()).resize(200,200).error(R.drawable.ic_default).into(((MyItemHolder) holder).mImg);
+        picasso.load(data.get(position).getUrl()).
+                resize(150,150).
+                placeholder(R.drawable.ic_logo_small_transparent).
+                error(R.drawable.ic_default).
+                into(((MyItemHolder) holder).
+                        mImg);
 //        picasso.load(data.get(position).getUrl()).resize(200,200).error(R.drawable.ic_default).into(((MyItemHolder) holder).mImg);
 //        picasso.load(data.get(position).getUrl()).resize(200,200).placeholder(R.drawable.progress_small).error(R.drawable.ic_default).into(((MyItemHolder) holder).mImg);
     }
@@ -71,12 +76,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return data.size();
     }
 
-    public class MyItemHolder extends RecyclerView.ViewHolder {
+    static public class MyItemHolder extends RecyclerView.ViewHolder {
 
-        ImageView mImg;
         TextView mTag;
 
-        ImageView img1;
+        public final ImageView mImg;
 
         public MyItemHolder(View itemView) {
             super(itemView);
@@ -84,9 +88,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             mImg = (ImageView) itemView.findViewById(R.id.item_img);
             mTag = (TextView) itemView.findViewById(R.id.tvImageName);
 
-            img1 = (ImageView) itemView.findViewById(R.id.item_img);
-
-            img1.setOnClickListener(new View.OnClickListener() {
+            mImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     showGalleryDialog(v, "https://222.222.222.60/pics/2008/BARD%20Emden/DSCF1241_1.jpg"); //TEST
@@ -95,7 +97,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    private void showGalleryDialog(View v, String nr) {
+    static void showGalleryDialog(View v, String nr) {
 
         UIUtils.makeToast(v.getContext(), "Starte " + nr); //TEST
 
