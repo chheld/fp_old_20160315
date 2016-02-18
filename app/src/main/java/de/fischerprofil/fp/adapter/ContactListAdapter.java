@@ -1,5 +1,6 @@
 package de.fischerprofil.fp.adapter;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -36,10 +37,10 @@ import de.fischerprofil.fp.ui.UIUtils;
 public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.ViewHolder> {
 
     private Context mContext;
-    private View mView;
+    public View mView;
     private AppController mAppController;
     private final String VOLLEY_TAG = "VOLLEY_TAG_rvContactListAdapter";
-    private final String URL = RestUtils.getApiURL();
+    public static String URL = RestUtils.getApiURL();
 
     private Kommunikationsliste mKommunikationsliste = new Kommunikationsliste();
     //private KommunikationslisteAdapter mAdapter;
@@ -76,6 +77,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
         Kontakt current = mDataset.get(position);
 
+
         // Populate the data into the template view using the data object
         viewHolder.position = position;
 
@@ -87,10 +89,6 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
         callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + current.getVERWENDUNG1(), viewHolder, position);
         callAPIKommunikationByPersonNr(URL + "/com?relperson__personnr=" + viewHolder.tvPersonnr.getText(),viewHolder,position);
-
-        // TEST für picasso
-        //Picasso picasso = PicassoUtils.buildPicasso(mContext);
-        //picasso.load(picURL + "/contact.png").into(viewHolder.ivIcon);
 
         viewHolder.layTelefon.setVisibility(View.GONE);
         viewHolder.layMail.setVisibility(View.GONE);
@@ -118,7 +116,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                     String s = lookup.getJSONObject(0).getString("KTXT");
                     if (viewHolder.position == pos) {
                         viewHolder.tvFunktion.setText(s);
-                        viewHolder.layFunktion.setVisibility(View.VISIBLE);
+                        //viewHolder.layFunktion.setVisibility(View.VISIBLE);
                     }
                 }
                 catch (JSONException e) {
@@ -167,13 +165,13 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                                 case "1": // Telefon
                                     viewHolder.tvTelefonnummer.setText(val);
                                     // TODO viewHolder.tvBemerkung.setText(bemerkung);
-                                    viewHolder.layTelefon.setVisibility(View.VISIBLE);
+                                    //viewHolder.layTelefon.setVisibility(View.VISIBLE);
                                     break;
 
                                 case "4": // email
                                     viewHolder.tvMailadresse.setText(val);
                                     // TODO viewHolder.tvBemerkung.setText(bemerkung);
-                                    viewHolder.layMail.setVisibility(View.VISIBLE);
+                                    //viewHolder.layMail.setVisibility(View.VISIBLE);
                                     break;
 
                                 case "2": // fax
@@ -220,6 +218,12 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         public RelativeLayout layTelefon;
         public RelativeLayout layMail;
 
+        private RelativeLayout layMehr;
+        private ImageView ivMehr;
+        private Boolean isExpanded = false;
+        private TextView tvTitel;
+        int rotationAngle = 0;
+
         public ViewHolder(View view) {
             super(view);
 
@@ -238,6 +242,10 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
             layFunktion = (RelativeLayout) view.findViewById(R.id.layFunktion);
             layTelefon = (RelativeLayout) view.findViewById(R.id.layTelefon);
             layMail = (RelativeLayout) view.findViewById(R.id.layMail);
+
+            layMehr = (RelativeLayout) view.findViewById(R.id.layMehr);
+            ivMehr = (ImageView) view.findViewById(R.id.ivMehr);
+            tvTitel = (TextView) view.findViewById(R.id.tvTitel);
 
             layKontakt.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -263,6 +271,44 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                     }
                 });
             }
+
+            layMehr.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (isExpanded==true) {
+                        layTelefon.setVisibility(View.GONE);
+                        layMail.setVisibility(View.GONE);
+                        layFunktion.setVisibility(View.GONE);
+                        tvTitel.setText("Mehr anzeigen");
+
+                        ObjectAnimator anim = ObjectAnimator.ofFloat(ivMehr, "rotation", rotationAngle, rotationAngle + 180);
+                        anim.setDuration(500);
+                        anim.start();
+                        rotationAngle += 180;
+                        rotationAngle = rotationAngle%360;
+
+                    } else {
+
+                        // TODO: erst laden wenn anzeige gewünscht
+//                        callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + this.getVERWENDUNG1(), v, position);
+//                        callAPIKommunikationByPersonNr(URL + "/com?relperson__personnr=" + v.tvPersonnr.getText(),v,position);
+
+                        layTelefon.setVisibility(View.VISIBLE);
+                        layMail.setVisibility(View.VISIBLE);
+                        layFunktion.setVisibility(View.VISIBLE);
+                        tvTitel.setText("Weniger anzeigen");
+
+                        ObjectAnimator anim = ObjectAnimator.ofFloat(ivMehr, "rotation", rotationAngle, rotationAngle + 180);
+                        anim.setDuration(500);
+                        anim.start();
+                        rotationAngle += 180;
+                        rotationAngle = rotationAngle%360;
+                    }
+                    isExpanded = !isExpanded;
+                }
+            });
+
         }
 
         private void showCallDialog(View v, String nr) {

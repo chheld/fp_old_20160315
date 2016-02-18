@@ -14,13 +14,13 @@
     android:layout_margin="6dp"
     android:foreground="?android:attr/selectableItemBackground"
     android:clickable="false">
+    <!--android:animateLayoutChanges="true"-->
 
     <RelativeLayout
 
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:animateLayoutChanges="true"
         android:padding="8dp">
 
         <ImageView
@@ -39,7 +39,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/layKontakt"
-            android:animateLayoutChanges="true"
             android:layout_toRightOf="@+id/ivKontakt"
             android:gravity="center_vertical"
             android:padding="8dp"
@@ -53,8 +52,8 @@
                 android:id="@+id/tvImageName"
                 android:ellipsize="end"
                 android:textAppearance="@android:style/TextAppearance.Theme"
-                android:layout_toLeftOf="@+id/ivMehrOben"
-                android:layout_toStartOf="@+id/ivMehrOben" />
+                android:layout_toLeftOf="@+id/ivMehr"
+                android:layout_toStartOf="@+id/ivMehr" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -66,7 +65,7 @@
             <ImageButton
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:id="@+id/ivMehrOben"
+                android:id="@+id/ivMehr"
                 android:background="@android:color/transparent"
                 android:contentDescription="Mehr"
                 android:scaleType="fitCenter"
@@ -74,18 +73,15 @@
                 android:layout_alignParentEnd="true"
                 android:tint="#3B79D9"
                 android:tintMode="src_in" />
-
         </RelativeLayout>
 
         <RelativeLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/layKunde"
             android:layout_toRightOf="@+id/ivKontakt"
             android:layout_below="@+id/layKontakt"
             android:gravity="center_vertical"
-            android:animateLayoutChanges="true"
             android:padding="8dp">
 
             <TextView
@@ -121,7 +117,6 @@
         </RelativeLayout>
 
         <RelativeLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/layFunktion"
@@ -129,7 +124,6 @@
             android:layout_alignParentEnd="false"
             android:layout_toRightOf="@+id/ivKontakt"
             android:padding="8dp"
-            android:animateLayoutChanges="true"
             android:gravity="center_vertical">
 
             <TextView
@@ -152,7 +146,6 @@
         </RelativeLayout>
 
         <RelativeLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layFunktion"
@@ -162,7 +155,6 @@
             android:clickable="true"
             android:layout_toRightOf="@+id/ivKontakt"
             android:gravity="center_vertical"
-            android:animateLayoutChanges="true"
             android:padding="8dp">
 
             <ImageButton
@@ -201,7 +193,6 @@
         </RelativeLayout>
 
         <RelativeLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layTelefon"
@@ -211,7 +202,6 @@
             android:clickable="true"
             android:layout_toRightOf="@+id/ivKontakt"
             android:padding="8dp"
-            android:animateLayoutChanges="true"
             android:gravity="center_vertical">
 
             <ImageButton
@@ -246,56 +236,6 @@
                 android:id="@+id/lblMail"
                 android:ellipsize="end"
                 android:layout_below="@+id/tvMailadresse" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/layMail"
-            android:layout_alignParentEnd="true"
-            android:id="@+id/layMehr"
-            android:background="@drawable/ripple_border_top_gray"
-            android:clickable="true"
-            android:layout_toRightOf="@+id/ivKontakt"
-            android:padding="8dp"
-            android:animateLayoutChanges="true"
-            android:gravity="center_vertical" >
-
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:id="@+id/ivMehr"
-                android:background="@android:color/transparent"
-                android:layout_alignParentEnd="true"
-                android:tint="#3B79D9"
-                android:tintMode="src_in"
-                android:padding="8dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_expand" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvTitel"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:text="Mehr anzeigen"
-                android:textAppearance="@android:style/TextAppearance.Theme"
-                android:layout_toLeftOf="@+id/ivMehr"
-                android:layout_toStartOf="@+id/ivMehr"
-                android:layout_centerVertical="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mehr Details zum Kontakt anzeigen"
-                android:id="@+id/tvText"
-                android:ellipsize="end"
-                android:layout_below="@+id/tvTitel"
-                android:visibility="gone"
-                android:layout_centerVertical="true" />
 
         </RelativeLayout>
 
