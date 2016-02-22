@@ -68,7 +68,7 @@
                 android:resource="@xml/searchable" />
         </activity>
 
-        <activity android:name=".ui.ReferenceListActivity"
+        <activity android:name=".ui.GalleryListActivity"
             android:label="Referenzen"
             android:launchMode="singleTop"
             android:parentActivityName=".ui.MainActivity" >

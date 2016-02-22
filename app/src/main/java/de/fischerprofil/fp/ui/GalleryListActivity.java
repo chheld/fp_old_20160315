@@ -25,9 +25,9 @@ import de.fischerprofil.fp.R;
 import de.fischerprofil.fp.provider.OrderSuggestionProvider;
 import de.fischerprofil.fp.ui.fragments.AboutFragment;
 import de.fischerprofil.fp.ui.fragments.HintFragment;
-import de.fischerprofil.fp.ui.fragments.ReferenceListFragment;
+import de.fischerprofil.fp.ui.fragments.GalleryListFragment;
 
-public class ReferenceListActivity extends AppCompatActivity {
+public class GalleryListActivity extends AppCompatActivity {
 
     private MenuItem searchItem;
     private SearchRecentSuggestions mSuggestions;
@@ -219,7 +219,7 @@ public class ReferenceListActivity extends AppCompatActivity {
                 break;
 
             case "list": // ok
-                fragment = new ReferenceListFragment();
+                fragment = new GalleryListFragment();
                 fragment.setArguments(args);
                 break;
 

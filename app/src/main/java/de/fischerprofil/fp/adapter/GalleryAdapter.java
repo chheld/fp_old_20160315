@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -53,20 +55,21 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
       // Bilder laden mit Glide
 //        Glide.with(context).load(data.get(position).getUrl())
-//                .thumbnail(0.5f)
-//                .override(200,200)
-//                .crossFade()
-//                .error(R.drawable.ic_default)
-//                //.diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .into(((MyItemHolder) holder).mImg);
+        Glide.with(context).load("https://www.google.es/images/srpr/logo11w.png")
+                .thumbnail(0.5f)
+                .override(200,200)
+                .crossFade()
+                .error(R.drawable.ic_default)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(((MyItemHolder) holder).mImg);
 
 
-        picasso.load(data.get(position).getUrl()).
-                resize(150,150).
-                placeholder(R.drawable.ic_logo_small_transparent).
-                error(R.drawable.ic_default).
-                into(((MyItemHolder) holder).
-                        mImg);
+//        picasso.load(data.get(position).getUrl()).
+//                resize(150,150).
+//                placeholder(R.drawable.ic_logo_small_transparent).
+//                error(R.drawable.ic_default).
+//                into(((MyItemHolder) holder).
+//                        mImg);
 //        picasso.load(data.get(position).getUrl()).resize(200,200).error(R.drawable.ic_default).into(((MyItemHolder) holder).mImg);
 //        picasso.load(data.get(position).getUrl()).resize(200,200).placeholder(R.drawable.progress_small).error(R.drawable.ic_default).into(((MyItemHolder) holder).mImg);
     }

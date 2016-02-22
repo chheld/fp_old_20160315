@@ -35,7 +35,7 @@ import de.fischerprofil.fp.ui.UIUtils;
 
 
 @SuppressLint("ValidFragment")
-public class ReferenceListFragment extends Fragment {
+public class GalleryListFragment extends Fragment {
 
     private AppController mAppController;
     private Context mContext;
@@ -118,6 +118,7 @@ public class ReferenceListFragment extends Fragment {
             showProgressCircle(mSwipeRefreshLayout, true);
 
             callAPIImageListByDir(URL + "/pics"); // TODO Parameter übergeben
+//            callAPIImageListByDir(URL + "/pics"); // TODO Parameter übergeben
 //            callAPIImageListByDir(URL + "/pics?qry="+ picURL + "&mask=*__*&sub=true");
         }
     }

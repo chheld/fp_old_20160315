@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.nav_references:
-                intent = new Intent(this, ReferenceListActivity.class);
+                intent = new Intent(this, GalleryListActivity.class);
                 startActivity(intent);
                 break;
 
