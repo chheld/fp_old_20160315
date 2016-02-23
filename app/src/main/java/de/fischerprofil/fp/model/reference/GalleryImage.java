@@ -6,15 +6,15 @@ import android.os.Parcelable;
 /**
  * Created by Suleiman19 on 10/22/15.
  */
-public class ReferenceImage implements Parcelable {
+public class GalleryImage implements Parcelable {
 
     String name, url;
 
-    public ReferenceImage() {
+    public GalleryImage() {
 
     }
 
-    protected ReferenceImage(Parcel in) {
+    protected GalleryImage(Parcel in) {
         name = in.readString();
         url = in.readString();
     }
@@ -30,15 +30,15 @@ public class ReferenceImage implements Parcelable {
         return 0;
     }
 
-    public static final Creator<ReferenceImage> CREATOR = new Creator<ReferenceImage>() {
+    public static final Creator<GalleryImage> CREATOR = new Creator<GalleryImage>() {
         @Override
-        public ReferenceImage createFromParcel(Parcel in) {
-            return new ReferenceImage(in);
+        public GalleryImage createFromParcel(Parcel in) {
+            return new GalleryImage(in);
         }
 
         @Override
-        public ReferenceImage[] newArray(int size) {
-            return new ReferenceImage[size];
+        public GalleryImage[] newArray(int size) {
+            return new GalleryImage[size];
         }
     };
 

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.fischerprofil.fp.R;
-import de.fischerprofil.fp.model.reference.ReferenceImage;
+import de.fischerprofil.fp.model.reference.GalleryImage;
 import de.fischerprofil.fp.rest.PicassoUtils;
 import de.fischerprofil.fp.rest.RestUtils;
 import de.fischerprofil.fp.ui.UIUtils;
@@ -27,7 +27,7 @@ import de.fischerprofil.fp.ui.UIUtils;
 public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Context context;
-    List<ReferenceImage> data = new ArrayList<>();
+    List<GalleryImage> data = new ArrayList<>();
 
     Picasso picasso;
 
@@ -35,7 +35,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     static final String URL = RestUtils.getApiURL();
 
-    public GalleryAdapter(Context context, List<ReferenceImage> data) {
+    public GalleryAdapter(Context context, List<GalleryImage> data) {
         this.context = context;
         this.data = data;
         picasso = PicassoUtils.buildPicasso(context);

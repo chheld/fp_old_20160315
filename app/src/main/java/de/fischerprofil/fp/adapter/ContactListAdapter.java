@@ -59,7 +59,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
     @Override
     public ContactListAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
-//        Context context = parent.getContext();
+//        Context mContext = parent.getContext();
         //mContext = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(mContext);
 
@@ -71,28 +71,28 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         return viewHolder;
     }
 
-    // Involves populating data into the item through holder
+    // Involves populating mDataset into the item through holder
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
 
         Kontakt current = mDataset.get(position);
 
 
-        // Populate the data into the template view using the data object
-        viewHolder.position = position;
+        // Populate the mDataset into the template view using the mDataset object
+        holder.position = position;
 
-        viewHolder.ivIcon.setImageResource(current.getIcon());
-        viewHolder.tvKonkaktname.setText((current.getVORNAME() + " " + current.getNAME()).trim());
-        viewHolder.tvPersonnr.setText(current.getPERSONNR());
-        viewHolder.tvKdNr.setText(current.getFIRMANR());
-        viewHolder.tvKTxt.setText(current.getRELFIRMA_KTXT());
+        holder.ivIcon.setImageResource(current.getIcon());
+        holder.tvKonkaktname.setText((current.getVORNAME() + " " + current.getNAME()).trim());
+        holder.tvPersonnr.setText(current.getPERSONNR());
+        holder.tvKdNr.setText(current.getFIRMANR());
+        holder.tvKTxt.setText(current.getRELFIRMA_KTXT());
 
-        callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + current.getVERWENDUNG1(), viewHolder, position);
-        callAPIKommunikationByPersonNr(URL + "/com?relperson__personnr=" + viewHolder.tvPersonnr.getText(),viewHolder,position);
+        callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + current.getVERWENDUNG1(), holder, position);
+        callAPIKommunikationByPersonNr(URL + "/com?relperson__personnr=" + holder.tvPersonnr.getText(),holder,position);
 
-        viewHolder.layTelefon.setVisibility(View.GONE);
-        viewHolder.layMail.setVisibility(View.GONE);
-        viewHolder.layFunktion.setVisibility(View.GONE);
+        holder.layTelefon.setVisibility(View.GONE);
+        holder.layMail.setVisibility(View.GONE);
+        holder.layFunktion.setVisibility(View.GONE);
     }
 
     @Override

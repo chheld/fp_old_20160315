@@ -89,11 +89,9 @@ public class GalleryListActivity extends AppCompatActivity {
         // TEST automatisch frag anzeigen
         Bundle args = new Bundle(); // Uebergabe-Parameter für Fragment erstellen
         args.putString("search", "aa");
-        getSupportActionBar().setSubtitle("Suche  '" + "aa" + "'");
+        getSupportActionBar().setSubtitle("Suche  '" + "_Alle" + "'");
         showFragment("list", args); // Fragment Liste anzeigen
         // TEST ende
-
-
     }
 
     @Override
@@ -258,7 +256,7 @@ public class GalleryListActivity extends AppCompatActivity {
 
         Bundle args = new Bundle(); // Uebergabe-Parameter für Fragment erstellen
         args.putInt("rows", mGalleryState);
-        args.putString("search", "aa");
+        args.putString("search", "Alle");
         showFragment("list", args); // Fragment Liste anzeigen
 
     }

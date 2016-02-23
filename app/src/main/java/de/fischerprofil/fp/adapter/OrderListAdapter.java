@@ -44,7 +44,7 @@ public class OrderListAdapter extends ArrayAdapter<Auftrag> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        // Populate the data into the template view using the data object
+        // Populate the mDataset into the template view using the mDataset object
         viewHolder.ivIcon.setImageResource(ord.getIcon());
         viewHolder.tvANr.setText(ord.getANR());
         viewHolder.tvKdNr.setText(ord.getMNR());

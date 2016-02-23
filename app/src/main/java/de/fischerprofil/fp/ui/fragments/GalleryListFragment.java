@@ -28,7 +28,7 @@ import de.fischerprofil.fp.AppController;
 import de.fischerprofil.fp.R;
 import de.fischerprofil.fp.adapter.GalleryAdapter;
 import de.fischerprofil.fp.model.contact.Kontaktliste;
-import de.fischerprofil.fp.model.reference.ReferenceImage;
+import de.fischerprofil.fp.model.reference.GalleryImage;
 import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
 import de.fischerprofil.fp.rest.HttpsJsonTrustManager;
 import de.fischerprofil.fp.rest.PicassoUtils;
@@ -53,7 +53,7 @@ public class GalleryListFragment extends Fragment {
     Picasso mPicasso;
 
 
-    ArrayList<ReferenceImage> data = new ArrayList<>();
+    ArrayList<GalleryImage> data = new ArrayList<>();
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -147,10 +147,10 @@ public class GalleryListFragment extends Fragment {
 
                     // Daten in Array laden
                     for (int i = 0; i < images.length(); i++) {
-                        ReferenceImage imageModel = new ReferenceImage();
-                        imageModel.setName("Image_" + i);
-                        imageModel.setUrl(URL + "/" + images.get(i));
-                        data.add(imageModel);
+                        GalleryImage image = new GalleryImage();
+                        image.setName("Image_" + i);
+                        image.setUrl(URL + "/" + images.get(i));
+                        data.add(image);
 
                         //TODO: Bilder schaon vorab laden
 //                        mPicasso.with(mContext)
