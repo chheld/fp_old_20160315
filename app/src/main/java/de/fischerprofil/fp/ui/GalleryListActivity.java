@@ -44,7 +44,7 @@ public class GalleryListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_referencelist);
+        setContentView(R.layout.activity_gallerylist);
 
         mAppController = AppController.getInstance();
 

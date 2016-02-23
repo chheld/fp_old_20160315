@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,6 +31,7 @@ import de.fischerprofil.fp.model.contact.Kontaktliste;
 import de.fischerprofil.fp.model.reference.ReferenceImage;
 import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
 import de.fischerprofil.fp.rest.HttpsJsonTrustManager;
+import de.fischerprofil.fp.rest.PicassoUtils;
 import de.fischerprofil.fp.rest.RestUtils;
 import de.fischerprofil.fp.ui.UIUtils;
 
@@ -47,6 +49,9 @@ public class GalleryListFragment extends Fragment {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private final String VOLLEY_TAG = "VOLLEY_TAG_ReferenceListFragment";
     private final String URL = RestUtils.getApiURL();
+
+    Picasso mPicasso;
+
 
     ArrayList<ReferenceImage> data = new ArrayList<>();
 
@@ -76,16 +81,18 @@ public class GalleryListFragment extends Fragment {
         mContext = getActivity();
         mAppController = AppController.getInstance();
 
+        mPicasso = PicassoUtils.buildPicasso(mContext);
+
         Integer rows = getArguments().getInt("rows");
         mSearchString = getArguments().getString("search", null); // evtl. übergebene SUCH-Parameter ermitteln
 
         if (rows==0) rows=3; // default für Anzeige setzen
         int numColumns = 5;
 
-        View view = inflater.inflate(R.layout.fragment_recycleview_referencelist, container, false);
+        View view = inflater.inflate(R.layout.fragment_recycleview_gallerylist, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, rows));
-        mRecyclerView.getRecycledViewPool().setMaxRecycledViews(0, 2 * numColumns);
+        //mRecyclerView.getRecycledViewPool().setMaxRecycledViews(0, 2 * numColumns);
         mRecyclerView.setHasFixedSize(true);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_conctactlist_container);
@@ -135,7 +142,7 @@ public class GalleryListFragment extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    Log.v("Response:%n %s", response.toString(4));
+                    Log.v("JSON","Elemente gefunden");
                     JSONArray images = response.getJSONArray("images");
 
                     // Daten in Array laden
@@ -144,6 +151,24 @@ public class GalleryListFragment extends Fragment {
                         imageModel.setName("Image_" + i);
                         imageModel.setUrl(URL + "/" + images.get(i));
                         data.add(imageModel);
+
+                        //TODO: Bilder schaon vorab laden
+//                        mPicasso.with(mContext)
+//                                .load(URL + "/" + images.get(i))
+//                                .stableKey(URL + "/" + images.get(i))
+//                                .resize(150,150)
+//                                .centerCrop()
+//                                .fetch(new Callback() {
+//                                    @Override
+//                                    public void onSuccess() {
+//                                        Toast.makeText(mContext, "Image geladen ..", Toast.LENGTH_SHORT).show();
+//                                    }
+//
+//                                    @Override
+//                                    public void onError() {
+//
+//                                    }
+//                                });
                     }
                     //Adapter zuweisen
                     mAdapter = new GalleryAdapter(mContext, data);

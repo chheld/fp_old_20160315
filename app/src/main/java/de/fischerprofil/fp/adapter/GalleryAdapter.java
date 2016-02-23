@@ -6,10 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -31,22 +31,22 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     Picasso picasso;
 
-    private final String URL = RestUtils.getApiURL();
+    ProgressBar mLoaderBar;
+
+    static final String URL = RestUtils.getApiURL();
 
     public GalleryAdapter(Context context, List<ReferenceImage> data) {
         this.context = context;
         this.data = data;
         picasso = PicassoUtils.buildPicasso(context);
-
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder;
         View v;
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_refeferencelist, parent, false);
-            viewHolder = new MyItemHolder(v);
-
+        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_gallerylist, parent, false);
+        viewHolder = new MyItemHolder(v);
         return viewHolder;
     }
 
@@ -54,22 +54,39 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
       // Bilder laden mit Glide
+//        Glide.with(context).load("https://www.google.es/images/srpr/logo11w.png")
 //        Glide.with(context).load(data.get(position).getUrl())
-        Glide.with(context).load("https://www.google.es/images/srpr/logo11w.png")
-                .thumbnail(0.5f)
-                .override(200,200)
-                .crossFade()
-                .error(R.drawable.ic_default)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(((MyItemHolder) holder).mImg);
+//                .thumbnail(0.8f)
+//                .override(200,200)
+//                .crossFade()
+//                .error(R.drawable.ic_default)
+//                .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                .into(((MyItemHolder) holder).mImg);
 
+    picasso.with(context);
+    picasso.setIndicatorsEnabled(true);
+    picasso.setLoggingEnabled(true);
 
-//        picasso.load(data.get(position).getUrl()).
-//                resize(150,150).
-//                placeholder(R.drawable.ic_logo_small_transparent).
-//                error(R.drawable.ic_default).
-//                into(((MyItemHolder) holder).
-//                        mImg);
+    picasso.load(data.get(position).getUrl())
+            .stableKey(data.get(position).getUrl())
+            .resize(150,150)
+            .placeholder(R.drawable.ic_hourglass_black)
+            .error(R.drawable.ic_default)
+            .centerCrop()
+            .tag(holder)
+            .noFade()
+            .into(((MyItemHolder) holder).mImg, new Callback() {
+                @Override
+                public void onSuccess() {
+                   // mLoaderBar.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
+
 //        picasso.load(data.get(position).getUrl()).resize(200,200).error(R.drawable.ic_default).into(((MyItemHolder) holder).mImg);
 //        picasso.load(data.get(position).getUrl()).resize(200,200).placeholder(R.drawable.progress_small).error(R.drawable.ic_default).into(((MyItemHolder) holder).mImg);
     }
@@ -94,7 +111,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             mImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showGalleryDialog(v, "https://222.222.222.60/pics/2008/BARD%20Emden/DSCF1241_1.jpg"); //TEST
+                    showGalleryDialog(v, URL + "/../pics/2008/BARD%20Emden/DSCF1241_1.jpg"); //TEST
                 }
             });
         }

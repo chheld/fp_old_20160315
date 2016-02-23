@@ -29,6 +29,17 @@
         android:background="@android:color/transparent"
         android:visibility="invisible" />
 
+    <ProgressBar
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressbarLoading"
+        android:indeterminate="true"
+        android:indeterminateTint="#3B7AD6"
+        android:indeterminateTintMode="src_in"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
 
 </RelativeLayout>
 
