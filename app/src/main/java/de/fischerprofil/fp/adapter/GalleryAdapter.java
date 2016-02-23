@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Callback;
@@ -21,24 +20,19 @@ import de.fischerprofil.fp.rest.PicassoUtils;
 import de.fischerprofil.fp.rest.RestUtils;
 import de.fischerprofil.fp.ui.UIUtils;
 
-/**
- * Created by Suleiman19 on 10/22/15.
- */
 public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    Context context;
-    List<GalleryImage> data = new ArrayList<>();
+    Context mContext;
+    List<GalleryImage> mDataset = new ArrayList<>();
 
-    Picasso picasso;
-
-    ProgressBar mLoaderBar;
+    Picasso mPicasso;
 
     static final String URL = RestUtils.getApiURL();
 
     public GalleryAdapter(Context context, List<GalleryImage> data) {
-        this.context = context;
-        this.data = data;
-        picasso = PicassoUtils.buildPicasso(context);
+        mContext = context;
+        mDataset = data;
+        mPicasso = PicassoUtils.buildPicasso(context);
     }
 
     @Override
@@ -54,8 +48,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
       // Bilder laden mit Glide
-//        Glide.with(context).load("https://www.google.es/images/srpr/logo11w.png")
-//        Glide.with(context).load(data.get(position).getUrl())
+//        Glide.with(mContext).load("https://www.google.es/images/srpr/logo11w.png")
+//        Glide.with(mContext).load(mDataset.get(position).getUrl())
 //                .thumbnail(0.8f)
 //                .override(200,200)
 //                .crossFade()
@@ -63,37 +57,33 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 //                .diskCacheStrategy(DiskCacheStrategy.ALL)
 //                .into(((MyItemHolder) holder).mImg);
 
-    picasso.with(context);
-    picasso.setIndicatorsEnabled(true);
-    picasso.setLoggingEnabled(true);
+    mPicasso.with(mContext);
+    mPicasso.setIndicatorsEnabled(true);
+    mPicasso.setLoggingEnabled(true);
 
-    picasso.load(data.get(position).getUrl())
-            .stableKey(data.get(position).getUrl())
+    mPicasso.load(mDataset.get(position).getUrl())
+            .stableKey(mDataset.get(position).getUrl())
             .resize(150,150)
             .placeholder(R.drawable.ic_hourglass_black)
             .error(R.drawable.ic_default)
             .centerCrop()
             .tag(holder)
-            .noFade()
             .into(((MyItemHolder) holder).mImg, new Callback() {
                 @Override
                 public void onSuccess() {
-                   // mLoaderBar.setVisibility(View.GONE);
+                    // mLoaderBar.setVisibility(View.GONE);
                 }
 
                 @Override
                 public void onError() {
-
+                    //
                 }
             });
-
-//        picasso.load(data.get(position).getUrl()).resize(200,200).error(R.drawable.ic_default).into(((MyItemHolder) holder).mImg);
-//        picasso.load(data.get(position).getUrl()).resize(200,200).placeholder(R.drawable.progress_small).error(R.drawable.ic_default).into(((MyItemHolder) holder).mImg);
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return mDataset.size();
     }
 
     static public class MyItemHolder extends RecyclerView.ViewHolder {
@@ -129,8 +119,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 //                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 //                v.getContext().startActivity(intent);
 
-//                Intent intent = new Intent(context, ReferenceDetailActivity.class);
-//                intent.putParcelableArrayListExtra("data", data);
+//                Intent intent = new Intent(mContext, ReferenceDetailActivity.class);
+//                intent.putParcelableArrayListExtra("mDataset", mDataset);
 //                intent.putExtra("pos", position);
 //                v.getContext().startActivity(intent);
 
