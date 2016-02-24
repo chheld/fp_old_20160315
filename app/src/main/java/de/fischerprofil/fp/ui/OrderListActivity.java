@@ -86,6 +86,11 @@ public class OrderListActivity extends AppCompatActivity {
             Integer i = savedInstanceState.getInt("showHint", View.VISIBLE);
             if (i==8) mHinweis.setVisibility(View.GONE);
         }
+
+        // TEST ok
+//        Bundle args = new Bundle();
+//        args.putString("search", "500000");
+//        showFragment("list", args); // Fragment OrdersList anzeigen
     }
 
     @Override

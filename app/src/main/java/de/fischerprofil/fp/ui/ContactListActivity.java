@@ -30,6 +30,7 @@ import de.fischerprofil.fp.ui.fragments.HintFragment;
 public class ContactListActivity extends AppCompatActivity {
 
     private MenuItem searchItem;
+    private Context mContext;
     private SearchRecentSuggestions mSuggestions;
     private SearchView mSearchView;
     private TextView mHinweis;
@@ -41,6 +42,7 @@ public class ContactListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        mContext = this;
         setContentView(R.layout.activity_contactlist);
 
         mAppController = AppController.getInstance();
@@ -67,7 +69,6 @@ public class ContactListActivity extends AppCompatActivity {
 
         // Collapse the search menu when the user hits the back key
         searchAutoComplete.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) showSearch(false);
@@ -83,11 +84,15 @@ public class ContactListActivity extends AppCompatActivity {
         } catch (Exception e) {
         }
 
-        // TEST
+        if (savedInstanceState != null) {
+            Integer i = savedInstanceState.getInt("showHint", View.VISIBLE);
+            if (i==8) mHinweis.setVisibility(View.GONE);
+        }
+
+        // TEST ok
 //        Bundle args = new Bundle();
 //        args.putString("search", "0020898");
 //        showFragment("list", args); // Fragment OrdersList anzeigen
-
     }
 
     @Override
@@ -132,6 +137,7 @@ public class ContactListActivity extends AppCompatActivity {
 
         super.onNewIntent(intent);
 
+        // Intent.ACTION_SEARCH.equals(intent.getAction())
         if (intent.getAction()== "android.intent.action.SEARCH") {
 
             showSearch(false); //Suchfeld schliessen
@@ -208,6 +214,13 @@ public class ContactListActivity extends AppCompatActivity {
             FragmentManager frgManager = getSupportFragmentManager();
             frgManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //TODO: Save the acivity's states here
+        outState.putInt("showHint", mHinweis.getVisibility());
     }
 
     @Override

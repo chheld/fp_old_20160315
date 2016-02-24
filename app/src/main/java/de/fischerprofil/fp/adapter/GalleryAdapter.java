@@ -8,95 +8,87 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import de.fischerprofil.fp.AppController;
 import de.fischerprofil.fp.R;
 import de.fischerprofil.fp.model.reference.GalleryImage;
 import de.fischerprofil.fp.rest.PicassoUtils;
 import de.fischerprofil.fp.rest.RestUtils;
 import de.fischerprofil.fp.ui.UIUtils;
 
-public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryItemViewHolder> {
 
     Context mContext;
     List<GalleryImage> mDataset = new ArrayList<>();
-
+    public View mView;
     Picasso mPicasso;
-
-    static final String URL = RestUtils.getApiURL();
+    private AppController mAppController;
+    private final String VOLLEY_TAG = "VOLLEY_TAG_rvContactListAdapter";
+    public static String URL = RestUtils.getApiURL();
 
     public GalleryAdapter(Context context, List<GalleryImage> data) {
         mContext = context;
         mDataset = data;
         mPicasso = PicassoUtils.buildPicasso(context);
+        mAppController = AppController.getInstance();
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        RecyclerView.ViewHolder viewHolder;
-        View v;
-        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_gallerylist, parent, false);
-        viewHolder = new MyItemHolder(v);
-        return viewHolder;
+    public GalleryItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        mView = inflater.inflate(R.layout.cardview_contactlist, parent, false);
+
+        // Return a new holder instance
+        RecyclerView.ViewHolder viewHolder = new GalleryAdapter.GalleryItemViewHolder(mView);
+        return (GalleryItemViewHolder) viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(GalleryItemViewHolder holder, int position) {
 
-      // Bilder laden mit Glide
-//        Glide.with(mContext).load("https://www.google.es/images/srpr/logo11w.png")
-//        Glide.with(mContext).load(mDataset.get(position).getUrl())
-//                .thumbnail(0.8f)
-//                .override(200,200)
-//                .crossFade()
-//                .error(R.drawable.ic_default)
-//                .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .into(((MyItemHolder) holder).mImg);
+        GalleryImage current = mDataset.get(position);
 
-    mPicasso.with(mContext);
-    mPicasso.setIndicatorsEnabled(true);
-    mPicasso.setLoggingEnabled(true);
+        // Populate the mDataset into the template view using the mDataset object
+        holder.position = position;
+        //holder.mName.setText(current.getName());
 
-    mPicasso.load(mDataset.get(position).getUrl())
-            .stableKey(mDataset.get(position).getUrl())
-            .resize(150,150)
-            .placeholder(R.drawable.ic_hourglass_black)
-            .error(R.drawable.ic_default)
-            .centerCrop()
-            .tag(holder)
-            .into(((MyItemHolder) holder).mImg, new Callback() {
-                @Override
-                public void onSuccess() {
-                    // mLoaderBar.setVisibility(View.GONE);
-                }
+        mPicasso.with(mContext);
+        mPicasso.setIndicatorsEnabled(true);
+        //mPicasso.setLoggingEnabled(true);
+        mPicasso.load(mDataset.get(position).getUrl())
+                .stableKey(mDataset.get(position).getUrl())
+                .resize(150,150)
+                .placeholder(R.drawable.ic_hourglass_black)
+                .error(R.drawable.ic_default)
+                .centerCrop()
+                .tag(holder)
+                .into(holder.mImg);
 
-                @Override
-                public void onError() {
-                    //
-                }
-            });
     }
 
     @Override
     public int getItemCount() {
+
         return mDataset.size();
     }
 
-    static public class MyItemHolder extends RecyclerView.ViewHolder {
+    static class GalleryItemViewHolder  extends RecyclerView.ViewHolder {
 
-        TextView mTag;
+        public Integer position;
+        public ImageView mImg;
+        public TextView mName;
 
-        public final ImageView mImg;
+        public GalleryItemViewHolder(View itemView) {
 
-        public MyItemHolder(View itemView) {
             super(itemView);
 
             mImg = (ImageView) itemView.findViewById(R.id.item_img);
-            mTag = (TextView) itemView.findViewById(R.id.tvImageName);
+            mName = (TextView) itemView.findViewById(R.id.tvImageName);
 
             mImg.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -105,16 +97,15 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 }
             });
         }
-    }
 
-    static void showGalleryDialog(View v, String nr) {
+        private void showGalleryDialog(View v, String nr) {
 
-        UIUtils.makeToast(v.getContext(), "Starte " + nr); //TEST
+            UIUtils.makeToast(v.getContext(), "Starte " + nr); //TEST
 
-        try {
-            if (nr != null && nr != "") {
+            try {
+                if (nr != null && nr != "") {
 
-                //TODO neues fragment anzeigen
+                    //TODO neues fragment anzeigen
 //                Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI.buildUpon().appendPath(nr).build();
 //                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 //                v.getContext().startActivity(intent);
@@ -124,10 +115,13 @@ public class GalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 //                intent.putExtra("pos", position);
 //                v.getContext().startActivity(intent);
 
+                }
+            }
+            catch (Exception e) {
+                UIUtils.makeToast(v.getContext(), "Image kann nicht angezeigt werden");
             }
         }
-        catch (Exception e) {
-            UIUtils.makeToast(v.getContext(), "Image kann nicht angezeigt werden");
-        }
+
     }
+
 }
