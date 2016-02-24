@@ -3,6 +3,9 @@ package de.fischerprofil.fp.ui;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Point;
+import android.view.Display;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 public class UIUtils {
@@ -35,5 +38,29 @@ public class UIUtils {
                 }
             });
         }
+    }
+
+    /**
+     * @param context
+     * @return the screen height in pixels
+     */
+    public static int getScreenHeight(Context context) {
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = windowManager.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size.y;
+    }
+
+    /**
+     * @param context
+     * @return the screen width in pixels
+     */
+    public static int getScreenWidth(Context context) {
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = windowManager.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size.x;
     }
 }

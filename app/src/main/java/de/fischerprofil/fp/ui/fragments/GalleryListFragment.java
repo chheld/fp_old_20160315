@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +31,7 @@ import de.fischerprofil.fp.model.reference.GalleryImage;
 import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
 import de.fischerprofil.fp.rest.HttpsJsonTrustManager;
 import de.fischerprofil.fp.rest.PicassoUtils;
+import de.fischerprofil.fp.rest.PreCachingGridLayoutManager;
 import de.fischerprofil.fp.rest.RestUtils;
 import de.fischerprofil.fp.ui.UIUtils;
 
@@ -50,7 +50,7 @@ public class GalleryListFragment extends Fragment {
     private final String VOLLEY_TAG = "VOLLEY_TAG_ReferenceListFragment";
     private final String URL = RestUtils.getApiURL();
 
-    Picasso mPicasso;
+    private Picasso mPicasso;
 
 
     ArrayList<GalleryImage> data = new ArrayList<>();
@@ -83,18 +83,26 @@ public class GalleryListFragment extends Fragment {
 
         mPicasso = PicassoUtils.buildPicasso(mContext);
 
+        View view = inflater.inflate(R.layout.fragment_recycleview_gallerylist, container, false);
+
         Integer rows = getArguments().getInt("rows");
         mSearchString = getArguments().getString("search", null); // evtl. übergebene SUCH-Parameter ermitteln
 
         if (rows==0) rows=3; // default für Anzeige setzen
         int numColumns = 5;
 
-        View view = inflater.inflate(R.layout.fragment_recycleview_gallerylist, container, false);
+        //Setup layout manager
+        PreCachingGridLayoutManager layoutManager = new PreCachingGridLayoutManager(mContext, rows);
+        layoutManager.setExtraLayoutSpace(UIUtils.getScreenHeight(mContext));
+
+        //Setup Recyclerview
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, rows));
-        //mRecyclerView.getRecycledViewPool().setMaxRecycledViews(0, 2 * numColumns);
+//        mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, rows));
+        mRecyclerView.setLayoutManager(layoutManager);
+        //mRecyclerView.getRecycledViewPool().setMaxRecycledViews(0, 2 * numColumns); //TODO: löschen ??
         mRecyclerView.setHasFixedSize(true);
 
+        //Setup Swipe Layput
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_conctactlist_container);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

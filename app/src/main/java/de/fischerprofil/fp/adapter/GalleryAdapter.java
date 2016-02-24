@@ -22,13 +22,13 @@ import de.fischerprofil.fp.ui.UIUtils;
 
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryItemViewHolder> {
 
-    Context mContext;
-    List<GalleryImage> mDataset = new ArrayList<>();
+    private Context mContext;
+    public List<GalleryImage> mDataset = new ArrayList<>();
     public View mView;
-    Picasso mPicasso;
+    private Picasso mPicasso;
     private AppController mAppController;
     private final String VOLLEY_TAG = "VOLLEY_TAG_rvContactListAdapter";
-    public static String URL = RestUtils.getApiURL();
+    private static String URL = RestUtils.getApiURL();
 
     public GalleryAdapter(Context context, List<GalleryImage> data) {
         mContext = context;
@@ -41,7 +41,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryI
     public GalleryItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        mView = inflater.inflate(R.layout.cardview_contactlist, parent, false);
+        mView = inflater.inflate(R.layout.item_gallerylist, parent, false);
 
         // Return a new holder instance
         RecyclerView.ViewHolder viewHolder = new GalleryAdapter.GalleryItemViewHolder(mView);
@@ -51,24 +51,30 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryI
     @Override
     public void onBindViewHolder(GalleryItemViewHolder holder, int position) {
 
-        GalleryImage current = mDataset.get(position);
+        final GalleryImage current = mDataset.get(position);
 
         // Populate the mDataset into the template view using the mDataset object
         holder.position = position;
-        //holder.mName.setText(current.getName());
-
+        holder.mName.setText(current.getName());
+        holder.picURL = mDataset.get(position).getUrl();
         mPicasso.with(mContext);
         mPicasso.setIndicatorsEnabled(true);
         //mPicasso.setLoggingEnabled(true);
         mPicasso.load(mDataset.get(position).getUrl())
                 .stableKey(mDataset.get(position).getUrl())
                 .resize(150,150)
-                .placeholder(R.drawable.ic_hourglass_black)
+                //.placeholder(R.drawable.ic_hourglass_black)
                 .error(R.drawable.ic_default)
                 .centerCrop()
                 .tag(holder)
                 .into(holder.mImg);
 
+        holder.mImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showGalleryDialog(view, current.getUrl());
+            }
+        });
     }
 
     @Override
@@ -77,35 +83,14 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryI
         return mDataset.size();
     }
 
-    static class GalleryItemViewHolder  extends RecyclerView.ViewHolder {
+    private void showGalleryDialog(View v, String nr) {
 
-        public Integer position;
-        public ImageView mImg;
-        public TextView mName;
+        UIUtils.makeToast(v.getContext(), nr); //TEST
 
-        public GalleryItemViewHolder(View itemView) {
+        try {
+            if (nr != null && nr != "") {
 
-            super(itemView);
-
-            mImg = (ImageView) itemView.findViewById(R.id.item_img);
-            mName = (TextView) itemView.findViewById(R.id.tvImageName);
-
-            mImg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showGalleryDialog(v, URL + "/../pics/2008/BARD%20Emden/DSCF1241_1.jpg"); //TEST
-                }
-            });
-        }
-
-        private void showGalleryDialog(View v, String nr) {
-
-            UIUtils.makeToast(v.getContext(), "Starte " + nr); //TEST
-
-            try {
-                if (nr != null && nr != "") {
-
-                    //TODO neues fragment anzeigen
+                //TODO neues fragment anzeigen
 //                Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI.buildUpon().appendPath(nr).build();
 //                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 //                v.getContext().startActivity(intent);
@@ -115,13 +100,25 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryI
 //                intent.putExtra("pos", position);
 //                v.getContext().startActivity(intent);
 
-                }
-            }
-            catch (Exception e) {
-                UIUtils.makeToast(v.getContext(), "Image kann nicht angezeigt werden");
             }
         }
+        catch (Exception e) {
+            UIUtils.makeToast(v.getContext(), "Image kann nicht angezeigt werden");
+        }
+    }
 
+    static class GalleryItemViewHolder  extends RecyclerView.ViewHolder {
+
+        public Integer position;
+        public String picURL;
+        public ImageView mImg;
+        public TextView mName;
+
+        public GalleryItemViewHolder(View itemView) {
+            super(itemView);
+            mImg = (ImageView) itemView.findViewById(R.id.item_img);
+            mName = (TextView) itemView.findViewById(R.id.tvImageName);
+         }
     }
 
 }
