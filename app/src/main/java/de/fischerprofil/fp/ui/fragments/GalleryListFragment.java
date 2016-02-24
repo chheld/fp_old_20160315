@@ -92,8 +92,11 @@ public class GalleryListFragment extends Fragment {
         int numColumns = 5;
 
         //Setup layout manager
+        //v1
+        //GridLayoutManager layoutManager = new GridLayoutManager(mContext, rows);
+        //v2
         PreCachingGridLayoutManager layoutManager = new PreCachingGridLayoutManager(mContext, rows);
-        layoutManager.setExtraLayoutSpace(UIUtils.getScreenHeight(mContext));
+        layoutManager.setExtraLayoutSpace(UIUtils.getScreenHeight(mContext)*2);
 
         //Setup Recyclerview
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);

@@ -24,7 +24,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryI
 
     private Context mContext;
     public List<GalleryImage> mDataset = new ArrayList<>();
-    public View mView;
     private Picasso mPicasso;
     private AppController mAppController;
     private final String VOLLEY_TAG = "VOLLEY_TAG_rvContactListAdapter";
@@ -41,7 +40,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryI
     public GalleryItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        mView = inflater.inflate(R.layout.item_gallerylist, parent, false);
+        View mView = inflater.inflate(R.layout.item_gallerylist, parent, false);
 
         // Return a new holder instance
         RecyclerView.ViewHolder viewHolder = new GalleryAdapter.GalleryItemViewHolder(mView);
