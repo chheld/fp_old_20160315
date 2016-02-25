@@ -30,7 +30,6 @@ import de.fischerprofil.fp.model.contact.Kontaktliste;
 import de.fischerprofil.fp.model.reference.GalleryImage;
 import de.fischerprofil.fp.rest.HttpsJsonObjectRequest;
 import de.fischerprofil.fp.rest.HttpsJsonTrustManager;
-import de.fischerprofil.fp.rest.PicassoUtils;
 import de.fischerprofil.fp.rest.PreCachingGridLayoutManager;
 import de.fischerprofil.fp.rest.RestUtils;
 import de.fischerprofil.fp.ui.UIUtils;
@@ -49,9 +48,6 @@ public class GalleryListFragment extends Fragment {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private final String VOLLEY_TAG = "VOLLEY_TAG_ReferenceListFragment";
     private final String URL = RestUtils.getApiURL();
-
-    private Picasso mPicasso;
-
 
     ArrayList<GalleryImage> data = new ArrayList<>();
 
@@ -81,15 +77,13 @@ public class GalleryListFragment extends Fragment {
         mContext = getActivity();
         mAppController = AppController.getInstance();
 
-        mPicasso = PicassoUtils.buildPicasso(mContext);
-
         View view = inflater.inflate(R.layout.fragment_recycleview_gallerylist, container, false);
 
         Integer rows = getArguments().getInt("rows");
         mSearchString = getArguments().getString("search", null); // evtl. übergebene SUCH-Parameter ermitteln
 
         if (rows==0) rows=3; // default für Anzeige setzen
-        int numColumns = 5;
+        int numColumns = 3;
 
         //Setup layout manager
         //v1
@@ -102,7 +96,7 @@ public class GalleryListFragment extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 //        mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, rows));
         mRecyclerView.setLayoutManager(layoutManager);
-        //mRecyclerView.getRecycledViewPool().setMaxRecycledViews(0, 2 * numColumns); //TODO: löschen ??
+        mRecyclerView.getRecycledViewPool().setMaxRecycledViews(0, 2 * numColumns); //TODO: löschen ??
         mRecyclerView.setHasFixedSize(true);
 
         //Setup Swipe Layput
@@ -124,6 +118,7 @@ public class GalleryListFragment extends Fragment {
         super.onStop();
         // This will tell to Volley to cancel all the pending requests
         mAppController.cancelPendingRequests(VOLLEY_TAG);
+        Picasso.with(mContext).cancelTag(mContext);
     }
 
     private void doSearch(String search) {
@@ -162,24 +157,6 @@ public class GalleryListFragment extends Fragment {
                         image.setName("Image_" + i);
                         image.setUrl(URL + "/" + images.get(i));
                         data.add(image);
-
-                        //TODO: Bilder schaon vorab laden
-//                        mPicasso.with(mContext)
-//                                .load(URL + "/" + images.get(i))
-//                                .stableKey(URL + "/" + images.get(i))
-//                                .resize(150,150)
-//                                .centerCrop()
-//                                .fetch(new Callback() {
-//                                    @Override
-//                                    public void onSuccess() {
-//                                        Toast.makeText(mContext, "Image geladen ..", Toast.LENGTH_SHORT).show();
-//                                    }
-//
-//                                    @Override
-//                                    public void onError() {
-//
-//                                    }
-//                                });
                     }
                     //Adapter zuweisen
                     mAdapter = new GalleryAdapter(mContext, data);

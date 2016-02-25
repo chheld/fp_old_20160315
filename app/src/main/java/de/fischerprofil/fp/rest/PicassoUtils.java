@@ -40,8 +40,11 @@ public class PicassoUtils {
         Picasso picasso = new Picasso.Builder(context)
                 .downloader(new OkHttpDownloader(httpClient))
                 .memoryCache(new LruCache(context))
+                //.memoryCache(new LruCache(24000))
                 .build();
-
+        picasso.setIndicatorsEnabled(true);
+        picasso.setLoggingEnabled(true);
+        //Picasso.setSingletonInstance(picasso);
 
         return picasso;
     }

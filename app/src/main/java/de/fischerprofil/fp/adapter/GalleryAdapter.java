@@ -23,7 +23,7 @@ import de.fischerprofil.fp.ui.UIUtils;
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryItemViewHolder> {
 
     private Context mContext;
-    public List<GalleryImage> mDataset = new ArrayList<>();
+    private List<GalleryImage> mDataset = new ArrayList<>();
     private Picasso mPicasso;
     private AppController mAppController;
     private final String VOLLEY_TAG = "VOLLEY_TAG_rvContactListAdapter";
@@ -32,18 +32,18 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryI
     public GalleryAdapter(Context context, List<GalleryImage> data) {
         mContext = context;
         mDataset = data;
-        mPicasso = PicassoUtils.buildPicasso(context);
+        mPicasso = PicassoUtils.buildPicasso(mContext);
         mAppController = AppController.getInstance();
     }
 
     @Override
     public GalleryItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        View mView = inflater.inflate(R.layout.item_gallerylist, parent, false);
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            View mView = inflater.inflate(R.layout.item_gallerylist, parent, false);
 
-        // Return a new holder instance
-        RecyclerView.ViewHolder viewHolder = new GalleryAdapter.GalleryItemViewHolder(mView);
+            RecyclerView.ViewHolder viewHolder = new GalleryAdapter.GalleryItemViewHolder(mView);
+
         return (GalleryItemViewHolder) viewHolder;
     }
 
@@ -52,28 +52,32 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryI
 
         final GalleryImage current = mDataset.get(position);
 
-        // Populate the mDataset into the template view using the mDataset object
-        holder.position = position;
-        holder.mName.setText(current.getName());
-        holder.picURL = mDataset.get(position).getUrl();
-        mPicasso.with(mContext);
-        mPicasso.setIndicatorsEnabled(true);
-        //mPicasso.setLoggingEnabled(true);
-        mPicasso.load(mDataset.get(position).getUrl())
-                .stableKey(mDataset.get(position).getUrl())
-                .resize(150,150)
-                //.placeholder(R.drawable.ic_hourglass_black)
-                .error(R.drawable.ic_default)
-                .centerCrop()
-                .tag(holder)
-                .into(holder.mImg);
+        if (current != null) {
 
-        holder.mImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showGalleryDialog(view, current.getUrl());
+            // Populate the mDataset into the template view using the mDataset object
+            holder.position = position;
+            holder.mName.setText(current.getName());
+            holder.picURL = mDataset.get(position).getUrl();
+
+            if (holder.mImg.getDrawable() == null) {
+
+                mPicasso.load(mDataset.get(position).getUrl())
+                        .stableKey(mDataset.get(position).getUrl())
+                        .resize(200, 200)
+                        //.placeholder(R.drawable.ic_hourglass_black)
+                        .error(R.drawable.ic_default)
+                        .centerCrop()
+                        .tag(holder)
+                        .into(holder.mImg);
+
+                holder.mImg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showGalleryDialog(view, current.getUrl());
+                    }
+                });
             }
-        });
+        }
     }
 
     @Override
@@ -119,5 +123,4 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryI
             mName = (TextView) itemView.findViewById(R.id.tvImageName);
          }
     }
-
 }
