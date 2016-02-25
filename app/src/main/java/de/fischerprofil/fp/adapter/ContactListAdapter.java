@@ -277,6 +277,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                 public void onClick(View v) {
 
                     if (isExpanded==true) {
+//                    if (tvTitel.getText().equals("Weniger anzeigen")) {
                         layTelefon.setVisibility(View.GONE);
                         layMail.setVisibility(View.GONE);
                         layFunktion.setVisibility(View.GONE);
@@ -291,6 +292,8 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                     } else {
 
                         // TODO: erst laden wenn anzeige gewünscht
+                        UIUtils.makeToast(v.getContext(), "Daten für " + tvPersonnr.getText() + " nachladen ..."); //TEST
+
 //                        callAPILookupFirmaFGKNZ2(URL + "/lookup?qry=RELZTNUM&tabname=PERSV1&result=ktxt&Sprache=de&ztkey=" + this.getVERWENDUNG1(), v, position);
 //                        callAPIKommunikationByPersonNr(URL + "/com?relperson__personnr=" + v.tvPersonnr.getText(),v,position);
 
@@ -305,7 +308,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                         rotationAngle += 180;
                         rotationAngle = rotationAngle%360;
                     }
-                    isExpanded = !isExpanded;
+                    isExpanded =! isExpanded;
                 }
             });
 
@@ -313,9 +316,10 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
         private void showCallDialog(View v, String nr) {
 
-            UIUtils.makeToast(v.getContext(), "Starte Telefon-App ..."); //TEST
-
             String uri = "tel:" + nr.replaceAll("[^0-9|\\+]", "");
+
+            UIUtils.makeToast(v.getContext(), uri); //TEST
+
             ImageButton img = (ImageButton) v.findViewById(R.id.btnCall);
 
             try {
