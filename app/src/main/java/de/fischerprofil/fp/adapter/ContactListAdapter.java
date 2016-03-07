@@ -80,6 +80,7 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
         // Populate the mDataset into the template view using the mDataset object
         holder.position = position;
+        holder.isExpanded = false;
 
         holder.ivIcon.setImageResource(current.getIcon());
         holder.tvKonkaktname.setText((current.getVORNAME() + " " + current.getNAME()).trim());
@@ -276,6 +277,10 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                 @Override
                 public void onClick(View v) {
 
+
+                    //v.setVisibility( v.isShown() ? View.GONE : View.VISIBLE );
+
+
                     if (isExpanded==true) {
 //                    if (tvTitel.getText().equals("Weniger anzeigen")) {
                         layTelefon.setVisibility(View.GONE);
@@ -309,7 +314,9 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
                         rotationAngle = rotationAngle%360;
                     }
                     isExpanded =! isExpanded;
+
                 }
+
             });
 
         }
