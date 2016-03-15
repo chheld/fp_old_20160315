@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.GalleryListActivity">
+
+    <item
+        android:id="@+id/itm_action_search"
+        android:title="itm_action_search"
+        android:orderInCategory="100"
+        android:icon="@drawable/abc_ic_search_api_mtrl_alpha"
+        app:showAsAction="always"
+        android:actionViewClass="android.support.v7.widget.SearchView" />
+
+    <item
+        android:id="@+id/action_change_view"
+        android:title="Ansicht wechseln"
+        android:icon="@drawable/ic_view_carousel"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_clear_history"
+        android:title="Suchverlauf löschen"
+        android:icon="@drawable/abc_ic_clear_mtrl_alpha"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/menu_settings"
+        android:icon="@drawable/ic_settings"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+</menu>
+

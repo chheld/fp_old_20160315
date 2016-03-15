@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "D:\\android_development\\FP\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_activity_orderdetails.xml",
+        "source": "D:\\android_development\\FP\\app\\src\\main\\res\\menu\\menu_activity_orderdetails.xml"
+    },
+    {
+        "merged": "D:\\android_development\\FP\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_activity_references.xml",
+        "source": "D:\\android_development\\FP\\app\\src\\main\\res\\menu\\menu_activity_references.xml"
+    },
+    {
+        "merged": "D:\\android_development\\FP\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_activity_main.xml",
+        "source": "D:\\android_development\\FP\\app\\src\\main\\res\\menu\\menu_activity_main.xml"
+    },
+    {
+        "merged": "D:\\android_development\\FP\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_activity_contacts.xml",
+        "source": "D:\\android_development\\FP\\app\\src\\main\\res\\menu\\menu_activity_contacts.xml"
+    },
+    {
+        "merged": "D:\\android_development\\FP\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_activity_orders.xml",
+        "source": "D:\\android_development\\FP\\app\\src\\main\\res\\menu\\menu_activity_orders.xml"
+    },
+    {
+        "merged": "D:\\android_development\\FP\\app\\build\\intermediates\\res\\merged\\debug\\menu\\navigationdrawer_view.xml",
+        "source": "D:\\android_development\\FP\\app\\src\\main\\res\\menu\\navigationdrawer_view.xml"
+    }
+]

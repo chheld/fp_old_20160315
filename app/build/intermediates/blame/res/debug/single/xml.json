@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "D:\\android_development\\FP\\app\\build\\intermediates\\res\\merged\\debug\\xml\\preferences.xml",
+        "source": "D:\\android_development\\FP\\app\\src\\main\\res\\xml\\preferences.xml"
+    },
+    {
+        "merged": "D:\\android_development\\FP\\app\\build\\intermediates\\res\\merged\\debug\\xml\\clip_orderdetails_status_stock.xml",
+        "source": "D:\\android_development\\FP\\app\\src\\main\\res\\xml\\clip_orderdetails_status_stock.xml"
+    },
+    {
+        "merged": "D:\\android_development\\FP\\app\\build\\intermediates\\res\\merged\\debug\\xml\\clip_orderdetails_status_delivery.xml",
+        "source": "D:\\android_development\\FP\\app\\src\\main\\res\\xml\\clip_orderdetails_status_delivery.xml"
+    },
+    {
+        "merged": "D:\\android_development\\FP\\app\\build\\intermediates\\res\\merged\\debug\\xml\\clip_orderdetails_status_order.xml",
+        "source": "D:\\android_development\\FP\\app\\src\\main\\res\\xml\\clip_orderdetails_status_order.xml"
+    },
+    {
+        "merged": "D:\\android_development\\FP\\app\\build\\intermediates\\res\\merged\\debug\\xml\\searchable.xml",
+        "source": "D:\\android_development\\FP\\app\\src\\main\\res\\xml\\searchable.xml"
+    },
+    {
+        "merged": "D:\\android_development\\FP\\app\\build\\intermediates\\res\\merged\\debug\\xml\\clip_orderdetails_status_invoice.xml",
+        "source": "D:\\android_development\\FP\\app\\src\\main\\res\\xml\\clip_orderdetails_status_invoice.xml"
+    }
+]
